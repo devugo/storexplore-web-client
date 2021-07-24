@@ -8,7 +8,6 @@ import * as Yup from 'yup';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import RenderIcon from '../../components/RenderIcon';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { renderServerError } from '../../helpers/functions/renderServerError';
 import { showMessage } from '../../helpers/functions/showMessage';
@@ -58,106 +57,119 @@ const Register = () => {
     <>
       <div className="auth">
         <div className="devugo-card">
-          <div className="logo">
-            <img src={Logo} />
-          </div>
-          <p className="center">
-            <strong>Sign up to continue!</strong>
-          </p>
+          <div className="content">
+            <div className="text-section">
+              <div className="logo">
+                <img src={Logo} />
+              </div>
+              <p>Welcome! Kindly provide your personal details to begin using Storexplore.</p>
 
-          <Formik
-            initialValues={initialFormValues}
-            validationSchema={validationSchema}
-            onSubmit={(values) => {
-              signUpWithEmailAndPasswordHandler(values);
-            }}
-          >
-            {({ values, errors, touched, handleChange, handleSubmit }) => (
-              <form onSubmit={handleSubmit} className="devugo-form">
-                {renderServerError(errorData).length > 0 && (
-                  <div className="server-message mb-2 mt-2">
-                    <Alert
-                      message="Error"
-                      description={renderServerError(errorData)}
-                      type="error"
-                      showIcon
-                    />
-                  </div>
+              <p className="mt-2">Already have an account?</p>
+              <Link to="/login">SIGN IN</Link>
+            </div>
+            <div className="form-section">
+              <div className="logo mobile">
+                <img src={Logo} />
+              </div>
+              <p className="center">
+                <strong>Sign up to continue!</strong>
+              </p>
+
+              <Formik
+                initialValues={initialFormValues}
+                validationSchema={validationSchema}
+                onSubmit={(values) => {
+                  signUpWithEmailAndPasswordHandler(values);
+                }}
+              >
+                {({ values, errors, touched, handleChange, handleSubmit }) => (
+                  <form onSubmit={handleSubmit} className="devugo-form">
+                    {renderServerError(errorData).length > 0 && (
+                      <div className="server-message mb-2 mt-2">
+                        <Alert
+                          message="Error"
+                          description={renderServerError(errorData)}
+                          type="error"
+                          showIcon
+                        />
+                      </div>
+                    )}
+                    <div className="input-container">
+                      <label>Name</label>
+                      <Input
+                        name="username"
+                        placeholder="Enter your name"
+                        onChange={handleChange}
+                        id="username"
+                        value={values.username}
+                        icon="mdi mdi-user"
+                      />
+                      <small className="danger">
+                        {errors.username && touched.username && errors.username}
+                      </small>
+                    </div>
+                    <div className="input-container">
+                      <label>Email</label>
+                      <Input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        onChange={handleChange}
+                        id="email"
+                        value={values.email}
+                        icon="mdi mdi-email"
+                      />
+                      <small className="danger">
+                        {errors.email && touched.email && errors.email}
+                      </small>
+                    </div>
+                    <div className="input-container">
+                      <label>Password</label>
+                      <Input
+                        name="password"
+                        onChange={handleChange}
+                        id="password"
+                        type="password"
+                        placeholder="Enter your password"
+                        value={values.password}
+                        icon="mdi mdi-lock"
+                      />
+                      <small className="danger">
+                        {errors.password && touched.password && errors.password}
+                      </small>
+                    </div>
+                    <div className="input-container">
+                      <label>Confirm Password</label>
+                      <Input
+                        name="confirmPassword"
+                        onChange={handleChange}
+                        id="confirmPassword"
+                        type="password"
+                        placeholder="Enter your password again"
+                        value={values.confirmPassword}
+                        icon="mdi mdi-lock"
+                      />
+                      <small className="danger">
+                        {errors.confirmPassword &&
+                          touched.confirmPassword &&
+                          errors.confirmPassword}
+                      </small>
+                    </div>
+                    <Button type="submit" disabled={loading}>
+                      Register
+                      {loading && <LoadingOutlined spin />}
+                    </Button>
+
+                    <div className="center mt-2 mobile">
+                      <p>
+                        Already have an account? <Link to="/login">Sign in here</Link>
+                      </p>
+                    </div>
+                  </form>
                 )}
-                <div className="input-container">
-                  <label>
-                    <RenderIcon title="mdi mdi-email" /> Email
-                  </label>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    onChange={handleChange}
-                    id="email"
-                    value={values.email}
-                  />
-                  <small className="danger">{errors.email && touched.email && errors.email}</small>
-                </div>
-                <div className="input-container">
-                  <label>
-                    <RenderIcon title="mdi mdi-user" /> Username
-                  </label>
-                  <Input
-                    name="username"
-                    placeholder="Enter your username"
-                    onChange={handleChange}
-                    id="username"
-                    value={values.username}
-                  />
-                  <small className="danger">
-                    {errors.username && touched.username && errors.username}
-                  </small>
-                </div>
-                <div className="input-container">
-                  <label>
-                    <RenderIcon title="mdi mdi-lock" /> Password
-                  </label>
-                  <Input
-                    name="password"
-                    onChange={handleChange}
-                    id="password"
-                    type="password"
-                    placeholder="Enter your password"
-                    value={values.password}
-                  />
-                  <small className="danger">
-                    {errors.password && touched.password && errors.password}
-                  </small>
-                </div>
-                <div className="input-container">
-                  <label>
-                    <RenderIcon title="mdi mdi-lock" /> Confirm Password
-                  </label>
-                  <Input
-                    name="confirmPassword"
-                    onChange={handleChange}
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="Enter your password again"
-                    value={values.confirmPassword}
-                  />
-                  <small className="danger">
-                    {errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}
-                  </small>
-                </div>
-                <Button type="submit" disabled={loading}>
-                  Register
-                  {loading && <LoadingOutlined spin />}
-                </Button>
-
-                <div className="center mt-2">
-                  <p>
-                    Already have an account? <Link to="/login">Sign in here</Link>
-                  </p>
-                </div>
-              </form>
-            )}
-          </Formik>
+              </Formik>
+            </div>
+          </div>
         </div>
       </div>
     </>
