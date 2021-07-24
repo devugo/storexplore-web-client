@@ -1,0 +1,16 @@
+.auth {
+  display: flex;
+  min-height: calc(100vh - 80px);
+  align-items: center;
+  padding: 10px;
+
+  .devugo-card {
+    width: 500px;
+    height: 100%;
+    margin: 0 auto;
+
+    .logo {
+      text-align: center;
+    }
+  }
+}

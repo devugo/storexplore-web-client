@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@mixin flex-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin border($color, $position) {
+  @if $position == top {
+    border-top: 2px solid $color;
+  } @else if $position == bottom {
+    border-bottom: 2px solid $color;
+  } @else if $position == left {
+    border-left: 2px solid $color;
+  } @else if $position == right {
+    border-right: 2px solid $color;
+  } @else {
+    border: 2px solid $color;
+  }
+}
+
+@mixin media-sm {
+  @media screen and (min-width: 500px) {
+    @content;
+  }
+}
+@mixin media-md {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+@mixin media-lg {
+  @media screen and (min-width: 1000px) {
+    @content;
+  }
+}
+@mixin media-xl {
+  @media screen and (min-width: 1600px) {
+    @content;
+  }
+}
+
+@mixin transition-ease {
+  transition: all 0.5s ease-in-out;
+}
+
+@mixin transition-ease-out {
+  transition: all 0.5s ease-out;
+}
+
+@keyframes top-in {
+  from {
+    margin-top: -40px;
+    opacity: 0;
+  }
+  to {
+    margin-top: 10px;
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,21 @@
+.devugo-watermark {
+  position: fixed;
+  top: 36px;
+  right: -40px;
+  background-color: var(--watermark-bg-color);
+  padding: 1px 30px;
+  transform: rotate(45deg);
+  color: var(--watermark-text-color);
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:visited {
+    color: var(--watermark-text-color);
+  }
+
+  span {
+    font-size: 10px;
+  }
+}

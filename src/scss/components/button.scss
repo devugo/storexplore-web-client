@@ -1,0 +1,15 @@
+.devugo-btn {
+  background-image: var(--button-bg);
+  border-color: var(--button-border-color);
+  color: var(--white);
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid;
+  cursor: pointer;
+  font-size: 13px;
+  @include transition-ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}

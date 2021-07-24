@@ -1,0 +1,194 @@
+body {
+  background-color: var(--body-bg-color);
+  font-family: 'Montserrat', sans-serif;
+}
+
+$border: 2px solid;
+
+$text-shadow: 2px 2px 4px var(--text-shadow-color);
+
+// GENERAL STYLES
+.devugo-card {
+  background-color: var(--white);
+  padding: 40px 20px 40px 20px;
+  box-shadow: 0 0px 8px 0px rgba(0, 0, 0, 0.05);
+  border-radius: 10;
+}
+
+@include media-md {
+  .devugo-card {
+    padding: 40px;
+  }
+}
+
+.devugo-input {
+  width: 100%;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--input-bg-color);
+  padding: 0 10px;
+  // @include transition-ease;
+
+  &:focus {
+    box-shadow: 0 0 0 0.5px rgba(24, 144, 255, 0.2);
+    outline: 0;
+    border: 1px solid var(--input-border-color-focus);
+  }
+  &:disabled {
+    background-color: var(--input-disabled-bg-color);
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+.danger {
+  color: #ff4444;
+}
+
+.warning {
+  color: #ffbb33;
+}
+
+.success {
+  color: #00c851;
+}
+
+.input-container {
+  margin-bottom: 20px;
+}
+
+.devugo-form {
+  button {
+    width: 100%;
+    height: 50px;
+  }
+}
+
+.mt-2 {
+  margin-top: 20px;
+}
+
+.mb-2 {
+  margin-bottom: 20px;
+}
+
+//  START ANT DESIGN
+
+// SELECT INPUT
+.ant-select {
+  width: 100% !important;
+
+  &-selector {
+    height: 50px !important;
+    background-color: var(--input-bg-color) !important;
+    border: none !important;
+    // border-color: var(--input-se);
+
+    span.ant-select-selection-placeholder {
+      color: var(--select-input-placeholder-color) !important;
+    }
+  }
+}
+
+.ant-select-open {
+  box-shadow: 0 0 0 0.5px rgba(24, 144, 255, 0.2);
+  outline: 0;
+  border: 1px solid var(--input-border-color-focus);
+  box-shadow: 0 0 0 0.5px rgba(24, 144, 255, 0.2);
+}
+
+.ant-input {
+  background-color: var(--input-bg-color) !important;
+  border-color: var(--input-bg-color);
+  width: 100%;
+
+  &:hover {
+    border-color: var(--input-bg-color);
+  }
+
+  &:focus {
+    // border-color: #57a8e9;
+    // outline: 0;
+    // -webkit-box-shadow: 0 0 0 2px rgba(87, 168, 233, 0.2);
+    // box-shadow: 0 0 0 2px rgba(87, 168, 233, 0.2);
+
+    box-shadow: 0 0 0 0.5px rgba(24, 144, 255, 0.2);
+    outline: 0;
+    border: 1px solid var(--input-border-color-focus);
+  }
+}
+
+// CHECKBOX
+.ant-checkbox-checked .ant-checkbox-inner,
+.ant-checkbox-checked .ant-checkbox-inner:hover {
+  background-color: green !important;
+  border-color: green !important;
+  width: 30px;
+  height: 30px;
+}
+
+.ant-checkbox-inner::after {
+  width: 8.71px;
+  height: 15px;
+}
+
+.ant-picker {
+  background-color: var(--input-bg-color);
+  border-color: var(--input-bg-color);
+  &.ant-picker-focused {
+    box-shadow: 0 0 0 0.5px rgba(24, 144, 255, 0.2) !important;
+    border: 1px solid var(--input-border-color-focus) !important;
+  }
+
+  &:hover {
+    box-shadow: 0 0 0 0.5px rgba(95, 126, 155, 0.2) !important;
+    border: 1px solid var(--input-bg-color);
+  }
+}
+
+// ANT PAGINATION
+.ant-pagination-item-active,
+.ant-pagination-item:hover {
+  border-color: var(--primary-color);
+}
+.ant-pagination-item-active a,
+.ant-pagination-item a:hover {
+  color: var(--primary-color);
+}
+// END OF ANT PAGINATION
+
+// END ANT DESIGN
+
+// SCROlLBAR CUSTOM STYLES
+
+/* width */
+::-webkit-scrollbar {
+  display: none;
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  display: none;
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  display: none;
+  background: var(--scrollBarColor);
+  border-radius: 10px;
+  @include transition-ease;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  display: none;
+  background: var(--scrollBaHroverColor);
+}
+
+// SCROlLBAR CUSTOM STYLES

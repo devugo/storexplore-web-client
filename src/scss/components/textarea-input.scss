@@ -1,0 +1,18 @@
+.devugo-textarea {
+  width: 100%;
+  border-radius: 5px;
+  height: 100px;
+  border: 0px;
+  outline: none;
+  background-color: var(--input-bg-color);
+  padding: 0 10px;
+
+  &:focus {
+    border: 1px solid var(--input-border-color-focus);
+    box-shadow: 0 0 0 0.5px rgba(24, 144, 255, 0.2);
+    outline: 0;
+  }
+  &:disabled {
+    background-color: var(--input-disabled-bg-color);
+  }
+}
