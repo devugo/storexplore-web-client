@@ -8,7 +8,6 @@ import * as Yup from 'yup';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import RenderIcon from '../../components/RenderIcon';
 import { getLoader } from '../../helpers/functions/getLoader';
 import { renderServerError } from '../../helpers/functions/renderServerError';
 import { showMessage } from '../../helpers/functions/showMessage';
@@ -51,74 +50,84 @@ const Login = () => {
     <>
       <div className="auth">
         <div className="devugo-card">
-          <div className="logo">
-            <img src={Logo} />
-          </div>
-          <p className="center">
-            <strong>Sign in to continue!</strong>
-          </p>
+          <div className="content">
+            <div className="form-section">
+              <div className="form-section__logo logo mobile">
+                <img src={Logo} />
+              </div>
+              <p className="center">
+                <strong>Sign in to Storexplore!</strong>
+              </p>
 
-          <Formik
-            initialValues={initialFormValues}
-            validationSchema={validationSchema}
-            onSubmit={(values) => {
-              signInWithEmailAndPasswordHandler(values);
-            }}
-          >
-            {({ values, errors, touched, handleChange, handleSubmit }) => (
-              <form onSubmit={handleSubmit} className="devugo-form">
-                {renderServerError(errorData).length > 0 && (
-                  <div className="server-message mb-2 mt-2">
-                    <Alert
-                      message="Error"
-                      description={renderServerError(errorData)}
-                      type="error"
-                      showIcon
-                    />
-                  </div>
+              <Formik
+                initialValues={initialFormValues}
+                validationSchema={validationSchema}
+                onSubmit={(values) => {
+                  signInWithEmailAndPasswordHandler(values);
+                }}
+              >
+                {({ values, errors, touched, handleChange, handleSubmit }) => (
+                  <form onSubmit={handleSubmit} className="devugo-form">
+                    {renderServerError(errorData).length > 0 && (
+                      <div className="server-message mb-2 mt-2">
+                        <Alert
+                          message="Error"
+                          description={renderServerError(errorData)}
+                          type="error"
+                          showIcon
+                        />
+                      </div>
+                    )}
+                    <div className="input-container">
+                      <label>Email</label>
+                      <Input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        onChange={handleChange}
+                        id="email"
+                        value={values.email}
+                        icon="mdi mdi-email"
+                      />
+                      <small className="danger">
+                        {errors.email && touched.email && errors.email}
+                      </small>
+                    </div>
+                    <div className="input-container">
+                      <label>Password</label>
+                      <Input
+                        name="password"
+                        onChange={handleChange}
+                        id="password"
+                        type="password"
+                        placeholder="Enter your password"
+                        value={values.password}
+                        icon="mdi mdi-lock"
+                      />
+                      <small className="danger">
+                        {errors.password && touched.password && errors.password}
+                      </small>
+                    </div>
+                    <Button disabled={loading} type="submit">
+                      SIGN IN {loading && <LoadingOutlined spin />}
+                    </Button>
+                    <div className="center mt-2 mobile">
+                      <p>
+                        Already have an account? <Link to="/login">Sign in here</Link>
+                      </p>
+                    </div>
+                  </form>
                 )}
-                <div className="input-container">
-                  <label>
-                    <RenderIcon title="mdi mdi-email" /> Email
-                  </label>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    onChange={handleChange}
-                    id="email"
-                    value={values.email}
-                  />
-                  <small className="danger">{errors.email && touched.email && errors.email}</small>
-                </div>
-                <div className="input-container">
-                  <label>
-                    <RenderIcon title="mdi mdi-lock" /> Password
-                  </label>
-                  <Input
-                    name="password"
-                    onChange={handleChange}
-                    id="password"
-                    type="password"
-                    placeholder="Enter your password"
-                    value={values.password}
-                  />
-                  <small className="danger">
-                    {errors.password && touched.password && errors.password}
-                  </small>
-                </div>
-                <Button disabled={loading} type="submit">
-                  Login {loading && <LoadingOutlined spin />}
-                </Button>
-
-                <div className="center mt-2">
-                  <p>
-                    Dont have an account? <Link to="/register">Sign up here</Link>
-                  </p>
-                </div>
-              </form>
-            )}
-          </Formik>
+              </Formik>
+            </div>
+            <div className="text-section">
+              <div className="logo">
+                <img src={Logo} />
+              </div>
+              <p>Welcome! Monitor your store and not lose track of anything.</p>
+              <Link to="/register">SIGN UP</Link>
+            </div>
+          </div>
         </div>
       </div>
     </>

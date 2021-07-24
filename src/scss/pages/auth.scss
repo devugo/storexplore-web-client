@@ -1,6 +1,6 @@
 .auth {
   display: flex;
-  min-height: calc(100vh - 80px);
+  min-height: 100vh;
   align-items: center;
   padding: 10px;
 
@@ -8,9 +8,74 @@
     width: 500px;
     height: 100%;
     margin: 0 auto;
+    padding: 0;
 
     .logo {
       text-align: center;
+    }
+
+    .content {
+      display: flex;
+      width: 100%;
+
+      .form-section {
+        width: 100%;
+        padding: 20px;
+      }
+
+      .text-section {
+        width: 40%;
+        padding: 20px;
+        background-color: var(--auth-text-bg-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        display: none;
+
+        p {
+          font-size: 16px;
+          color: var(--white);
+          max-width: 300px;
+          text-align: center;
+        }
+
+        a {
+          padding: 10px 20px;
+          background-color: var(--auth-button-bg-color);
+          border-radius: 30px;
+          color: var(--white);
+          font-size: 12px;
+
+          &:hover {
+            color: var(--white);
+          }
+
+          &:visited {
+            color: var(--white);
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-md {
+  .auth {
+    .devugo-card {
+      width: 1000px;
+      .content {
+        .mobile {
+          display: none;
+        }
+        .form-section {
+          width: 60%;
+          padding: 80px;
+        }
+        .text-section {
+          display: flex;
+        }
+      }
     }
   }
 }

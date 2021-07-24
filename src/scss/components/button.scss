@@ -1,5 +1,5 @@
 .devugo-btn {
-  background-image: var(--button-bg);
+  background: var(--button-bg);
   border-color: var(--button-border-color);
   color: var(--white);
   outline: none;
@@ -11,5 +11,9 @@
 
   &:hover {
     opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.3;
   }
 }

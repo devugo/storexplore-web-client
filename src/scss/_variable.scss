@@ -5,9 +5,11 @@ html {
   --black-3: #0f1a4f;
   --green: green;
   --orange: orange;
-  --primary-color: #006fd6;
-  --secondary-color: #fd5c63;
-  --tertiary-color: #191970;
+  // b118c8
+  --primary-color: #04a777;
+  --secondary-color: #fb8b24;
+  --tertiary-color: #b7b6c1;
+  --complimentary-color: #9e9490;
   --light-blue: #dadaff;
   --very-light-blue: rgb(248, 248, 255);
   --focus-color: #40a9ff;
@@ -49,13 +51,16 @@ html {
   --select-input-placeholder-color: var(--dark-gray);
 
   // BUTTON
-  --button-bg: var(--gradient);
-  --home-button-bg: linear-gradient(to bottom right, var(--secondary-color), var(--primary-color));
+  --button-bg: var(--primary-color);
   --button-border-color: var(--primary-color);
 
   // SCROLLBAR
   --scrollBarColor: var(--primaryColor);
   --scrollBaHroverColor: #ffac1d;
+
+  // AUTH PAGE
+  --auth-text-bg-color: var(--tertiary-color);
+  --auth-button-bg-color: var(--primary-color);
 }
 
 //  DARK THEME
