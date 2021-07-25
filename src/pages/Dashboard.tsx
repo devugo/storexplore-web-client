@@ -1,5 +1,11 @@
+import PageWrapper from '../components/PageWrapper';
+
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return (
+    <PageWrapper>
+      <div>Dashboard</div>
+    </PageWrapper>
+  );
 };
 
 export default Dashboard;

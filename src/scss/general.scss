@@ -3,6 +3,22 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+p,
+span,
+li,
+a {
+  color: var(--paragraph-text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--header-text-color);
+}
+
 $border: 2px solid;
 
 $text-shadow: 2px 2px 4px var(--text-shadow-color);
