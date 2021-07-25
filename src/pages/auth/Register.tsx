@@ -102,7 +102,7 @@ const Register = () => {
                         onChange={handleChange}
                         id="username"
                         value={values.username}
-                        icon="mdi mdi-user"
+                        icon="mdi mdi-account"
                       />
                       <small className="danger">
                         {errors.username && touched.username && errors.username}
