@@ -23,3 +23,10 @@ export type RootStateType = {
   loader: ApiResponseType[];
   auth: AuthType;
 };
+
+export type StoreType = {
+  name: string;
+  industry: string;
+  address: string;
+  defaultPassword: string;
+};

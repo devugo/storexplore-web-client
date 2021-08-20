@@ -5,6 +5,7 @@ import Auth from './interceptors/Auth';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Dashboard from './pages/Dashboard';
+import Settings from './pages/store-owner/Settings';
 
 const App = () => {
   return (
@@ -14,6 +15,9 @@ const App = () => {
         <Auth isAuth={false} exact path="/login" component={Login} />
         <Auth isAuth={false} exact path="/register" component={Register} />
         <Auth isAuth={false} exact path="/dashboard" component={Dashboard} />
+
+        {/* Store Ownere routes */}
+        <Auth isAuth={false} exact path="/store-owner/settings" component={Settings} />
       </Switch>
     </Router>
   );

@@ -34,7 +34,7 @@ function Auth({ component: Component, isAuth, ...rest }: any) {
     if (successData?.response?.status == 200) {
       setMount(true);
     }
-    if (errorData?.response?.status == 401) {
+    if (errorData) {
       setMount(true);
     }
   }, [successData, errorData]);

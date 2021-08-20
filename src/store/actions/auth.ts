@@ -11,7 +11,7 @@ export const signup = (formData: { email: string; password: string; username: st
 };
 
 export const signin = (formData: SigninType) => {
-  const url = 'auth/signin';
+  const url = 'auth/login';
   return {
     type: SIGNIN_USER,
     url,

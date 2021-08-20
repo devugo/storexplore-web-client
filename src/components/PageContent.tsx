@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import Header from './Header';
+import PageTitle from './PageTitle';
 
 const PageContent = ({
   children,
@@ -14,7 +15,10 @@ const PageContent = ({
   return (
     <div className="page-content">
       <Header toggleSidebar={toggleSidebar} openSidebar={openSidebar} />
-      {children}
+      <div className="page-content__body">
+        <PageTitle />
+        {children}
+      </div>
     </div>
   );
 };

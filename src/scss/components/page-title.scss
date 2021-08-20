@@ -1,0 +1,25 @@
+.page-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  &.devugo-card {
+    // padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  a {
+    color: var(--header-text-color);
+    &:hover {
+      color: var(--paragraph-text-color);
+    }
+  }
+
+  span {
+    &.icon {
+      margin-left: 7px;
+      margin-right: 7px;
+    }
+  }
+}

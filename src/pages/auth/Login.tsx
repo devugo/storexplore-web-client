@@ -52,13 +52,6 @@ const Login = () => {
         <div className="devugo-card">
           <div className="content">
             <div className="form-section">
-              <div className="form-section__logo logo mobile">
-                <img src={Logo} />
-              </div>
-              <p className="center">
-                <strong>Sign in to Storexplore!</strong>
-              </p>
-
               <Formik
                 initialValues={initialFormValues}
                 validationSchema={validationSchema}
