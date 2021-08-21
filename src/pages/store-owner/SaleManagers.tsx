@@ -105,7 +105,7 @@ const SaleManagers = () => {
     <PageWrapper pageTitle="Sale Managers">
       <div className="store-owner__sale-maangers">
         <div className="devugo-card">
-          <AddNewButton goto="/add-new" />
+          <AddNewButton goto="/add-new" style={{ marginBottom: 20 }} />
           <Table columns={columns} dataSource={data} pagination={false} scroll={{ x: 400 }} />
         </div>
       </div>
