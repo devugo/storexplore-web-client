@@ -1,0 +1,40 @@
+.chat-message {
+  margin: 10px;
+  display: flex;
+
+  &.right {
+    justify-content: flex-end;
+
+    .chat-message__content {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      border-bottom-left-radius: 15px;
+      background-color: var(--primary-color);
+    }
+  }
+  &.left {
+    .chat-message__content {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+      background-color: var(--complimentary-color);
+    }
+  }
+  &__content {
+    background-color: blue;
+    padding: 10px;
+    width: fit-content;
+
+    p {
+      color: var(--white);
+    }
+  }
+}
+
+@include media-md {
+  .chat-message {
+    &__content {
+      padding: 15px;
+    }
+  }
+}

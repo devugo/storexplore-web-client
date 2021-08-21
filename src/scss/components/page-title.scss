@@ -1,7 +1,7 @@
 .page-title {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   &.devugo-card {
     // padding: 10px;
@@ -26,7 +26,7 @@
 
 @include media-md {
   .page-title {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 
     &.devugo-card {
       padding-top: 20px;

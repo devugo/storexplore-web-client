@@ -1,0 +1,14 @@
+.chats-body {
+  .chat-messages {
+    max-height: calc(100vh - 200px);
+    overflow-y: scroll;
+  }
+}
+
+@include media-md {
+  .chats-body {
+    .chat-messages {
+      max-height: calc(100vh - 350px);
+    }
+  }
+}

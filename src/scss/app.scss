@@ -16,6 +16,10 @@
 @import './components/loader-overlay';
 @import './components/input';
 @import './components/header';
+@import './components/chat-user-list';
+@import './components/chat-message';
+@import './components/chat-form';
+@import './components/chats-body';
 @import './components/button';
 @import './components/add-new-button';
 
@@ -24,3 +28,4 @@
 
 // Store Owner Pages
 @import './pages/store-owner/settings';
+@import './pages/store-owner/chats';

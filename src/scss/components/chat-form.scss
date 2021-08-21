@@ -1,0 +1,44 @@
+.chat-form {
+  &__input {
+    position: relative;
+
+    input {
+      padding-right: 42px;
+      height: 40px;
+    }
+
+    .icon {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      height: 100%;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-left: 1px solid var(--tertiary-color);
+
+      i {
+        color: var(--primary-color);
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+@include media-md {
+  .chat-form {
+    &__input {
+      position: relative;
+
+      input {
+        padding-right: 62px;
+        height: 60px;
+      }
+
+      .icon {
+        width: 60px;
+      }
+    }
+  }
+}

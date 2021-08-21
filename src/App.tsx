@@ -6,6 +6,7 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Dashboard from './pages/Dashboard';
 import AddSaleManager from './pages/store-owner/AddSaleManager';
+import Chats from './pages/store-owner/Chats';
 import EditSaleManager from './pages/store-owner/EditSaleManager';
 import SaleManagers from './pages/store-owner/SaleManagers';
 import Settings from './pages/store-owner/Settings';
@@ -41,6 +42,7 @@ const App = () => {
           path="/store-owner/view-sale-manager"
           component={ViewSaleManagerPage}
         />
+        <Auth isAuth={false} exact path="/store-owner/chats" component={Chats} />
       </Switch>
     </Router>
   );

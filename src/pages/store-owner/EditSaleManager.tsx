@@ -13,7 +13,7 @@ const EditSaleManager = () => {
   };
   return (
     <PageWrapper pageTitle="Edit Sale Manager">
-      <div className="store-owner__sale-manager">
+      <div className="store-owner__edit-sale-manager">
         <div className="devugo-card">
           <SaleManagerForm changePhoto={changePhoto} submit={submit} />
         </div>

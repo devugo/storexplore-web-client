@@ -1,0 +1,43 @@
+.chat-user-list {
+  position: relative;
+
+  &__toggler {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--light-gray-2);
+    cursor: pointer;
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0px;
+    width: 150px;
+    background-color: var(--light-gray-2);
+    box-shadow: 0 0px 8px 0px rgba(0, 0, 0, 0.15);
+    height: 0px;
+    overflow: hidden;
+    @include transition-ease;
+
+    &.open {
+      height: 400px;
+    }
+
+    .users {
+      .user {
+        text-align: center;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        cursor: pointer;
+        padding: 10px;
+        &:hover {
+          background-color: var(--gray-2);
+        }
+      }
+    }
+  }
+}
