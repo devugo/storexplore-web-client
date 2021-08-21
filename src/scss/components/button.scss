@@ -7,6 +7,8 @@
   border: 1px solid;
   cursor: pointer;
   font-size: 13px;
+  height: 40px;
+  padding: 10px;
   @include transition-ease;
 
   &:hover {

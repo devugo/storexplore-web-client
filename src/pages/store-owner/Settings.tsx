@@ -33,7 +33,7 @@ const Settings = () => {
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper pageTitle="Settings">
       <div className="store-owner__settings">
         <div className="devugo-card">
           <div className="store-owner__settings-content">

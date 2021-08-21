@@ -2,7 +2,7 @@ import PageWrapper from '../components/PageWrapper';
 
 const Dashboard = () => {
   return (
-    <PageWrapper>
+    <PageWrapper pageTitle="Dashboard">
       <div>Dashboard</div>
     </PageWrapper>
   );

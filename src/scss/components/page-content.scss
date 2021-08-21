@@ -5,3 +5,11 @@
     padding: 10px;
   }
 }
+
+@include media-md {
+  .page-content {
+    &__body {
+      padding: 30px;
+    }
+  }
+}

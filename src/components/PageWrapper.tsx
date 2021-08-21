@@ -3,7 +3,7 @@ import { useState } from 'react';
 import PageContent from './PageContent';
 import Sidebar from './Sidebar';
 
-const PageWrapper = (props: { children: any }) => {
+const PageWrapper = (props: { pageTitle: string; children: any }) => {
   const [openSidebar, setOpenSidebar] = useState(true);
 
   const toggleSidebar = () => {
@@ -12,7 +12,11 @@ const PageWrapper = (props: { children: any }) => {
   return (
     <div className="page-wrapper">
       <Sidebar openSidebar={openSidebar} />
-      <PageContent openSidebar={openSidebar} toggleSidebar={toggleSidebar}>
+      <PageContent
+        pageTitle={props.pageTitle}
+        openSidebar={openSidebar}
+        toggleSidebar={toggleSidebar}
+      >
         {props.children}
       </PageContent>
     </div>
