@@ -1,0 +1,24 @@
+.select {
+  position: relative;
+
+  select {
+    padding-left: 42px;
+  }
+
+  .icon {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid var(--tertiary-color);
+
+    i {
+      color: var(--primary-color);
+      font-size: 20px;
+    }
+  }
+}

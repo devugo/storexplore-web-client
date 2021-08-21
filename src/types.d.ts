@@ -1,3 +1,5 @@
+export type GenderType = 'MALE' | 'FEMALE';
+
 export type ActionType = {
   IN_PROGRESS: string;
   SUCCESS: string;
@@ -29,4 +31,15 @@ export type StoreType = {
   industry: string;
   address: string;
   defaultPassword: string;
+};
+
+export type SaleManagerType = {
+  firstname: string;
+  lastname: string;
+  othernames?: string;
+  address?: string;
+  dob: Date | string;
+  email: string;
+  password?: string;
+  gender: GenderType | string;
 };

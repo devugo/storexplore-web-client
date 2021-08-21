@@ -1,11 +1,12 @@
 // import { Alert } from 'antd';
 import { Formik } from 'formik';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import * as Yup from 'yup';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import PageWrapper from '../../components/PageWrapper';
+import PhotoContainer from '../../components/PhotoContainer';
 // import { COLORS } from '../../constants/COLORS';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { StoreType } from '../../types.d';
@@ -26,7 +27,17 @@ const validationSchema = Yup.object({
 });
 
 const Settings = () => {
+  const fileInput = useRef<HTMLInputElement>(null);
+
   const [formikFormValues] = useState(initialFormValues);
+
+  const toggleFileInput = () => {
+    fileInput.current?.click();
+  };
+
+  const changePhoto = (e: any) => {
+    console.log(e.target.files);
+  };
 
   const updateStore = (values: { name: string; industry: string }) => {
     console.log({ values });
@@ -37,9 +48,15 @@ const Settings = () => {
       <div className="store-owner__settings">
         <div className="devugo-card">
           <div className="store-owner__settings-content">
-            <div className="settings-logo">
-              <img src="https://logo.png" />
-            </div>
+            <PhotoContainer imgSrc="https://logo.png" action={toggleFileInput} />
+            <input
+              onChange={changePhoto}
+              ref={fileInput}
+              type="file"
+              name="image"
+              id="image"
+              className="hide"
+            />
             <Formik
               enableReinitialize
               initialValues={formikFormValues}
@@ -62,7 +79,9 @@ const Settings = () => {
                   )} */}
                   <div className="form-group">
                     <div className="input-container">
-                      <label>Name of store</label>
+                      <label>
+                        Name of store <span className="danger">*</span>
+                      </label>
                       <Input
                         name="name"
                         placeholder="Name of store"
@@ -74,7 +93,9 @@ const Settings = () => {
                       <small className="danger">{errors.name && touched.name && errors.name}</small>
                     </div>
                     <div className="input-container">
-                      <label>Industry of business</label>
+                      <label>
+                        Industry of business <span className="danger">*</span>
+                      </label>
                       <Input
                         name="industry"
                         placeholder="Name of industry"
@@ -90,7 +111,7 @@ const Settings = () => {
                   </div>
                   <div className="form-group">
                     <div className="input-container">
-                      <label>Business Address</label>
+                      <label>Business Address </label>
                       <Input
                         name="address"
                         placeholder="Business address"
