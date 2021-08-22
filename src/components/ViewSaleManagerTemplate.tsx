@@ -1,8 +1,8 @@
-import AddNewButton from './AddNewButton';
+import GoToButton from './GoToButton';
 
-const ViewSaleManager = () => {
+const ViewSaleManagerTemplate = () => {
   return (
-    <div className="view-sale-manager">
+    <div className="view-sale-manager-template">
       <div className="devugo-card">
         <div className="content">
           <div className="left">
@@ -23,10 +23,10 @@ const ViewSaleManager = () => {
             <p>Sum house, Borno way, Alagomeji Bustop, Yaba, Lagos state</p>
           </div>
         </div>
-        <AddNewButton goto="/kkdsk" title="Edit" />
+        <GoToButton goto="/kkdsk" title="Edit" />
       </div>
     </div>
   );
 };
 
-export default ViewSaleManager;
+export default ViewSaleManagerTemplate;

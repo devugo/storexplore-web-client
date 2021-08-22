@@ -3,7 +3,7 @@ import SaleManagerForm from '../../components/SaleManagerForm';
 import { SaleManagerType } from '../../types.d';
 
 const AddSaleManager = () => {
-  const changePhoto = (e: any) => {
+  const changeImage = (e: any) => {
     console.log(e.target.files);
   };
 
@@ -14,7 +14,7 @@ const AddSaleManager = () => {
     <PageWrapper pageTitle="Add Sale Manager">
       <div className="store-owner__add-sale-manager">
         <div className="devugo-card">
-          <SaleManagerForm submit={submit} changePhoto={changePhoto} />
+          <SaleManagerForm submit={submit} changeImage={changeImage} />
         </div>
       </div>
     </PageWrapper>

@@ -5,12 +5,15 @@ import Auth from './interceptors/Auth';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Dashboard from './pages/Dashboard';
+import AddProduct from './pages/store-owner/AddProduct';
 import AddSaleManager from './pages/store-owner/AddSaleManager';
 import Chats from './pages/store-owner/Chats';
+import EditProduct from './pages/store-owner/EditProduct';
 import EditSaleManager from './pages/store-owner/EditSaleManager';
 import SaleManagers from './pages/store-owner/SaleManagers';
 import Settings from './pages/store-owner/Settings';
-import ViewSaleManagerPage from './pages/store-owner/ViewSaleManager';
+import OwnerViewProduct from './pages/store-owner/ViewProduct';
+import OwnerViewSaleManager from './pages/store-owner/ViewSaleManager';
 
 const App = () => {
   return (
@@ -40,9 +43,12 @@ const App = () => {
           isAuth={false}
           exact
           path="/store-owner/view-sale-manager"
-          component={ViewSaleManagerPage}
+          component={OwnerViewSaleManager}
         />
         <Auth isAuth={false} exact path="/store-owner/chats" component={Chats} />
+        <Auth isAuth={false} exact path="/store-owner/add-product" component={AddProduct} />
+        <Auth isAuth={false} exact path="/store-owner/edit-product" component={EditProduct} />
+        <Auth isAuth={false} exact path="/store-owner/view-product" component={OwnerViewProduct} />
       </Switch>
     </Router>
   );

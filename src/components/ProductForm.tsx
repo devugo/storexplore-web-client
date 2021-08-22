@@ -3,22 +3,17 @@ import { useRef, useState } from 'react';
 import * as Yup from 'yup';
 
 import { EMPTY_STRING } from '../constants/EMPTY_STRING';
-import { SaleManagerType } from '../types.d';
+import { ProductType } from '../types.d';
 import Button from './Button';
 import Input from './Input';
 import PhotoContainer from './PhotoContainer';
-import RenderIcon from './RenderIcon';
-import SelectInput from './Select';
 
-const initialFormValues: SaleManagerType = {
-  firstname: EMPTY_STRING,
-  lastname: EMPTY_STRING,
-  othernames: EMPTY_STRING,
-  address: EMPTY_STRING,
-  dob: EMPTY_STRING,
-  email: EMPTY_STRING,
-  password: EMPTY_STRING,
-  gender: EMPTY_STRING,
+const initialFormValues: ProductType = {
+  name: EMPTY_STRING,
+  description: EMPTY_STRING,
+  costPrice: 0,
+  sellingPrice: 0,
+  quantity: 0,
 };
 
 const validationSchema = Yup.object({
@@ -31,12 +26,12 @@ const validationSchema = Yup.object({
   password: Yup.string().required('Password is required'),
 });
 
-const SaleManagerForm = ({
+const ProductForm = ({
   changeImage,
   submit,
 }: {
   changeImage: any;
-  submit: (values: SaleManagerType) => void;
+  submit: (values: ProductType) => void;
 }) => {
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -80,127 +75,84 @@ const SaleManagerForm = ({
             <div className="form-group">
               <div className="input-container">
                 <label>
-                  Last Name <span className="danger">*</span>
+                  Name of Product <span className="danger">*</span>
                 </label>
                 <Input
-                  name="lastname"
-                  placeholder="Last Name"
+                  name="name"
+                  placeholder="Name of Product"
                   onChange={handleChange}
-                  id="lastname"
-                  value={values.lastname}
+                  id="name"
+                  value={values.name}
                   icon="mdi mdi-user"
                 />
-                <small className="danger">
-                  {errors.lastname && touched.lastname && errors.lastname}
-                </small>
+                <small className="danger">{errors.name && touched.name && errors.name}</small>
               </div>
               <div className="input-container">
-                <label>
-                  First Name <span className="danger">*</span>
-                </label>
+                <label>Description</label>
                 <Input
-                  name="firstname"
-                  placeholder="First Name"
+                  name="description"
+                  placeholder="Brief description of product"
                   onChange={handleChange}
-                  id="firstname"
-                  value={values.firstname}
+                  id="description"
+                  value={values.description}
                   icon="mdi mdi-email"
                 />
                 <small className="danger">
-                  {errors.firstname && touched.firstname && errors.firstname}
+                  {errors.description && touched.description && errors.description}
                 </small>
               </div>
             </div>
             <div className="form-group">
               <div className="input-container">
-                <label>Othernames</label>
+                <label>
+                  Cost Price <span className="danger">*</span>
+                </label>
                 <Input
-                  name="othernames"
-                  placeholder="Other Names"
+                  type="number"
+                  name="costPrice"
+                  placeholder="Cost Price"
                   onChange={handleChange}
                   id="othernames"
-                  value={values.othernames}
+                  value={values.costPrice}
                   icon="mdi mdi-user"
                 />
                 <small className="danger">
-                  {errors.othernames && touched.othernames && errors.othernames}
+                  {errors.costPrice && touched.costPrice && errors.costPrice}
                 </small>
               </div>
               <div className="input-container">
                 <label>
-                  Date of birth <span className="danger">*</span>
+                  Selling Price <span className="danger">*</span>
                 </label>
                 <Input
-                  type="date"
+                  type="number"
                   name="dob"
-                  placeholder="Dirth of birth"
+                  placeholder="Minimum selling price"
                   onChange={handleChange}
-                  id="dob"
-                  value={values.dob}
-                  icon="mdi mdi-email"
-                />
-                <small className="danger">{errors.dob && touched.dob && errors.dob}</small>
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="input-container">
-                <label>
-                  <RenderIcon title="mdi mdi-title" /> Select Gender{' '}
-                  <span className="danger">*</span>
-                </label>
-                <SelectInput
-                  name="gender"
-                  placeholder="Dirth of birth"
-                  onChange={handleChange}
-                  id="gender"
-                  value={values.gender}
-                  options={['MALE', 'FEMALE']}
-                />
-              </div>
-              <div className="input-container">
-                <label>Address</label>
-                <Input
-                  name="address"
-                  placeholder="Address"
-                  onChange={handleChange}
-                  id="address"
-                  value={values.address}
+                  id="sellingPrice"
+                  value={values.sellingPrice}
                   icon="mdi mdi-email"
                 />
                 <small className="danger">
-                  {errors.address && touched.address && errors.address}
+                  {errors.sellingPrice && touched.sellingPrice && errors.sellingPrice}
                 </small>
               </div>
             </div>
             <div className="form-group">
               <div className="input-container">
                 <label>
-                  Email <span className="danger">*</span>
+                  Quantity <span className="danger">*</span>
                 </label>
                 <Input
-                  name="email"
-                  placeholder="Email"
+                  name="quantity"
+                  placeholder="Quantity of product in stock"
                   onChange={handleChange}
-                  id="email"
-                  value={values.email}
-                  icon="mdi mdi-email"
-                />
-                <small className="danger">{errors.email && touched.email && errors.email}</small>
-              </div>
-              <div className="input-container">
-                <label>
-                  Password <span className="danger">*</span>
-                </label>
-                <Input
-                  name="password"
-                  placeholder="Password"
-                  onChange={handleChange}
-                  id="password"
-                  value={values.password}
+                  id="quantity"
+                  value={values.quantity}
                   icon="mdi mdi-email"
                 />
                 <small className="danger">
-                  {errors.password && touched.password && errors.password}
+                  {errors.quantity && touched.quantity && errors.quantity}
                 </small>
               </div>
             </div>
@@ -214,4 +166,4 @@ const SaleManagerForm = ({
   );
 };
 
-export default SaleManagerForm;
+export default ProductForm;

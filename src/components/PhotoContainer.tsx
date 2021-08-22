@@ -1,7 +1,7 @@
 const PhotoContainer = ({ imgSrc, action }: { imgSrc: string; action: () => void }) => {
   return (
-    <div className="photo-container" onClick={action}>
-      <img src={imgSrc} />
+    <div className="photo-container">
+      <img src={imgSrc} onClick={action} />
     </div>
   );
 };

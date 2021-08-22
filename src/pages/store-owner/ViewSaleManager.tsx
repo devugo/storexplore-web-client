@@ -1,14 +1,14 @@
 import PageWrapper from '../../components/PageWrapper';
-import ViewSaleManager from '../../components/ViewSaleManager';
+import ViewSaleManagerTemplate from '../../components/ViewSaleManagerTemplate';
 
-const ViewSaleManagerPage = () => {
+const ViewSaleManager = () => {
   return (
     <PageWrapper pageTitle="View Sale Manager">
       <div className="store-owner__view-sale-manager">
-        <ViewSaleManager />
+        <ViewSaleManagerTemplate />
       </div>
     </PageWrapper>
   );
 };
 
-export default ViewSaleManagerPage;
+export default ViewSaleManager;

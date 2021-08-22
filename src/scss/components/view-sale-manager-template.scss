@@ -1,4 +1,4 @@
-.view-sale-manager {
+.view-sale-manager-template {
   .content {
     .left {
       text-align: center;
@@ -35,7 +35,7 @@
 }
 
 @include media-md {
-  .view-sale-manager {
+  .view-sale-manager-template {
     .content {
       display: flex;
 

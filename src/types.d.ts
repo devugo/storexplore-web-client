@@ -43,3 +43,12 @@ export type SaleManagerType = {
   password?: string;
   gender: GenderType | string;
 };
+
+export type ProductType = {
+  image?: string;
+  name: string;
+  description?: string;
+  costPrice: number;
+  sellingPrice: number;
+  quantity: number;
+};

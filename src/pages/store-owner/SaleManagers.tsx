@@ -1,6 +1,6 @@
 import { Space, Table, Tag } from 'antd';
 
-import AddNewButton from '../../components/AddNewButton';
+import GoToButton from '../../components/GoToButton';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
 
@@ -105,7 +105,7 @@ const SaleManagers = () => {
     <PageWrapper pageTitle="Sale Managers">
       <div className="store-owner__sale-maangers">
         <div className="devugo-card">
-          <AddNewButton goto="/add-new" style={{ marginBottom: 20 }} />
+          <GoToButton goto="/add-new" style={{ marginBottom: 20 }} />
           <Table columns={columns} dataSource={data} pagination={false} scroll={{ x: 400 }} />
         </div>
       </div>
