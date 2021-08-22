@@ -1,5 +1,10 @@
 .page-content {
   background-color: var(--page-content-bg-color);
+  width: calc(100vw - 50px);
+
+  &.open-sidebar {
+    width: calc(100vw - 250px);
+  }
 
   &__body {
     padding: 10px;

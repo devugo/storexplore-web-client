@@ -15,7 +15,7 @@ const PageContent = ({
   pageTitle: string;
 }) => {
   return (
-    <div className="page-content">
+    <div className={`page-content${openSidebar ? ' open-sidebar' : ''}`}>
       <Header toggleSidebar={toggleSidebar} openSidebar={openSidebar} />
       <div className="page-content__body">
         <PageTitle title={pageTitle} />
