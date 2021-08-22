@@ -4,7 +4,7 @@ import ViewProductTemplate from '../../components/ViewProductTemplate';
 const ViewProduct = () => {
   return (
     <PageWrapper pageTitle="View Product">
-      <div className="store-owner__view-product">
+      <div className="sale-manager__view-product">
         <ViewProductTemplate />
       </div>
     </PageWrapper>

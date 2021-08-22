@@ -47,8 +47,8 @@ const ViewProductTemplate = () => {
             <div className="product-description">
               <p>
                 THe fjdnfj df kd k f vck vx vcvjkcnv vcn vncjnv cvjc vkcnv cvcjvjcv cv c v cv
-                cknvjcn jv cj vjc vjn jdfbjdbjf jd f jd vjd vjj dj jv dj jf d vjfdjf j jf gfjgjf gj
-                fj gjf jd fjd j jfdbfjjd jd fdjfdj f j
+                cknvjcn jv cj vjc vjn jdfbj jd f jd vjd vjj dj jv dj jf d vjfdjf j jf gfjgjf gj fj
+                gjf jd fjd j jfdbfjjd jd fdjfdj f j
               </p>
             </div>
             <p>

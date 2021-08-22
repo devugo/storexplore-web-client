@@ -52,3 +52,10 @@ export type ProductType = {
   sellingPrice: number;
   quantity: number;
 };
+
+export type SaleType = {
+  soldAt: number;
+  quantity: number;
+  productId: string;
+  date?: Date;
+};
