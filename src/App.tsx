@@ -1,6 +1,24 @@
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import SuccessMessages from './components/SuccessMessages';
+import {
+  LOGIN_ROUTE,
+  REGISTER_ROUTE,
+  SALE_MANAGER_ADD_SALE_ROUTE,
+  SALE_MANAGER_CHATS_ROUTE,
+  SALE_MANAGER_EDIT_PROFILE_ROUTE,
+  SALE_MANAGER_PROFILE_ROUTE,
+  SALE_MANAGER_VIEW_PRODUCT_ROUTE,
+  STORE_OWNER_ADD_PRODUCT_ROUTE,
+  STORE_OWNER_ADD_SALE_MANAGER_ROUTE,
+  STORE_OWNER_CHATS_ROUTE,
+  STORE_OWNER_EDIT_PRODUCT_ROUTE,
+  STORE_OWNER_EDIT_SALE_MANAGER_ROUTE,
+  STORE_OWNER_SALE_MANAGERS_ROUTE,
+  STORE_OWNER_SETTINGS_ROUTE,
+  STORE_OWNER_VIEW_PRODUCT_ROUTE,
+  STORE_OWNER_VIEW_SALE_MANAGER_ROUTE,
+} from './constants/ROUTE_NAMES';
 import Auth from './interceptors/Auth';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
@@ -25,47 +43,57 @@ const App = () => {
     <Router>
       <SuccessMessages />
       <Switch>
-        <Auth isAuth={false} exact path="/login" component={Login} />
-        <Auth isAuth={false} exact path="/register" component={Register} />
+        <Auth isAuth={false} exact path={LOGIN_ROUTE} component={Login} />
+        <Auth isAuth={false} exact path={REGISTER_ROUTE} component={Register} />
         <Auth isAuth={false} exact path="/dashboard" component={Dashboard} />
 
         {/* Store Ownere routes */}
-        <Auth isAuth={false} exact path="/store-owner/settings" component={Settings} />
-        <Auth isAuth={false} exact path="/store-owner/sale-managers" component={SaleManagers} />
+        <Auth isAuth={false} exact path={STORE_OWNER_SETTINGS_ROUTE} component={Settings} />
         <Auth
           isAuth={false}
           exact
-          path="/store-owner/edit-sale-manager"
+          path={STORE_OWNER_SALE_MANAGERS_ROUTE}
+          component={SaleManagers}
+        />
+        <Auth
+          isAuth={false}
+          exact
+          path={STORE_OWNER_EDIT_SALE_MANAGER_ROUTE}
           component={EditSaleManager}
         />
         <Auth
           isAuth={false}
           exact
-          path="/store-owner/add-sale-manager"
+          path={STORE_OWNER_ADD_SALE_MANAGER_ROUTE}
           component={AddSaleManager}
         />
         <Auth
           isAuth={false}
           exact
-          path="/store-owner/view-sale-manager"
+          path={STORE_OWNER_VIEW_SALE_MANAGER_ROUTE}
           component={OwnerViewSaleManager}
         />
-        <Auth isAuth={false} exact path="/store-owner/chats" component={OwnerChats} />
-        <Auth isAuth={false} exact path="/store-owner/add-product" component={AddProduct} />
-        <Auth isAuth={false} exact path="/store-owner/edit-product" component={EditProduct} />
-        <Auth isAuth={false} exact path="/store-owner/view-product" component={OwnerViewProduct} />
-
-        {/* Sale Manager */}
-        <Auth isAuth={false} exact path="/sale-manager/profile" component={Profile} />
-        <Auth isAuth={false} exact path="/sale-manager/edit-profile" component={EditProfile} />
-        <Auth isAuth={false} exact path="/sale-manager/chats" component={SaleManagerChats} />
+        <Auth isAuth={false} exact path={STORE_OWNER_CHATS_ROUTE} component={OwnerChats} />
+        <Auth isAuth={false} exact path={STORE_OWNER_ADD_PRODUCT_ROUTE} component={AddProduct} />
+        <Auth isAuth={false} exact path={STORE_OWNER_EDIT_PRODUCT_ROUTE} component={EditProduct} />
         <Auth
           isAuth={false}
           exact
-          path="/sale-manager/view-product"
+          path={STORE_OWNER_VIEW_PRODUCT_ROUTE}
+          component={OwnerViewProduct}
+        />
+
+        {/* Sale Manager */}
+        <Auth isAuth={false} exact path={SALE_MANAGER_PROFILE_ROUTE} component={Profile} />
+        <Auth isAuth={false} exact path={SALE_MANAGER_EDIT_PROFILE_ROUTE} component={EditProfile} />
+        <Auth isAuth={false} exact path={SALE_MANAGER_CHATS_ROUTE} component={SaleManagerChats} />
+        <Auth
+          isAuth={false}
+          exact
+          path={SALE_MANAGER_VIEW_PRODUCT_ROUTE}
           component={SaleManagerViewProduct}
         />
-        <Auth isAuth={false} exact path="/sale-manager/add-sale" component={AddSale} />
+        <Auth isAuth={false} exact path={SALE_MANAGER_ADD_SALE_ROUTE} component={AddSale} />
       </Switch>
     </Router>
   );
