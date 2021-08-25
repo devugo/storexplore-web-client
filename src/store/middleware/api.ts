@@ -30,7 +30,8 @@ const apiMiddleware = (store: any) => (next: any) => async (action: ActionObject
         next({ type: type.SUCCESS, response: response });
       })
       .catch((error: any) => {
-        console.log({ message: error.message });
+        // console.log({ message: error.message });
+        console.log({ response: error.response });
         next({ type: type.FAILURE, response: error.response });
       });
   }

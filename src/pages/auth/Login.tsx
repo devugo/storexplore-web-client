@@ -117,7 +117,7 @@ const Login = () => {
               <div className="logo">
                 <img src={Logo} />
               </div>
-              <p>Welcome! Monitor your store and not lose track of anything.</p>
+              <p>Welcome! Monitor your store and don&apos;t lose track of anything.</p>
               <Link to="/register">SIGN UP</Link>
             </div>
           </div>

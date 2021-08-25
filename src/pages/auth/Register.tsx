@@ -18,7 +18,7 @@ import { ApiResponseType, RootStateType, SignupType } from '../../types.d';
 
 const initialFormValues: SignupType = {
   email: EMPTY_STRING,
-  username: EMPTY_STRING,
+  name: EMPTY_STRING,
   password: EMPTY_STRING,
   confirmPassword: EMPTY_STRING,
 };
@@ -26,9 +26,9 @@ const initialFormValues: SignupType = {
 const validationSchema = Yup.object({
   email: Yup.string().required('Email is required').email('Please, provide a valid email address'),
   password: Yup.string().required('Password is required'),
-  username: Yup.string().required('Username is required'),
+  name: Yup.string().required('Your name is required'),
   confirmPassword: Yup.string()
-    .required('Please confirm password')
+    .required('Please, confirm password')
     .oneOf([Yup.ref('password')], 'Confirm password must match password'),
 });
 
@@ -42,9 +42,11 @@ const Register = () => {
   const errorData = loaders.find((x) => x.type === SIGNUP_USER.FAILURE) as ApiResponseType;
   const successData = loaders.find((x) => x.type === SIGNUP_USER.SUCCESS) as ApiResponseType;
 
+  console.log({ errorData, successData });
   const signUpWithEmailAndPasswordHandler = (values: SignupType) => {
-    const { email, password, username } = values;
-    dispatch(signup({ email, password, username }));
+    console.log({ values });
+    const { email, password, name } = values;
+    dispatch(signup({ email, password, name }));
   };
 
   useEffect(() => {
@@ -97,16 +99,14 @@ const Register = () => {
                     <div className="input-container">
                       <label>Name</label>
                       <Input
-                        name="username"
+                        name="name"
                         placeholder="Enter your name"
                         onChange={handleChange}
-                        id="username"
-                        value={values.username}
+                        id="name"
+                        value={values.name}
                         icon="mdi mdi-account"
                       />
-                      <small className="danger">
-                        {errors.username && touched.username && errors.username}
-                      </small>
+                      <small className="danger">{errors.name && touched.name && errors.name}</small>
                     </div>
                     <div className="input-container">
                       <label>Email</label>

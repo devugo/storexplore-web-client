@@ -1,8 +1,8 @@
 import { SigninType } from '../../types.d';
 import { KEEP_AUTH_USER, SIGNIN_USER, SIGNOUT_USER, SIGNUP_USER } from './types';
 
-export const signup = (formData: { email: string; password: string; username: string }) => {
-  const url = 'auth/signup';
+export const signup = (formData: { email: string; password: string; name?: string }) => {
+  const url = 'auth/register';
   return {
     type: SIGNUP_USER,
     url,
