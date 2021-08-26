@@ -55,7 +55,7 @@ function Auth({ component: Component, isAuth, ...rest }: any) {
       render={(props) =>
         mount ? (
           auth.loggedIn ? (
-            <Redirect to="/dashboard" />
+            <Redirect to="store-owner/sales" />
           ) : (
             <Component {...props} />
           )

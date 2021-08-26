@@ -42,9 +42,7 @@ const Register = () => {
   const errorData = loaders.find((x) => x.type === SIGNUP_USER.FAILURE) as ApiResponseType;
   const successData = loaders.find((x) => x.type === SIGNUP_USER.SUCCESS) as ApiResponseType;
 
-  console.log({ errorData, successData });
   const signUpWithEmailAndPasswordHandler = (values: SignupType) => {
-    console.log({ values });
     const { email, password, name } = values;
     dispatch(signup({ email, password, name }));
   };
