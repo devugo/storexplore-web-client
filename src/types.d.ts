@@ -1,4 +1,5 @@
 export type GenderType = 'MALE' | 'FEMALE';
+export type RoleType = 'SALE MANAGER' | 'ADMIN';
 
 export type ActionType = {
   IN_PROGRESS: string;
@@ -19,7 +20,13 @@ export type SigninType = {
 };
 
 export type ApiResponseType = { type: string; response: any };
-export type AuthType = { accessToken: string; username: string; email: string; loggedIn: boolean };
+export type AuthType = {
+  accessToken: string;
+  email: string;
+  role: RoleType | string;
+  loggedIn: boolean;
+  id: string;
+};
 
 export type RootStateType = {
   loader: ApiResponseType[];

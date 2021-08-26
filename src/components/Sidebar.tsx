@@ -1,3 +1,14 @@
+import { Link } from 'react-router-dom';
+
+import {
+  SALE_MANAGER_CHATS_ROUTE,
+  STORE_OWNER_DASHBOARD_ROUTE,
+  STORE_OWNER_LIVE_SALES_ROUTE,
+  STORE_OWNER_PRODUCTS_ROUTE,
+  STORE_OWNER_SALE_MANAGERS_ROUTE,
+  STORE_OWNER_SALES_ROUTE,
+  STORE_OWNER_SETTINGS_ROUTE,
+} from '../constants/ROUTE_NAMES';
 import RenderIcon from './RenderIcon';
 
 const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
@@ -12,50 +23,50 @@ const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
           <div className="top-links">
             <ul className="nav-links">
               <li>
-                <a>
+                <Link to={STORE_OWNER_DASHBOARD_ROUTE}>
                   <RenderIcon title="mdi mdi-view-dashboard" />
                   <span>Dashboard</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a>
+                <Link to={STORE_OWNER_LIVE_SALES_ROUTE}>
                   <RenderIcon title="mdi mdi-credit-card-wireless" />
                   <span>Live Sales</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a>
+                <Link to={STORE_OWNER_SALES_ROUTE}>
                   <RenderIcon title="mdi mdi-printer-pos" />
                   <span>Sales</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a>
+                <Link to={STORE_OWNER_PRODUCTS_ROUTE}>
                   <RenderIcon title="mdi mdi-store" />
                   <span>Store</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a>
+                <Link to={STORE_OWNER_SALE_MANAGERS_ROUTE}>
                   <RenderIcon title="mdi mdi-account-supervisor" />
                   <span>Sale Managers</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a>
+                <Link to={SALE_MANAGER_CHATS_ROUTE}>
                   <RenderIcon title="mdi mdi-forum" />
                   <span>Chat</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
           <div className="bottom-links">
             <ul className="nav-links">
               <li>
-                <a>
+                <Link to={STORE_OWNER_SETTINGS_ROUTE}>
                   <RenderIcon title="mdi mdi-cog" />
                   <span>Settings</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

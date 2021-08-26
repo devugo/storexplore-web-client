@@ -1,3 +1,6 @@
+// Home Page
+export const HOME_ROUTE = '/';
+
 //  Auth Routes names
 export const LOGIN_ROUTE = '/login';
 export const REGISTER_ROUTE = '/register';

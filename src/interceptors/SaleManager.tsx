@@ -4,10 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 
 import PageLoader from '../components/PageLoader';
 import { ROLES } from '../constants/ROLES';
-import {
-  SALE_MANAGER_DASHBOARD_ROUTE,
-  STORE_OWNER_DASHBOARD_ROUTE,
-} from '../constants/ROUTE_NAMES';
+import { HOME_ROUTE } from '../constants/ROUTE_NAMES';
 import { STORAGE_VARIABLE } from '../constants/STORAGE_VARIABLE';
 import { getLoader } from '../helpers/functions/getLoader';
 import { retrieveFromStorage } from '../helpers/functions/localStorage';
@@ -15,7 +12,7 @@ import { keepUserLoggedIn } from '../store/actions/auth';
 import { KEEP_AUTH_USER } from '../store/actions/types';
 import { RootStateType } from '../types.d';
 
-const Auth = ({ component: Component, isAuth, ...rest }: any) => {
+const SaleManager = ({ component: Component, ...rest }: any) => {
   const [mount, setMount] = useState(false);
   const dispatch = useDispatch();
   const { auth, loader } = useSelector((state: RootStateType) => state);
@@ -44,31 +41,15 @@ const Auth = ({ component: Component, isAuth, ...rest }: any) => {
     }
   }, [successData, errorData]);
 
-  if (isAuth) {
-    return (
-      <Route
-        {...rest}
-        render={(props) =>
-          mount ? auth.loggedIn ? <Component {...props} /> : <Redirect to="/" /> : <PageLoader />
-        }
-      />
-    );
-  }
   return (
     <Route
       {...rest}
       render={(props) =>
         mount ? (
-          auth.loggedIn ? (
-            <Redirect
-              to={
-                auth.role === ROLES.ADMIN
-                  ? STORE_OWNER_DASHBOARD_ROUTE
-                  : SALE_MANAGER_DASHBOARD_ROUTE
-              }
-            />
-          ) : (
+          auth.loggedIn && auth.role === ROLES.SALE_MANAGER ? (
             <Component {...props} />
+          ) : (
+            <Redirect to={HOME_ROUTE} />
           )
         ) : (
           <PageLoader />
@@ -78,4 +59,4 @@ const Auth = ({ component: Component, isAuth, ...rest }: any) => {
   );
 };
 
-export default Auth;
+export default SaleManager;

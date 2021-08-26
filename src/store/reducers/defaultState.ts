@@ -1,4 +1,5 @@
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
+import { ROLES } from '../../constants/ROLES';
 
 const entityState = {
   data: [],
@@ -13,6 +14,7 @@ export const DEFAULT_STATE = {
     username: EMPTY_STRING,
     email: EMPTY_STRING,
     loggedIn: false,
+    role: ROLES.SALE_MANAGER,
   },
   entity: { ...entityState },
 };
