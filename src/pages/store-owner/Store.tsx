@@ -7,12 +7,14 @@ import * as Yup from 'yup';
 
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import LoaderOverlay from '../../components/LoaderOverlay';
 import PageWrapper from '../../components/PageWrapper';
 import PhotoContainer from '../../components/PhotoContainer';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { renderServerError } from '../../helpers/functions/renderServerError';
-import { getMyStore, updateStore } from '../../store/actions/store';
-import { GET_MY_STORE, UPDATE_STORE } from '../../store/actions/types';
+import { showMessage } from '../../helpers/functions/showMessage';
+import { getMyStore, updateStore, updateStoreLogo } from '../../store/actions/store';
+import { GET_MY_STORE, UPDATE_STORE, UPDATE_STORE_LOGO } from '../../store/actions/types';
 import { ApiResponseType, RootStateType, StoreType } from '../../types.d';
 
 const initialFormValues: StoreType = {
@@ -33,8 +35,8 @@ const Store = () => {
   const dispatch = useDispatch();
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const [formikFormValues, setFormikFormValues] = useState(initialFormValues);
-  const [, setLogo] = useState('');
+  const [formikFormValues, setFormikFormValues] = useState<StoreType>(initialFormValues);
+  const [logo, setLogo] = useState<string>('');
 
   const { loader: loaders, store } = useSelector((state: RootStateType) => state);
 
@@ -49,25 +51,51 @@ const Store = () => {
   const updateLoading = updateProgressData ? true : false;
   const updateErrorData = loaders.find((x) => x.type === UPDATE_STORE.FAILURE) as ApiResponseType;
 
+  //  UPDATE_STORE_LOGO LOADERS
+  const updateLogoProgressData = loaders.find(
+    (x) => x.type === UPDATE_STORE_LOGO.IN_PROGRESS
+  ) as ApiResponseType;
+  const updateLogoLoading = updateLogoProgressData ? true : false;
+  const updateLogoErrorData = loaders.find(
+    (x) => x.type === UPDATE_STORE_LOGO.FAILURE
+  ) as ApiResponseType;
+
   const toggleFileInput = () => {
     fileInput.current?.click();
   };
 
   const changePhoto = (e: any) => {
-    console.log(e.target.files);
-    setLogo(e.target.files[0]);
+    const file = e.target.files[0];
+    const fileType = file.type;
+
+    const isFileValid = ['image/png', 'image/jpg', 'image/jpeg'].includes(fileType);
+    if (!isFileValid) {
+      return showMessage('error', 'Please, upload only image files', 4);
+    }
+    return updateLogo(e.target.files[0]);
   };
 
   const update = (values: StoreType) => {
     if (store.data) {
-      console.log('Updating');
       dispatch(updateStore(values, store.data.id!));
     }
+  };
+
+  const updateLogo = (image: File) => {
+    const form = new FormData();
+    form.append('image', image);
+    dispatch(updateStoreLogo(form, store.data.id!));
   };
 
   const getStore = () => {
     dispatch(getMyStore());
   };
+
+  useEffect(() => {
+    if (updateLogoErrorData) {
+      showMessage('error', 'Error uploading logo', 4);
+    }
+  }, [updateLogoErrorData]);
 
   useEffect(() => {
     getStore();
@@ -89,6 +117,7 @@ const Store = () => {
 
   return (
     <PageWrapper pageTitle="Store">
+      {updateLogoLoading && <LoaderOverlay />}
       <div className="store-owner__settings">
         <div className="devugo-card">
           <div className="store-owner__settings-content">
@@ -96,7 +125,7 @@ const Store = () => {
               <LoadingOutlined spin />
             ) : (
               <>
-                <PhotoContainer imgSrc="https://logo.png" action={toggleFileInput} />
+                <PhotoContainer imgSrc={logo} action={toggleFileInput} />
                 <input
                   onChange={changePhoto}
                   ref={fileInput}

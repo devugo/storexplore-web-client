@@ -41,7 +41,6 @@ const Login = () => {
 
   useEffect(() => {
     if (successData?.response?.status == 201) {
-      console.log('Success Login');
       showMessage('success', 'Login was successfully', 4);
       history.replace('/devugo-test');
     }

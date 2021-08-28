@@ -1,5 +1,5 @@
 import { ApiResponseType } from '../../types.d';
-import { CREATE_STORE, GET_MY_STORE, UPDATE_STORE } from '../actions/types';
+import { CREATE_STORE, GET_MY_STORE, UPDATE_STORE, UPDATE_STORE_LOGO } from '../actions/types';
 import { DEFAULT_STATE } from './defaultState';
 
 const initialState = DEFAULT_STATE.store;
@@ -18,6 +18,10 @@ const storeReducer = (state = initialState, action: ApiResponseType) => {
       return { ...state, data: responseData };
     }
     case UPDATE_STORE.SUCCESS: {
+      const responseData = response.data;
+      return { ...state, data: responseData };
+    }
+    case UPDATE_STORE_LOGO.SUCCESS: {
       const responseData = response.data;
       return { ...state, data: responseData };
     }
