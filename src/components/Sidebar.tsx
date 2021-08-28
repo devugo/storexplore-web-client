@@ -7,7 +7,7 @@ import {
   STORE_OWNER_PRODUCTS_ROUTE,
   STORE_OWNER_SALE_MANAGERS_ROUTE,
   STORE_OWNER_SALES_ROUTE,
-  STORE_OWNER_SETTINGS_ROUTE,
+  STORE_OWNER_STORE_ROUTE,
 } from '../constants/ROUTE_NAMES';
 import RenderIcon from './RenderIcon';
 
@@ -63,9 +63,9 @@ const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
           <div className="bottom-links">
             <ul className="nav-links">
               <li>
-                <Link to={STORE_OWNER_SETTINGS_ROUTE}>
+                <Link to={STORE_OWNER_STORE_ROUTE}>
                   <RenderIcon title="mdi mdi-cog" />
-                  <span>Settings</span>
+                  <span>Store</span>
                 </Link>
               </li>
             </ul>

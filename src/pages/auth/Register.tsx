@@ -19,6 +19,7 @@ import { ApiResponseType, RootStateType, SignupType } from '../../types.d';
 const initialFormValues: SignupType = {
   email: EMPTY_STRING,
   name: EMPTY_STRING,
+  storeName: EMPTY_STRING,
   password: EMPTY_STRING,
   confirmPassword: EMPTY_STRING,
 };
@@ -26,6 +27,7 @@ const initialFormValues: SignupType = {
 const validationSchema = Yup.object({
   email: Yup.string().required('Email is required').email('Please, provide a valid email address'),
   password: Yup.string().required('Password is required'),
+  storeName: Yup.string().required('Please, provide your store name.'),
   name: Yup.string().required('Your name is required'),
   confirmPassword: Yup.string()
     .required('Please, confirm password')
@@ -43,8 +45,8 @@ const Register = () => {
   const successData = loaders.find((x) => x.type === SIGNUP_USER.SUCCESS) as ApiResponseType;
 
   const signUpWithEmailAndPasswordHandler = (values: SignupType) => {
-    const { email, password, name } = values;
-    dispatch(signup({ email, password, name }));
+    const { email, password, name, storeName } = values;
+    dispatch(signup({ email, password, name, storeName }));
   };
 
   useEffect(() => {
@@ -95,7 +97,21 @@ const Register = () => {
                       </div>
                     )}
                     <div className="input-container">
-                      <label>Name</label>
+                      <label>Store Name</label>
+                      <Input
+                        name="storeName"
+                        placeholder="Enter store name"
+                        onChange={handleChange}
+                        id="storeName"
+                        value={values.storeName}
+                        icon="mdi mdi-account"
+                      />
+                      <small className="danger">
+                        {errors.storeName && touched.storeName && errors.storeName}
+                      </small>
+                    </div>
+                    <div className="input-container">
+                      <label>Your Name</label>
                       <Input
                         name="name"
                         placeholder="Enter your name"

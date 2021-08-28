@@ -10,6 +10,7 @@ export type ActionType = {
 export type SignupType = {
   name: string;
   email: string;
+  storeName: string;
   password: string;
   confirmPassword: string;
 };
@@ -28,16 +29,13 @@ export type AuthType = {
   id: string;
 };
 
-export type RootStateType = {
-  loader: ApiResponseType[];
-  auth: AuthType;
-};
-
 export type StoreType = {
   name: string;
   industry: string;
   address: string;
   defaultPassword: string;
+  logoPath?: string;
+  id?: string;
 };
 
 export type SaleManagerType = {
@@ -65,4 +63,10 @@ export type SaleType = {
   quantity: number;
   productId: string;
   date?: Date;
+};
+
+export type RootStateType = {
+  loader: ApiResponseType[];
+  auth: AuthType;
+  store: { data: StoreType };
 };

@@ -23,7 +23,7 @@ import {
   STORE_OWNER_PRODUCTS_ROUTE,
   STORE_OWNER_SALE_MANAGERS_ROUTE,
   STORE_OWNER_SALES_ROUTE,
-  STORE_OWNER_SETTINGS_ROUTE,
+  STORE_OWNER_STORE_ROUTE,
   STORE_OWNER_VIEW_PRODUCT_ROUTE,
   STORE_OWNER_VIEW_SALE_MANAGER_ROUTE,
 } from './constants/ROUTE_NAMES';
@@ -51,7 +51,7 @@ import OwnerLiveSales from './pages/store-owner/LiveSales';
 import OwnerProducts from './pages/store-owner/Products';
 import SaleManagers from './pages/store-owner/SaleManagers';
 import OwnerSales from './pages/store-owner/Sales';
-import Settings from './pages/store-owner/Settings';
+import Store from './pages/store-owner/Store';
 import OwnerViewProduct from './pages/store-owner/ViewProduct';
 import OwnerViewSaleManager from './pages/store-owner/ViewSaleManager';
 
@@ -71,7 +71,7 @@ const App = () => {
 
         {/* Store Ownere routes */}
         <Admin exact path={STORE_OWNER_DASHBOARD_ROUTE} component={OwnerDashboard} />
-        <Admin isAuth exact path={STORE_OWNER_SETTINGS_ROUTE} component={Settings} />
+        <Admin isAuth exact path={STORE_OWNER_STORE_ROUTE} component={Store} />
         <Admin isAuth exact path={STORE_OWNER_SALE_MANAGERS_ROUTE} component={SaleManagers} />
         <Admin
           isAuth

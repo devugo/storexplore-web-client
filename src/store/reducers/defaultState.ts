@@ -4,7 +4,6 @@ import { ROLES } from '../../constants/ROLES';
 const entityState = {
   data: [],
   count: 0,
-  loaded: false,
 };
 
 export const DEFAULT_STATE = {
@@ -15,6 +14,9 @@ export const DEFAULT_STATE = {
     email: EMPTY_STRING,
     loggedIn: false,
     role: ROLES.SALE_MANAGER,
+  },
+  store: {
+    data: null,
   },
   entity: { ...entityState },
 };

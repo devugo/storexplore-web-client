@@ -8,7 +8,7 @@ export const REGISTER_ROUTE = '/register';
 //  Store Owner Route Names
 const storeOwner = '/store-owner';
 export const STORE_OWNER_DASHBOARD_ROUTE = `${storeOwner}/dashboard`;
-export const STORE_OWNER_SETTINGS_ROUTE = `${storeOwner}/settings`;
+export const STORE_OWNER_STORE_ROUTE = `${storeOwner}/store`;
 export const STORE_OWNER_SALE_MANAGERS_ROUTE = `${storeOwner}/sale-managers`;
 export const STORE_OWNER_EDIT_SALE_MANAGER_ROUTE = `${storeOwner}/edit-sale-manager`;
 export const STORE_OWNER_ADD_SALE_MANAGER_ROUTE = `${storeOwner}/add-sale-manager`;
