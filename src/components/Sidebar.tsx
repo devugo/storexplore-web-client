@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import {
-  SALE_MANAGER_CHATS_ROUTE,
+  STORE_OWNER_CHATS_ROUTE,
   STORE_OWNER_DASHBOARD_ROUTE,
   STORE_OWNER_LIVE_SALES_ROUTE,
   STORE_OWNER_PRODUCTS_ROUTE,
@@ -53,7 +53,7 @@ const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
                 </Link>
               </li>
               <li>
-                <Link to={SALE_MANAGER_CHATS_ROUTE}>
+                <Link to={STORE_OWNER_CHATS_ROUTE}>
                   <RenderIcon title="mdi mdi-forum" />
                   <span>Chat</span>
                 </Link>

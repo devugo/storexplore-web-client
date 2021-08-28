@@ -1,0 +1,11 @@
+.go-to-button {
+  display: flex;
+  justify-content: flex-end;
+
+  a {
+    &:hover {
+      color: var(--white);
+      opacity: 0.9;
+    }
+  }
+}

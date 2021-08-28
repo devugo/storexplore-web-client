@@ -3,6 +3,7 @@ import { Space, Table, Tag } from 'antd';
 import GoToButton from '../../components/GoToButton';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
+import { STORE_OWNER_ADD_SALE_MANAGER_ROUTE } from '../../constants/ROUTE_NAMES';
 
 const columns = [
   {
@@ -105,7 +106,7 @@ const SaleManagers = () => {
     <PageWrapper pageTitle="Sale Managers">
       <div className="store-owner__sale-maangers">
         <div className="devugo-card">
-          <GoToButton goto="/add-new" style={{ marginBottom: 20 }} />
+          <GoToButton goto={STORE_OWNER_ADD_SALE_MANAGER_ROUTE} style={{ marginBottom: 20 }} />
           <Table columns={columns} dataSource={data} pagination={false} scroll={{ x: 400 }} />
         </div>
       </div>

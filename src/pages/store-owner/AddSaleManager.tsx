@@ -1,20 +1,37 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import PageWrapper from '../../components/PageWrapper';
 import SaleManagerForm from '../../components/SaleManagerForm';
-import { SaleManagerType } from '../../types.d';
+import { createSaleManager } from '../../store/actions/sale-manager';
+import { getMyStore } from '../../store/actions/store';
+import { RootStateType, SaleManagerType } from '../../types.d';
 
 const AddSaleManager = () => {
-  const changeImage = (e: any) => {
-    console.log(e.target.files);
-  };
+  const dispatch = useDispatch();
+  const { store } = useSelector((state: RootStateType) => state);
 
   const submit = (values: SaleManagerType) => {
-    console.log({ values });
+    dispatch(createSaleManager(values));
   };
+
+  const getStore = () => {
+    dispatch(getMyStore());
+  };
+
+  useEffect(() => {
+    getStore();
+  }, []);
+
   return (
     <PageWrapper pageTitle="Add Sale Manager">
       <div className="store-owner__add-sale-manager">
         <div className="devugo-card">
-          <SaleManagerForm submit={submit} changeImage={changeImage} />
+          <SaleManagerForm
+            defaultPassword={store.data && store.data.defaultPassword}
+            hidePhoto
+            submit={submit}
+          />
         </div>
       </div>
     </PageWrapper>

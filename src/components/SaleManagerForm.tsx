@@ -1,9 +1,14 @@
+import { LoadingOutlined } from '@ant-design/icons';
+import { Alert } from 'antd';
 import { Formik } from 'formik';
 import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import { EMPTY_STRING } from '../constants/EMPTY_STRING';
-import { SaleManagerType } from '../types.d';
+import { renderServerError } from '../helpers/functions/renderServerError';
+import { CREATE_SALE_MANAGER } from '../store/actions/types';
+import { ApiResponseType, RootStateType, SaleManagerType } from '../types.d';
 import Button from './Button';
 import Input from './Input';
 import PhotoContainer from './PhotoContainer';
@@ -24,8 +29,7 @@ const initialFormValues: SaleManagerType = {
 const validationSchema = Yup.object({
   firstname: Yup.string().required('First Name is required'),
   lastname: Yup.string().required('Last Name is required'),
-  address: Yup.string().required('Address is required'),
-  dob: Yup.date().required('Address is required'),
+  dob: Yup.date().required('Date of birth is required'),
   email: Yup.string().required('Email is required'),
   gender: Yup.string().required('Gender is required'),
   password: Yup.string().required('Password is required'),
@@ -34,13 +38,30 @@ const validationSchema = Yup.object({
 const SaleManagerForm = ({
   changeImage,
   submit,
+  hidePhoto,
+  defaultPassword,
 }: {
-  changeImage: any;
+  changeImage?: any;
   submit: (values: SaleManagerType) => void;
+  hidePhoto?: boolean;
+  defaultPassword?: string;
 }) => {
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const [formikFormValues] = useState(initialFormValues);
+  const [formikFormValues] = useState<SaleManagerType>({
+    ...initialFormValues,
+    password: defaultPassword ?? '',
+  });
+  const { loader: loaders } = useSelector((state: RootStateType) => state);
+
+  //  CREATE SALE MANAGER LOADERS
+  const createrogressData = loaders.find(
+    (x) => x.type === CREATE_SALE_MANAGER.IN_PROGRESS
+  ) as ApiResponseType;
+  const createLoading = createrogressData ? true : false;
+  const createErrorData = loaders.find(
+    (x) => x.type === CREATE_SALE_MANAGER.FAILURE
+  ) as ApiResponseType;
 
   const toggleFileInput = () => {
     fileInput.current?.click();
@@ -48,15 +69,19 @@ const SaleManagerForm = ({
 
   return (
     <div className="store-owner__sale-manager-content">
-      <PhotoContainer imgSrc="https://logo.png" action={toggleFileInput} />
-      <input
-        onChange={changeImage}
-        ref={fileInput}
-        type="file"
-        name="image"
-        id="image"
-        className="hide"
-      />
+      {!hidePhoto && (
+        <>
+          <PhotoContainer imgSrc="https://logo.png" action={toggleFileInput} />
+          <input
+            onChange={changeImage}
+            ref={fileInput}
+            type="file"
+            name="image"
+            id="image"
+            className="hide"
+          />
+        </>
+      )}
       <Formik
         enableReinitialize
         initialValues={formikFormValues}
@@ -66,17 +91,17 @@ const SaleManagerForm = ({
         }}
       >
         {({ values, errors, touched, handleChange, handleSubmit, resetForm }) => (
-          <form className="form-container">
-            {/* {renderServerError(errorData || deleteErrorData).length > 0 && (
-                    <div className="server-message mb-2 mt-2">
-                      <Alert
-                        message="Error"
-                        description={renderServerError(errorData || deleteErrorData)}
-                        type="error"
-                        showIcon
-                      />
-                    </div>
-                  )} */}
+          <form className="form-container" onSubmit={handleSubmit}>
+            {renderServerError(createErrorData).length > 0 && (
+              <div className="server-message mb-2 mt-2">
+                <Alert
+                  message="Error"
+                  description={renderServerError(createErrorData)}
+                  type="error"
+                  showIcon
+                />
+              </div>
+            )}
             <div className="form-group">
               <div className="input-container">
                 <label>
@@ -150,12 +175,13 @@ const SaleManagerForm = ({
                 </label>
                 <SelectInput
                   name="gender"
-                  placeholder="Dirth of birth"
                   onChange={handleChange}
                   id="gender"
                   value={values.gender}
+                  placeholder="Select gender"
                   options={['MALE', 'FEMALE']}
                 />
+                <small className="danger">{errors.gender && touched.gender && errors.gender}</small>
               </div>
               <div className="input-container">
                 <label>Address</label>
@@ -205,7 +231,7 @@ const SaleManagerForm = ({
               </div>
             </div>
             <div className="button-container">
-              <Button type="submit">Add</Button>
+              <Button type="submit">Add {createLoading && <LoadingOutlined spin />}</Button>
             </div>
           </form>
         )}
