@@ -26,7 +26,7 @@ import {
   STORE_OWNER_STORE_ROUTE,
   STORE_OWNER_VIEW_PRODUCT_ROUTE,
   STORE_OWNER_VIEW_SALE_MANAGER_ROUTE,
-} from './constants/ROUTE_NAMES';
+} from './constants/ROUTE_NAME';
 import Admin from './interceptors/Admin';
 import Auth from './interceptors/Auth';
 import SaleManager from './interceptors/SaleManager';

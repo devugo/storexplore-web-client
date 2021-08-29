@@ -1,9 +1,22 @@
-import { Space, Table, Tag } from 'antd';
+// import { LoadingOutlined } from '@ant-design/icons';
+import { Space, Table, Tag, Tooltip } from 'antd';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import ContentLoader from '../../components/ContentLoader';
 import GoToButton from '../../components/GoToButton';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
-import { STORE_OWNER_ADD_PRODUCT_ROUTE } from '../../constants/ROUTE_NAMES';
+import {
+  STORE_OWNER_ADD_PRODUCT_ROUTE,
+  STORE_OWNER_EDIT_PRODUCT_ROUTE,
+  STORE_OWNER_VIEW_PRODUCT_ROUTE,
+} from '../../constants/ROUTE_NAME';
+import { readProducts } from '../../store/actions/product';
+import { READ_PRODUCTS } from '../../store/actions/types';
+import { ApiResponseType, ProductType, RootStateType } from '../../types.d';
 
 const columns = [
   {
@@ -12,21 +25,20 @@ const columns = [
     key: 'quantity',
   },
   {
+    title: 'Image',
+    dataIndex: 'image',
+    key: 'image',
+    // eslint-disable-next-line react/display-name
+    render: (link: string) => (
+      <img style={{ borderRadius: '50%' }} src={link} width="30" height="30" />
+    ),
+  },
+  {
     title: 'Item',
     dataIndex: 'item',
     key: 'item',
     // eslint-disable-next-line react/display-name
-    render: (text: string) => (
-      <>
-        <img
-          style={{ borderRadius: '50%' }}
-          src="https://kskksd.com/index.png"
-          width="30"
-          height="30"
-        />
-        <span>{text}</span>
-      </>
-    ),
+    render: (text: string) => <span>{text}</span>,
   },
   {
     title: 'Cost Price',
@@ -65,57 +77,83 @@ const columns = [
     // eslint-disable-next-line react/display-name
     render: (text: any, record: any) => (
       <Space size="middle">
-        <a>
-          <RenderIcon title="mdi mdi-clock-outline" styles={{ color: 'grey' }} />
-        </a>
-        <a>
-          <RenderIcon title="mdi mdi-playlist-edit" styles={{ color: 'dodgerBlue' }} />
-        </a>
-        <a>
-          <RenderIcon title="mdi mdi-delete-sweep-outline" styles={{ color: 'red' }} />
-        </a>
+        <Tooltip title="View" color="cyan">
+          <Link to={STORE_OWNER_VIEW_PRODUCT_ROUTE}>
+            <RenderIcon title="mdi mdi-clock-outline" styles={{ color: 'cyan' }} />
+          </Link>
+        </Tooltip>
+        <Tooltip title="Edit" color="dodgerBlue">
+          <Link to={STORE_OWNER_EDIT_PRODUCT_ROUTE}>
+            <RenderIcon title="mdi mdi-playlist-edit" styles={{ color: 'dodgerBlue' }} />
+          </Link>
+        </Tooltip>
+        <Tooltip title="Delete" color="red">
+          <a>
+            <RenderIcon title="mdi mdi-delete-sweep-outline" styles={{ color: 'red' }} />
+          </a>
+        </Tooltip>
       </Space>
     ),
   },
 ];
 
-const data = [
-  {
-    key: '1',
-    quantity: 32,
-    item: 'Electrode',
-    costPrice: 4000,
-    sellingPrice: 4500,
-    date: '12-12-2020',
-    status: 'active',
-  },
-  {
-    key: '2',
-    quantity: 2,
-    item: 'Jim Green',
-    costPrice: 2200,
-    sellingPrice: 3000,
-    date: '12-12-2020',
-    status: 'blocked',
-  },
-  {
-    key: '3',
-    quantity: 102,
-    item: 'Joe Black',
-    costPrice: 100,
-    sellingPrice: 130,
-    date: '12-12-2020',
-    status: 'blocked',
-  },
-];
-
 const Products = () => {
+  const dispatch = useDispatch();
+  const { products, loader: loaders } = useSelector((state: RootStateType) => state);
+
+  const [tableData, setTableData] = useState<any[]>([]);
+
+  //  CREATE SALE MANAGER LOADERS
+  const readProgressData = loaders.find(
+    (x) => x.type === READ_PRODUCTS.IN_PROGRESS
+  ) as ApiResponseType;
+  const readLoading = readProgressData ? true : false;
+
+  const composeTableData = (data: ProductType[]) => {
+    return data.map((x: ProductType) => {
+      return {
+        key: x.id as string,
+        quantity: x.quantity,
+        item: x.name,
+        image: x.imagePath as string,
+        costPrice: x.costPrice,
+        sellingPrice: x.sellingPrice,
+        date: moment(x.createdAt).calendar()?.toString() as string,
+        status: (x.active ? 'active' : 'blocked') as string,
+      };
+    });
+  };
+
+  const getProducts = () => {
+    dispatch(readProducts());
+  };
+
+  useEffect(() => {
+    if (products.loaded) {
+      const tableInfo = composeTableData(products.data);
+      setTableData(tableInfo);
+    }
+  }, [products]);
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <PageWrapper pageTitle="Products">
       <div className="store-owner__products">
         <div className="devugo-card">
           <GoToButton goto={STORE_OWNER_ADD_PRODUCT_ROUTE} style={{ marginBottom: 20 }} />
-          <Table columns={columns} dataSource={data} pagination={false} scroll={{ x: 400 }} />
+          {readLoading ? (
+            <ContentLoader />
+          ) : (
+            <Table
+              columns={columns}
+              dataSource={tableData}
+              pagination={false}
+              scroll={{ x: 400 }}
+            />
+          )}
         </div>
       </div>
     </PageWrapper>

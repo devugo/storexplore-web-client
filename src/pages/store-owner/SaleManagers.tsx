@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import GoToButton from '../../components/GoToButton';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
-import { STORE_OWNER_ADD_SALE_MANAGER_ROUTE } from '../../constants/ROUTE_NAMES';
+import { STORE_OWNER_ADD_SALE_MANAGER_ROUTE } from '../../constants/ROUTE_NAME';
 import { readSaleManagers } from '../../store/actions/sale-manager';
 
 const columns = [

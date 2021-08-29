@@ -1,4 +1,4 @@
-export const ICONS = {
+export const ICON = {
   project: 'mdi mdi-animation-outline',
   label: 'mdi mdi-label-multiple-outline',
   priority: 'mdi mdi-flag-outline',

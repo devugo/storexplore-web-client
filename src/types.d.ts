@@ -39,6 +39,7 @@ export type StoreType = {
 };
 
 export type SaleManagerType = {
+  id?: string;
   firstname: string;
   lastname: string;
   othernames?: string;
@@ -47,15 +48,21 @@ export type SaleManagerType = {
   email: string;
   password?: string;
   gender: GenderType | string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type ProductType = {
-  image?: string | File;
+  id?: string;
+  imagePath?: string | File;
   name: string;
   description?: string;
   costPrice: number;
   sellingPrice: number;
   quantity: number;
+  active?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type SaleType = {
@@ -69,4 +76,5 @@ export type RootStateType = {
   loader: ApiResponseType[];
   auth: AuthType;
   store: { data: StoreType };
+  products: { data: ProductType[]; loaded: boolean; count: number };
 };

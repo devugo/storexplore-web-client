@@ -3,11 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
 import PageLoader from '../components/PageLoader';
-import { ROLES } from '../constants/ROLES';
-import {
-  SALE_MANAGER_DASHBOARD_ROUTE,
-  STORE_OWNER_DASHBOARD_ROUTE,
-} from '../constants/ROUTE_NAMES';
+import { ROLE } from '../constants/ROLE';
+import { SALE_MANAGER_DASHBOARD_ROUTE, STORE_OWNER_DASHBOARD_ROUTE } from '../constants/ROUTE_NAME';
 import { STORAGE_VARIABLE } from '../constants/STORAGE_VARIABLE';
 import { getLoader } from '../helpers/functions/getLoader';
 import { retrieveFromStorage } from '../helpers/functions/localStorage';
@@ -62,7 +59,7 @@ const Auth = ({ component: Component, isAuth, ...rest }: any) => {
           auth.loggedIn ? (
             <Redirect
               to={
-                auth.role === ROLES.ADMIN
+                auth.role === ROLE.ADMIN
                   ? STORE_OWNER_DASHBOARD_ROUTE
                   : SALE_MANAGER_DASHBOARD_ROUTE
               }

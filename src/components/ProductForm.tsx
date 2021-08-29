@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import { EMPTY_STRING } from '../constants/EMPTY_STRING';
+import { FORM_MODE } from '../constants/FORM_MODE';
 import { ZERO } from '../constants/ZERO';
 import { renderServerError } from '../helpers/functions/renderServerError';
 import { showMessage } from '../helpers/functions/showMessage';
@@ -38,13 +39,7 @@ const validationSchema = Yup.object({
     .positive('Quantity must be a positive number'),
 });
 
-const ProductForm = ({
-  submit,
-  mode,
-}: {
-  submit: (values: ProductType) => void;
-  mode?: string;
-}) => {
+const ProductForm = ({ submit, mode }: { submit: (values: ProductType) => void; mode: string }) => {
   const fileInput = useRef<HTMLInputElement>(null);
 
   const [formikFormValues] = useState<ProductType>(initialFormValues);
@@ -101,7 +96,7 @@ const ProductForm = ({
         validationSchema={validationSchema}
         onSubmit={(values) => {
           if (validate()) {
-            submit({ ...values, image });
+            submit({ ...values, imagePath: image });
           }
         }}
       >
@@ -202,7 +197,15 @@ const ProductForm = ({
               </div>
             </div>
             <div className="button-container">
-              <Button type="submit">Add {createLoading && <LoadingOutlined spin />}</Button>
+              {mode === FORM_MODE.new ? (
+                <Button disabled={createLoading} type="submit">
+                  Add {createLoading && <LoadingOutlined spin />}
+                </Button>
+              ) : (
+                <Button disabled={createLoading} type="submit">
+                  Update {createLoading && <LoadingOutlined spin />}
+                </Button>
+              )}
             </div>
           </form>
         )}

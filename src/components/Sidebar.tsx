@@ -8,7 +8,7 @@ import {
   STORE_OWNER_SALE_MANAGERS_ROUTE,
   STORE_OWNER_SALES_ROUTE,
   STORE_OWNER_STORE_ROUTE,
-} from '../constants/ROUTE_NAMES';
+} from '../constants/ROUTE_NAME';
 import RenderIcon from './RenderIcon';
 
 const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {

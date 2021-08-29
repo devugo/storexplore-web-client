@@ -1,8 +1,10 @@
 import { Tag } from 'antd';
 
+import { STORE_OWNER_EDIT_PRODUCT_ROUTE } from '../constants/ROUTE_NAME';
+import { USER_TYPE } from '../constants/USER_TYPE';
 import GoToButton from './GoToButton';
 
-const ViewProductTemplate = () => {
+const ViewProductTemplate = ({ mode }: { mode: string }) => {
   return (
     <div className="view-product-template">
       <div className="devugo-card">
@@ -59,7 +61,9 @@ const ViewProductTemplate = () => {
             </p>
           </div>
         </div>
-        <GoToButton goto="/kkdsk" title="Edit" />
+        {mode === USER_TYPE.storeOwner && (
+          <GoToButton goto={STORE_OWNER_EDIT_PRODUCT_ROUTE} title="Edit" />
+        )}
       </div>
     </div>
   );

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
 import PageLoader from '../components/PageLoader';
-import { ROLES } from '../constants/ROLES';
-import { HOME_ROUTE } from '../constants/ROUTE_NAMES';
+import { ROLE } from '../constants/ROLE';
+import { HOME_ROUTE } from '../constants/ROUTE_NAME';
 import { STORAGE_VARIABLE } from '../constants/STORAGE_VARIABLE';
 import { getLoader } from '../helpers/functions/getLoader';
 import { retrieveFromStorage } from '../helpers/functions/localStorage';
@@ -46,7 +46,7 @@ const SaleManager = ({ component: Component, ...rest }: any) => {
       {...rest}
       render={(props) =>
         mount ? (
-          auth.loggedIn && auth.role === ROLES.SALE_MANAGER ? (
+          auth.loggedIn && auth.role === ROLE.SALE_MANAGER ? (
             <Component {...props} />
           ) : (
             <Redirect to={HOME_ROUTE} />

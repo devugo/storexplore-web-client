@@ -1,9 +1,16 @@
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
-import { ROLES } from '../../constants/ROLES';
+import { ROLE } from '../../constants/ROLE';
 
-const entityState = {
+export type EntityStateType = {
+  data: any[];
+  count: number;
+  loaded: boolean;
+};
+
+const entityState: EntityStateType = {
   data: [],
   count: 0,
+  loaded: false,
 };
 
 export const DEFAULT_STATE = {
@@ -13,7 +20,7 @@ export const DEFAULT_STATE = {
     username: EMPTY_STRING,
     email: EMPTY_STRING,
     loggedIn: false,
-    role: ROLES.SALE_MANAGER,
+    role: ROLE.SALE_MANAGER,
   },
   store: {
     data: null,

@@ -57,10 +57,10 @@ const SaleManagerForm = ({
   const { loader: loaders } = useSelector((state: RootStateType) => state);
 
   //  CREATE SALE MANAGER LOADERS
-  const createrogressData = loaders.find(
+  const createProgressData = loaders.find(
     (x) => x.type === CREATE_SALE_MANAGER.IN_PROGRESS
   ) as ApiResponseType;
-  const createLoading = createrogressData ? true : false;
+  const createLoading = createProgressData ? true : false;
   const createErrorData = loaders.find(
     (x) => x.type === CREATE_SALE_MANAGER.FAILURE
   ) as ApiResponseType;
