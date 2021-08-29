@@ -73,9 +73,10 @@ const columns = [
   },
   {
     title: 'Action',
+    dataIndex: 'action',
     key: 'action',
     // eslint-disable-next-line react/display-name
-    render: (text: any, record: any) => (
+    render: (id: string) => (
       <Space size="middle">
         <Tooltip title="View" color="cyan">
           <Link to={STORE_OWNER_VIEW_PRODUCT_ROUTE}>
@@ -83,7 +84,7 @@ const columns = [
           </Link>
         </Tooltip>
         <Tooltip title="Edit" color="dodgerBlue">
-          <Link to={STORE_OWNER_EDIT_PRODUCT_ROUTE}>
+          <Link to={STORE_OWNER_EDIT_PRODUCT_ROUTE + `/${id}`}>
             <RenderIcon title="mdi mdi-playlist-edit" styles={{ color: 'dodgerBlue' }} />
           </Link>
         </Tooltip>
@@ -97,6 +98,8 @@ const columns = [
   },
 ];
 
+console.log({ STORE_OWNER_EDIT_PRODUCT_ROUTE });
+
 const Products = () => {
   const dispatch = useDispatch();
   const { products, loader: loaders } = useSelector((state: RootStateType) => state);
@@ -107,7 +110,7 @@ const Products = () => {
   const readProgressData = loaders.find(
     (x) => x.type === READ_PRODUCTS.IN_PROGRESS
   ) as ApiResponseType;
-  const readLoading = readProgressData ? true : false;
+  const readLoading = !!readProgressData;
 
   const composeTableData = (data: ProductType[]) => {
     return data.map((x: ProductType) => {
@@ -120,6 +123,7 @@ const Products = () => {
         sellingPrice: x.sellingPrice,
         date: moment(x.createdAt).calendar()?.toString() as string,
         status: (x.active ? 'active' : 'blocked') as string,
+        action: x.id,
       };
     });
   };

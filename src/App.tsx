@@ -91,7 +91,12 @@ const App = () => {
         <Admin isAuth exact path={STORE_OWNER_PRODUCTS_ROUTE} component={OwnerProducts} />
         <Admin isAuth exact path={STORE_OWNER_SALES_ROUTE} component={OwnerSales} />
         <Admin isAuth exact path={STORE_OWNER_LIVE_SALES_ROUTE} component={OwnerLiveSales} />
-        <Admin isAuth exact path={STORE_OWNER_EDIT_PRODUCT_ROUTE} component={EditProduct} />
+        <Admin
+          isAuth
+          exact
+          path={STORE_OWNER_EDIT_PRODUCT_ROUTE + '/:id'}
+          component={EditProduct}
+        />
         <Admin
           isAuth={false}
           exact

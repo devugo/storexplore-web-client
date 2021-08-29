@@ -1,21 +1,23 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { Formik } from 'formik';
-import { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import { EMPTY_STRING } from '../constants/EMPTY_STRING';
+import { ERROR_TIME } from '../constants/ERROR_TIME';
 import { FORM_MODE } from '../constants/FORM_MODE';
 import { ZERO } from '../constants/ZERO';
 import { renderServerError } from '../helpers/functions/renderServerError';
 import { showMessage } from '../helpers/functions/showMessage';
-// import { showMessage } from '../helpers/functions/showMessage';
 import { validateImage } from '../helpers/functions/validateImage';
-import { CREATE_PRODUCT } from '../store/actions/types';
+import { updateProductImage } from '../store/actions/product';
+import { CREATE_PRODUCT, UPDATE_PRODUCT, UPDATE_PRODUCT_IMAGE } from '../store/actions/types';
 import { ApiResponseType, ProductType, RootStateType } from '../types.d';
 import Button from './Button';
 import Input from './Input';
+import LoaderOverlay from './LoaderOverlay';
 import PhotoContainer from './PhotoContainer';
 
 const initialFormValues: ProductType = {
@@ -39,21 +41,43 @@ const validationSchema = Yup.object({
     .positive('Quantity must be a positive number'),
 });
 
-const ProductForm = ({ submit, mode }: { submit: (values: ProductType) => void; mode: string }) => {
+const ProductForm = ({
+  submit,
+  mode,
+  data,
+}: {
+  submit: (values: ProductType) => void;
+  mode: string;
+  data?: ProductType;
+}) => {
+  const dispatch = useDispatch();
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const [formikFormValues] = useState<ProductType>(initialFormValues);
+  const [formikFormValues, setFormikFormValues] = useState<ProductType>(initialFormValues);
   const [image, setImage] = useState<File>();
   const [logo, setLogo] = useState<string>(EMPTY_STRING);
 
   const { loader: loaders } = useSelector((state: RootStateType) => state);
 
   //  CREATE PRODUCT LOADERS
-  const createrogressData = loaders.find(
+  const createProgressData = loaders.find(
     (x) => x.type === CREATE_PRODUCT.IN_PROGRESS
   ) as ApiResponseType;
-  const createLoading = createrogressData ? true : false;
+  const createLoading = !!createProgressData;
   const createErrorData = loaders.find((x) => x.type === CREATE_PRODUCT.FAILURE) as ApiResponseType;
+
+  //  UPDATE PRODUCT LOADERS
+  const updateProgressData = loaders.find(
+    (x) => x.type === UPDATE_PRODUCT.IN_PROGRESS
+  ) as ApiResponseType;
+  const updateLoading = !!updateProgressData;
+  const updateErrorData = loaders.find((x) => x.type === UPDATE_PRODUCT.FAILURE) as ApiResponseType;
+
+  //  UPDATE PRODUCT IMAGE LOADERS
+  const updateImageProgressData = loaders.find(
+    (x) => x.type === UPDATE_PRODUCT_IMAGE.IN_PROGRESS
+  ) as ApiResponseType;
+  const updateImageLoading = !!updateImageProgressData;
 
   const changeImage = (e: any) => {
     const file = e.target.files[0];
@@ -63,6 +87,13 @@ const ProductForm = ({ submit, mode }: { submit: (values: ProductType) => void; 
       const blobURL = URL.createObjectURL(file);
       setLogo(blobURL);
       setImage(file);
+
+      // Upload file if in edit mode
+      if (mode === FORM_MODE.edit) {
+        const form = new FormData();
+        form.append('image', file);
+        dispatch(updateProductImage(form, data?.id as string));
+      }
     }
   };
 
@@ -71,7 +102,7 @@ const ProductForm = ({ submit, mode }: { submit: (values: ProductType) => void; 
     if (typeof image === 'object') {
       return true;
     }
-    showMessage('error', 'Please, upload a valid image', 4);
+    showMessage('error', 'Please, upload a valid image', ERROR_TIME);
     return false;
   };
 
@@ -79,8 +110,16 @@ const ProductForm = ({ submit, mode }: { submit: (values: ProductType) => void; 
     fileInput.current?.click();
   };
 
+  useEffect(() => {
+    if (data && mode === FORM_MODE.edit) {
+      setFormikFormValues(data);
+      setLogo(data.imagePath as string);
+    }
+  }, [data]);
+
   return (
     <div className="store-owner__sale-manager-content">
+      {updateImageLoading && <LoaderOverlay />}
       <PhotoContainer imgSrc={logo} action={toggleFileInput} />
       <input
         onChange={changeImage}
@@ -95,18 +134,22 @@ const ProductForm = ({ submit, mode }: { submit: (values: ProductType) => void; 
         initialValues={formikFormValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          if (validate()) {
-            submit({ ...values, imagePath: image });
+          if (mode === FORM_MODE.new) {
+            if (validate()) {
+              submit({ ...values, imagePath: image });
+            }
+          } else {
+            submit(values);
           }
         }}
       >
         {({ values, errors, touched, handleChange, handleSubmit, resetForm }) => (
           <form className="form-container" onSubmit={handleSubmit}>
-            {renderServerError(createErrorData).length > 0 && (
+            {renderServerError(createErrorData || updateErrorData).length > 0 && (
               <div className="server-message mb-2 mt-2">
                 <Alert
                   message="Error"
-                  description={renderServerError(createErrorData)}
+                  description={renderServerError(createErrorData || updateErrorData)}
                   type="error"
                   showIcon
                 />
@@ -203,7 +246,7 @@ const ProductForm = ({ submit, mode }: { submit: (values: ProductType) => void; 
                 </Button>
               ) : (
                 <Button disabled={createLoading} type="submit">
-                  Update {createLoading && <LoadingOutlined spin />}
+                  Update {updateLoading && <LoadingOutlined spin />}
                 </Button>
               )}
             </div>

@@ -33,7 +33,7 @@ const Login = () => {
   const loader = useSelector((state: RootStateType) => state.loader);
 
   const { progressData, successData, errorData } = getLoader(loader, SIGNIN_USER);
-  const loading = progressData ? true : false;
+  const loading = !!progressData;
 
   const signInWithEmailAndPasswordHandler = (values: SigninType) => {
     dispatch(signin(values));

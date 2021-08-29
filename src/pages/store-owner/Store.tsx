@@ -43,20 +43,20 @@ const Store = () => {
 
   //  GET_STORE LOADERS
   const progressData = loaders.find((x) => x.type === GET_MY_STORE.IN_PROGRESS) as ApiResponseType;
-  const getStoreLoading = progressData ? true : false;
+  const getStoreLoading = !!progressData;
 
   //  UPDATE_STORE LOADERS
   const updateProgressData = loaders.find(
     (x) => x.type === UPDATE_STORE.IN_PROGRESS
   ) as ApiResponseType;
-  const updateLoading = updateProgressData ? true : false;
+  const updateLoading = !!updateProgressData;
   const updateErrorData = loaders.find((x) => x.type === UPDATE_STORE.FAILURE) as ApiResponseType;
 
   //  UPDATE_STORE_LOGO LOADERS
   const updateLogoProgressData = loaders.find(
     (x) => x.type === UPDATE_STORE_LOGO.IN_PROGRESS
   ) as ApiResponseType;
-  const updateLogoLoading = updateLogoProgressData ? true : false;
+  const updateLogoLoading = !!updateLogoProgressData;
   const updateLogoErrorData = loaders.find(
     (x) => x.type === UPDATE_STORE_LOGO.FAILURE
   ) as ApiResponseType;

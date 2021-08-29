@@ -60,7 +60,7 @@ const SaleManagerForm = ({
   const createProgressData = loaders.find(
     (x) => x.type === CREATE_SALE_MANAGER.IN_PROGRESS
   ) as ApiResponseType;
-  const createLoading = createProgressData ? true : false;
+  const createLoading = !!createProgressData;
   const createErrorData = loaders.find(
     (x) => x.type === CREATE_SALE_MANAGER.FAILURE
   ) as ApiResponseType;

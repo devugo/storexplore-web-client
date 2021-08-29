@@ -40,7 +40,7 @@ const Register = () => {
 
   const loaders = useSelector((state: RootStateType) => state.loader);
   const progressData = loaders.find((x) => x.type === SIGNUP_USER.IN_PROGRESS) as ApiResponseType;
-  const loading = progressData ? true : false;
+  const loading = !!progressData;
   const errorData = loaders.find((x) => x.type === SIGNUP_USER.FAILURE) as ApiResponseType;
   const successData = loaders.find((x) => x.type === SIGNUP_USER.SUCCESS) as ApiResponseType;
 
