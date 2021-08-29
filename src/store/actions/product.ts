@@ -3,6 +3,7 @@ import { ProductType } from '../../types.d';
 import {
   ACTIVATE_PRODUCT,
   CREATE_PRODUCT,
+  DELETE_PRODUCT,
   READ_PRODUCTS,
   UPDATE_PRODUCT,
   UPDATE_PRODUCT_IMAGE,
@@ -50,5 +51,14 @@ export const readProducts = (params: string = EMPTY_STRING) => {
     type: READ_PRODUCTS,
     url,
     api: (apiClient: any) => apiClient.get(url),
+  };
+};
+
+export const deleteProduct = (id: string) => {
+  const url = `products/${id}`;
+  return {
+    type: DELETE_PRODUCT,
+    url,
+    api: (apiClient: any) => apiClient.delete(url),
   };
 };

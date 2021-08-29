@@ -3,11 +3,16 @@ import { useSelector } from 'react-redux';
 
 import { ERROR_TIME } from '../constants/ERROR_TIME';
 import { getLoader } from '../helpers/functions/getLoader';
-import { successCreation, successUpdate } from '../helpers/functions/responseChecker';
+import {
+  successCreation,
+  successDelete,
+  successUpdate,
+} from '../helpers/functions/responseChecker';
 import { showMessage } from '../helpers/functions/showMessage';
 import {
   CREATE_PRODUCT,
   CREATE_SALE_MANAGER,
+  DELETE_PRODUCT,
   UPDATE_PRODUCT,
   UPDATE_PRODUCT_IMAGE,
   UPDATE_STORE,
@@ -42,6 +47,10 @@ const SuccessMessages = () => {
   const { successData: updateProductImageSuccessData } = getLoader(loader, UPDATE_PRODUCT_IMAGE);
   const isProductImageUpdated = successUpdate(updateProductImageSuccessData);
 
+  // DELETE PRODUCT Loader
+  const { successData: deleteProductSuccessData } = getLoader(loader, DELETE_PRODUCT);
+  const isProductDeleted = successDelete(deleteProductSuccessData);
+
   useEffect(() => {
     if (isStoreUpdated) {
       showMessage('success', 'Store updated successfully', ERROR_TIME);
@@ -65,6 +74,10 @@ const SuccessMessages = () => {
 
     if (isProductImageUpdated) {
       showMessage('success', 'Product image updated successfully', ERROR_TIME);
+    }
+
+    if (isProductDeleted) {
+      showMessage('success', 'Product deleted successfully', ERROR_TIME);
     }
   }, [
     isStoreUpdated,

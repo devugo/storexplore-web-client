@@ -1,5 +1,6 @@
 // import { LoadingOutlined } from '@ant-design/icons';
-import { Pagination, Space, Table, Tag, Tooltip } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Modal, Pagination, Space, Table, Tag, Tooltip } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 import ContentLoader from '../../components/ContentLoader';
 import GoToButton from '../../components/GoToButton';
+import LoaderOverlay from '../../components/LoaderOverlay';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
@@ -16,9 +18,13 @@ import {
   STORE_OWNER_EDIT_PRODUCT_ROUTE,
   STORE_OWNER_VIEW_PRODUCT_ROUTE,
 } from '../../constants/ROUTE_NAME';
-import { readProducts } from '../../store/actions/product';
-import { READ_PRODUCTS } from '../../store/actions/types';
+import { STORAGE_VARIABLE } from '../../constants/STORAGE_VARIABLE';
+import { saveToStorage } from '../../helpers/functions/localStorage';
+import { deleteProduct, readProducts } from '../../store/actions/product';
+import { DELETE_PRODUCT, READ_PRODUCTS } from '../../store/actions/types';
 import { ApiResponseType, ProductType, RootStateType } from '../../types.d';
+
+const { confirm } = Modal;
 
 const columns = [
   {
@@ -78,7 +84,7 @@ const columns = [
     dataIndex: 'action',
     key: 'action',
     // eslint-disable-next-line react/display-name
-    render: (id: string) => (
+    render: ({ id, deleteFunc }: { id: string; deleteFunc: any }) => (
       <Space size="middle">
         <Tooltip title="View" color="cyan">
           <Link to={STORE_OWNER_VIEW_PRODUCT_ROUTE}>
@@ -91,7 +97,7 @@ const columns = [
           </Link>
         </Tooltip>
         <Tooltip title="Delete" color="red">
-          <a>
+          <a onClick={deleteFunc}>
             <RenderIcon title="mdi mdi-delete-sweep-outline" styles={{ color: 'red' }} />
           </a>
         </Tooltip>
@@ -107,14 +113,39 @@ const Products = () => {
   const [tableData, setTableData] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  //  CREATE SALE MANAGER LOADERS
+  //  READ PRODUCTS LOADERS
   const readProgressData = loaders.find(
     (x) => x.type === READ_PRODUCTS.IN_PROGRESS
   ) as ApiResponseType;
   const readLoading = !!readProgressData;
 
+  //  DELETE PRODUCT LOADERS
+  const deleteProgressData = loaders.find(
+    (x) => x.type === DELETE_PRODUCT.IN_PROGRESS
+  ) as ApiResponseType;
+  const deleteLoading = !!deleteProgressData;
+
   const goToPage = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const removeProduct = (id: string) => {
+    saveToStorage(STORAGE_VARIABLE.deleteID, id);
+    dispatch(deleteProduct(id));
+  };
+
+  const showDeleteConfirm = (id: string) => {
+    confirm({
+      title: 'Are you sure you want delete this product?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'This action is not reversible. Click Yes to continue',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        removeProduct(id);
+      },
+    });
   };
 
   const composeTableData = (data: ProductType[]) => {
@@ -128,7 +159,7 @@ const Products = () => {
         sellingPrice: x.sellingPrice,
         date: moment(x.createdAt).calendar()?.toString() as string,
         status: (x.active ? 'active' : 'blocked') as string,
-        action: x.id,
+        action: { id: x.id, deleteFunc: () => showDeleteConfirm(x.id!) },
       };
     });
   };
@@ -149,12 +180,9 @@ const Products = () => {
     }
   }, [products]);
 
-  // useEffect(() => {
-  //   getProducts();
-  // }, []);
-
   return (
     <PageWrapper pageTitle="Products">
+      {deleteLoading && <LoaderOverlay />}
       <div className="store-owner__products">
         <div className="devugo-card">
           <GoToButton goto={STORE_OWNER_ADD_PRODUCT_ROUTE} style={{ marginBottom: 20 }} />
@@ -169,7 +197,7 @@ const Products = () => {
             />
           )}
           {!readLoading && products.count > 0 && (
-            <div className="pagination">
+            <div className="pagination" onClick={() => showDeleteConfirm('fndkk')}>
               <Pagination
                 defaultPageSize={PAGINATION.itemsPerPage}
                 onChange={goToPage}
