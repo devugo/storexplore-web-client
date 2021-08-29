@@ -19,4 +19,5 @@ export const DEFAULT_STATE = {
     data: null,
   },
   saleManagers: entityState,
+  products: entityState,
 };

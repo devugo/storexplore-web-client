@@ -4,7 +4,12 @@ import { useSelector } from 'react-redux';
 import { getLoader } from '../helpers/functions/getLoader';
 import { successCreation, successUpdate } from '../helpers/functions/responseChecker';
 import { showMessage } from '../helpers/functions/showMessage';
-import { CREATE_SALE_MANAGER, UPDATE_STORE, UPDATE_STORE_LOGO } from '../store/actions/types';
+import {
+  CREATE_PRODUCT,
+  CREATE_SALE_MANAGER,
+  UPDATE_STORE,
+  UPDATE_STORE_LOGO,
+} from '../store/actions/types';
 import { RootStateType } from '../types.d';
 
 const SuccessMessages = () => {
@@ -22,6 +27,10 @@ const SuccessMessages = () => {
   const { successData: createSaleManagerSuccessData } = getLoader(loader, CREATE_SALE_MANAGER);
   const isSaleManagerCreated = successCreation(createSaleManagerSuccessData);
 
+  // CREATE SALE MANAGER Loader
+  const { successData: createProductSuccessData } = getLoader(loader, CREATE_PRODUCT);
+  const isProductCreated = successCreation(createProductSuccessData);
+
   useEffect(() => {
     if (isStoreUpdated) {
       showMessage('success', 'Store updated successfully', 4);
@@ -34,7 +43,11 @@ const SuccessMessages = () => {
     if (isSaleManagerCreated) {
       showMessage('success', 'Sale Manger created successfully', 4);
     }
-  }, [isStoreUpdated, isStoreLogoUpdated, isSaleManagerCreated]);
+
+    if (isProductCreated) {
+      showMessage('success', 'Product created successfully', 4);
+    }
+  }, [isStoreUpdated, isStoreLogoUpdated, isSaleManagerCreated, isProductCreated]);
   return <div></div>;
 };
 

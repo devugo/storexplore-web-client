@@ -13,6 +13,7 @@ import PhotoContainer from '../../components/PhotoContainer';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { renderServerError } from '../../helpers/functions/renderServerError';
 import { showMessage } from '../../helpers/functions/showMessage';
+import { validateImage } from '../../helpers/functions/validateImage';
 import { getMyStore, updateStore, updateStoreLogo } from '../../store/actions/store';
 import { GET_MY_STORE, UPDATE_STORE, UPDATE_STORE_LOGO } from '../../store/actions/types';
 import { ApiResponseType, RootStateType, StoreType } from '../../types.d';
@@ -36,7 +37,7 @@ const Store = () => {
   const fileInput = useRef<HTMLInputElement>(null);
 
   const [formikFormValues, setFormikFormValues] = useState<StoreType>(initialFormValues);
-  const [logo, setLogo] = useState<string>('');
+  const [logo, setLogo] = useState<string>(EMPTY_STRING);
 
   const { loader: loaders, store } = useSelector((state: RootStateType) => state);
 
@@ -66,13 +67,18 @@ const Store = () => {
 
   const changePhoto = (e: any) => {
     const file = e.target.files[0];
-    const fileType = file.type;
+    const isFileValid = validateImage(file);
 
-    const isFileValid = ['image/png', 'image/jpg', 'image/jpeg'].includes(fileType);
-    if (!isFileValid) {
-      return showMessage('error', 'Please, upload only image files', 4);
+    if (isFileValid) {
+      return updateLogo(file);
     }
-    return updateLogo(e.target.files[0]);
+    // const fileType = file.type;
+
+    // const isFileValid = ['image/png', 'image/jpg', 'image/jpeg'].includes(fileType);
+    // if (!isFileValid) {
+    //   return showMessage('error', 'Please, upload only image files', 4);
+    // }
+    // return updateLogo(file);
   };
 
   const update = (values: StoreType) => {
@@ -106,12 +112,12 @@ const Store = () => {
       const { address, defaultPassword, id, industry, logoPath, name } = store.data;
       setFormikFormValues({
         address,
-        defaultPassword: defaultPassword ?? '',
+        defaultPassword: defaultPassword ?? EMPTY_STRING,
         id,
-        industry: industry ?? '',
+        industry: industry ?? EMPTY_STRING,
         name,
       });
-      setLogo(logoPath ?? '');
+      setLogo(logoPath ?? EMPTY_STRING);
     }
   }, [store]);
 

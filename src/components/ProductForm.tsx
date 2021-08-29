@@ -1,9 +1,18 @@
+import { LoadingOutlined } from '@ant-design/icons';
+import { Alert } from 'antd';
 import { Formik } from 'formik';
 import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import { EMPTY_STRING } from '../constants/EMPTY_STRING';
-import { ProductType } from '../types.d';
+import { ZERO } from '../constants/ZERO';
+import { renderServerError } from '../helpers/functions/renderServerError';
+import { showMessage } from '../helpers/functions/showMessage';
+// import { showMessage } from '../helpers/functions/showMessage';
+import { validateImage } from '../helpers/functions/validateImage';
+import { CREATE_PRODUCT } from '../store/actions/types';
+import { ApiResponseType, ProductType, RootStateType } from '../types.d';
 import Button from './Button';
 import Input from './Input';
 import PhotoContainer from './PhotoContainer';
@@ -11,31 +20,65 @@ import PhotoContainer from './PhotoContainer';
 const initialFormValues: ProductType = {
   name: EMPTY_STRING,
   description: EMPTY_STRING,
-  costPrice: 0,
-  sellingPrice: 0,
-  quantity: 0,
+  costPrice: ZERO,
+  sellingPrice: ZERO,
+  quantity: ZERO,
 };
 
 const validationSchema = Yup.object({
-  firstname: Yup.string().required('First Name is required'),
-  lastname: Yup.string().required('Last Name is required'),
-  address: Yup.string().required('Address is required'),
-  dob: Yup.date().required('Address is required'),
-  email: Yup.string().required('Email is required'),
-  gender: Yup.string().required('Gender is required'),
-  password: Yup.string().required('Password is required'),
+  name: Yup.string().required('Name of product is required'),
+  costPrice: Yup.number()
+    .required('Cost price is required')
+    .positive('Cost price must be a positive number'),
+  sellingPrice: Yup.number()
+    .required('Selling price is required')
+    .positive('Selling price must be a positive number'),
+  quantity: Yup.number()
+    .required('Quantity is required')
+    .positive('Quantity must be a positive number'),
 });
 
 const ProductForm = ({
-  changeImage,
   submit,
+  mode,
 }: {
-  changeImage: any;
   submit: (values: ProductType) => void;
+  mode?: string;
 }) => {
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const [formikFormValues] = useState(initialFormValues);
+  const [formikFormValues] = useState<ProductType>(initialFormValues);
+  const [image, setImage] = useState<File>();
+  const [logo, setLogo] = useState<string>(EMPTY_STRING);
+
+  const { loader: loaders } = useSelector((state: RootStateType) => state);
+
+  //  CREATE PRODUCT LOADERS
+  const createrogressData = loaders.find(
+    (x) => x.type === CREATE_PRODUCT.IN_PROGRESS
+  ) as ApiResponseType;
+  const createLoading = createrogressData ? true : false;
+  const createErrorData = loaders.find((x) => x.type === CREATE_PRODUCT.FAILURE) as ApiResponseType;
+
+  const changeImage = (e: any) => {
+    const file = e.target.files[0];
+    const isFileValid = validateImage(file);
+
+    if (isFileValid) {
+      const blobURL = URL.createObjectURL(file);
+      setLogo(blobURL);
+      setImage(file);
+    }
+  };
+
+  //  Extra validation for image file
+  const validate = () => {
+    if (typeof image === 'object') {
+      return true;
+    }
+    showMessage('error', 'Please, upload a valid image', 4);
+    return false;
+  };
 
   const toggleFileInput = () => {
     fileInput.current?.click();
@@ -43,7 +86,7 @@ const ProductForm = ({
 
   return (
     <div className="store-owner__sale-manager-content">
-      <PhotoContainer imgSrc="https://logo.png" action={toggleFileInput} />
+      <PhotoContainer imgSrc={logo} action={toggleFileInput} />
       <input
         onChange={changeImage}
         ref={fileInput}
@@ -57,21 +100,23 @@ const ProductForm = ({
         initialValues={formikFormValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          submit(values);
+          if (validate()) {
+            submit({ ...values, image });
+          }
         }}
       >
         {({ values, errors, touched, handleChange, handleSubmit, resetForm }) => (
-          <form className="form-container">
-            {/* {renderServerError(errorData || deleteErrorData).length > 0 && (
-                    <div className="server-message mb-2 mt-2">
-                      <Alert
-                        message="Error"
-                        description={renderServerError(errorData || deleteErrorData)}
-                        type="error"
-                        showIcon
-                      />
-                    </div>
-                  )} */}
+          <form className="form-container" onSubmit={handleSubmit}>
+            {renderServerError(createErrorData).length > 0 && (
+              <div className="server-message mb-2 mt-2">
+                <Alert
+                  message="Error"
+                  description={renderServerError(createErrorData)}
+                  type="error"
+                  showIcon
+                />
+              </div>
+            )}
             <div className="form-group">
               <div className="input-container">
                 <label>
@@ -126,7 +171,7 @@ const ProductForm = ({
                 </label>
                 <Input
                   type="number"
-                  name="dob"
+                  name="sellingPrice"
                   placeholder="Minimum selling price"
                   onChange={handleChange}
                   id="sellingPrice"
@@ -157,7 +202,7 @@ const ProductForm = ({
               </div>
             </div>
             <div className="button-container">
-              <Button type="submit">Add</Button>
+              <Button type="submit">Add {createLoading && <LoadingOutlined spin />}</Button>
             </div>
           </form>
         )}

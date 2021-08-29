@@ -50,7 +50,7 @@ export type SaleManagerType = {
 };
 
 export type ProductType = {
-  image?: string;
+  image?: string | File;
   name: string;
   description?: string;
   costPrice: number;

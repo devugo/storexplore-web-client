@@ -1,9 +1,12 @@
 import { Space, Table, Tag } from 'antd';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import GoToButton from '../../components/GoToButton';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
 import { STORE_OWNER_ADD_SALE_MANAGER_ROUTE } from '../../constants/ROUTE_NAMES';
+import { readSaleManagers } from '../../store/actions/sale-manager';
 
 const columns = [
   {
@@ -102,6 +105,16 @@ const data = [
 ];
 
 const SaleManagers = () => {
+  const dispatch = useDispatch();
+
+  const getSaleManagers = () => {
+    dispatch(readSaleManagers());
+  };
+
+  useEffect(() => {
+    getSaleManagers();
+  }, []);
+
   return (
     <PageWrapper pageTitle="Sale Managers">
       <div className="store-owner__sale-maangers">

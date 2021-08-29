@@ -31,6 +31,7 @@ const AddSaleManager = () => {
             defaultPassword={store.data && store.data.defaultPassword}
             hidePhoto
             submit={submit}
+            mode="new"
           />
         </div>
       </div>

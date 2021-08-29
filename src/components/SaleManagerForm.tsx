@@ -40,17 +40,19 @@ const SaleManagerForm = ({
   submit,
   hidePhoto,
   defaultPassword,
+  mode,
 }: {
   changeImage?: any;
   submit: (values: SaleManagerType) => void;
   hidePhoto?: boolean;
   defaultPassword?: string;
+  mode?: string;
 }) => {
   const fileInput = useRef<HTMLInputElement>(null);
 
   const [formikFormValues] = useState<SaleManagerType>({
     ...initialFormValues,
-    password: defaultPassword ?? '',
+    password: defaultPassword ?? EMPTY_STRING,
   });
   const { loader: loaders } = useSelector((state: RootStateType) => state);
 
@@ -66,6 +68,13 @@ const SaleManagerForm = ({
   const toggleFileInput = () => {
     fileInput.current?.click();
   };
+
+  // useEffect(() => {
+  //   if (!createLoading) {
+  //     console.log('Clearing form data...');
+  //     setFormikFormValues({ ...initialFormValues, password: defaultPassword });
+  //   }
+  // }, [createLoading]);
 
   return (
     <div className="store-owner__sale-manager-content">
