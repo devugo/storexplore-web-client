@@ -197,7 +197,7 @@ const Products = () => {
             />
           )}
           {!readLoading && products.count > 0 && (
-            <div className="pagination" onClick={() => showDeleteConfirm('fndkk')}>
+            <div className="pagination">
               <Pagination
                 defaultPageSize={PAGINATION.itemsPerPage}
                 onChange={goToPage}
