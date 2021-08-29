@@ -1,3 +1,4 @@
+import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { ProductType } from '../../types.d';
 import {
   ACTIVATE_PRODUCT,
@@ -43,8 +44,8 @@ export const updateProductImage = (formData: FormData, id: string) => {
   };
 };
 
-export const readProducts = () => {
-  const url = 'products';
+export const readProducts = (params: string = EMPTY_STRING) => {
+  const url = `products${params}`;
   return {
     type: READ_PRODUCTS,
     url,

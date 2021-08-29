@@ -18,7 +18,12 @@ const productReducer = (state = initialState, action: ApiResponseType): EntitySt
   switch (type) {
     case READ_PRODUCTS.SUCCESS: {
       const responseData = response.data;
-      return { ...currentState, data: [...responseData], loaded: true };
+      return {
+        ...currentState,
+        data: [...responseData.products],
+        count: responseData.count,
+        loaded: true,
+      };
     }
     case CREATE_PRODUCT.SUCCESS: {
       const responseData = response.data;

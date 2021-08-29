@@ -1,3 +1,3 @@
 export const PAGINATION = {
-  itemsPerPage: 20,
+  itemsPerPage: 5,
 };

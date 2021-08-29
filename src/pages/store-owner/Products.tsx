@@ -1,5 +1,5 @@
 // import { LoadingOutlined } from '@ant-design/icons';
-import { Space, Table, Tag, Tooltip } from 'antd';
+import { Pagination, Space, Table, Tag, Tooltip } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,8 @@ import ContentLoader from '../../components/ContentLoader';
 import GoToButton from '../../components/GoToButton';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
+import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
+import { PAGINATION } from '../../constants/PAGINATION';
 import {
   STORE_OWNER_ADD_PRODUCT_ROUTE,
   STORE_OWNER_EDIT_PRODUCT_ROUTE,
@@ -98,19 +100,22 @@ const columns = [
   },
 ];
 
-console.log({ STORE_OWNER_EDIT_PRODUCT_ROUTE });
-
 const Products = () => {
   const dispatch = useDispatch();
   const { products, loader: loaders } = useSelector((state: RootStateType) => state);
 
   const [tableData, setTableData] = useState<any[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   //  CREATE SALE MANAGER LOADERS
   const readProgressData = loaders.find(
     (x) => x.type === READ_PRODUCTS.IN_PROGRESS
   ) as ApiResponseType;
   const readLoading = !!readProgressData;
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const composeTableData = (data: ProductType[]) => {
     return data.map((x: ProductType) => {
@@ -128,9 +133,14 @@ const Products = () => {
     });
   };
 
-  const getProducts = () => {
-    dispatch(readProducts());
+  const getProducts = (params: string = EMPTY_STRING) => {
+    dispatch(readProducts(params));
   };
+
+  useEffect(() => {
+    const pageParams = `?page=${currentPage}`;
+    getProducts(pageParams);
+  }, [currentPage]);
 
   useEffect(() => {
     if (products.loaded) {
@@ -139,9 +149,9 @@ const Products = () => {
     }
   }, [products]);
 
-  useEffect(() => {
-    getProducts();
-  }, []);
+  // useEffect(() => {
+  //   getProducts();
+  // }, []);
 
   return (
     <PageWrapper pageTitle="Products">
@@ -157,6 +167,16 @@ const Products = () => {
               pagination={false}
               scroll={{ x: 400 }}
             />
+          )}
+          {!readLoading && products.count > 0 && (
+            <div className="pagination">
+              <Pagination
+                defaultPageSize={PAGINATION.itemsPerPage}
+                onChange={goToPage}
+                current={currentPage}
+                total={products.count}
+              />
+            </div>
           )}
         </div>
       </div>
