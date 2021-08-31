@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { io } from 'socket.io-client';
 
 import SuccessMessages from './components/SuccessMessages';
 import {
@@ -54,8 +55,19 @@ import OwnerSales from './pages/store-owner/Sales';
 import Store from './pages/store-owner/Store';
 import OwnerViewProduct from './pages/store-owner/ViewProduct';
 import OwnerViewSaleManager from './pages/store-owner/ViewSaleManager';
+const socket = io('http://localhost:4000');
 
 const TestComponent = () => {
+  socket.on('connect', function () {
+    console.log('Client connected ' + 'Ugo');
+    socket.emit('addUser', 'Ugo');
+    socket.emit('chat message', {
+      from: 'ADMIN',
+      to: 'SALE MANAGER',
+      message: 'Testing socket...',
+    });
+  });
+
   return <div>Devugo Component</div>;
 };
 
