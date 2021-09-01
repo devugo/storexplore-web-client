@@ -8,6 +8,7 @@ type ActionObject = {
   type: ActionType;
   api: (client: any) => {};
   url: string;
+  data?: any;
 };
 
 const apiMiddleware = (store: any) => (next: any) => async (action: ActionObject) => {
@@ -17,8 +18,10 @@ const apiMiddleware = (store: any) => (next: any) => async (action: ActionObject
     baseURL: 'http://localhost:4000/',
     headers: { Authorization: `Bearer ${GET_TOKEN}` },
   });
-  const { api, type, url } = action;
-  if (!url) {
+  const { api, type, url, data } = action;
+  if (data) {
+    next({ type: type.SUCCESS, response: data });
+  } else if (!url) {
     next({ type: type.SUCCESS, response: null });
   } else {
     next({ type: type.IN_PROGRESS, response: null });

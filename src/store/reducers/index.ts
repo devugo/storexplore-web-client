@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import authReducer from './auth';
+import chatReducer from './chat';
 import loaderReducer from './loader';
 import productReducer from './product';
 import saleManagerReducer from './sale-manager';
@@ -12,4 +13,5 @@ export const reducer = combineReducers({
   store: storeReducer,
   saleManagers: saleManagerReducer,
   products: productReducer,
+  chats: chatReducer,
 });

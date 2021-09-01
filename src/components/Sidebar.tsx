@@ -23,8 +23,6 @@ const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
   const { auth } = useSelector((state: RootStateType) => state);
   const userRole = auth.role;
 
-  // console.log({ userRole: userRole === ROLE.SALE_MANAGER });
-
   return (
     <div className={`sidebar${openSidebar ? ' open' : ''}`}>
       <div className="sidebar-content">

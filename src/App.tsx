@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { io } from 'socket.io-client';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import SuccessMessages from './components/SuccessMessages';
 import {
@@ -55,21 +54,6 @@ import OwnerSales from './pages/store-owner/Sales';
 import Store from './pages/store-owner/Store';
 import OwnerViewProduct from './pages/store-owner/ViewProduct';
 import OwnerViewSaleManager from './pages/store-owner/ViewSaleManager';
-const socket = io('http://localhost:4000');
-
-const TestComponent = () => {
-  socket.on('connect', function () {
-    console.log('Client connected ' + 'Ugo');
-    socket.emit('addUser', 'Ugo');
-    socket.emit('chat message', {
-      from: 'ADMIN',
-      to: 'SALE MANAGER',
-      message: 'Testing socket...',
-    });
-  });
-
-  return <div>Devugo Component</div>;
-};
 
 const App = () => {
   return (
@@ -78,8 +62,6 @@ const App = () => {
       <Switch>
         <Auth isAuth={false} exact path={LOGIN_ROUTE} component={Login} />
         <Auth isAuth={false} exact path={REGISTER_ROUTE} component={Register} />
-
-        <Route path="/devugo-test" component={TestComponent} />
 
         {/* Store Ownere routes */}
         <Admin exact path={STORE_OWNER_DASHBOARD_ROUTE} component={OwnerDashboard} />

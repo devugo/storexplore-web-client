@@ -27,6 +27,13 @@ export type AuthType = {
   role: RoleType | string;
   loggedIn: boolean;
   id: string;
+  saleManager?: SaleManagerType;
+};
+
+export type UserType = {
+  id: string;
+  email: string;
+  role: RoleType | string;
 };
 
 export type StoreType = {
@@ -36,6 +43,7 @@ export type StoreType = {
   defaultPassword: string;
   logoPath?: string;
   id?: string;
+  user?: UserType;
 };
 
 export type SaleManagerType = {
@@ -48,6 +56,7 @@ export type SaleManagerType = {
   email: string;
   password?: string;
   gender: GenderType | string;
+  store?: StoreType;
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -72,9 +81,18 @@ export type SaleType = {
   date?: Date;
 };
 
+export type ChatType = {
+  id?: string;
+  from: string;
+  to: string;
+  message: string;
+};
+
 export type RootStateType = {
   loader: ApiResponseType[];
   auth: AuthType;
   store: { data: StoreType };
   products: { data: ProductType[]; loaded: boolean; count: number };
+  saleManagers: { data: SaleManagerType[]; loaded: boolean; count: number };
+  chats: { data: ChatType[]; loaded: boolean; count: number };
 };

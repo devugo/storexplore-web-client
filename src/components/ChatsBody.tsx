@@ -1,56 +1,45 @@
+import { Fragment, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+
+import { ChatType, RootStateType } from '../types.d';
 import ChatForm from './ChatForm';
 import ChatMessage from './ChatMessage';
 
-const ChatsBody = () => {
+const ChatsBody = ({
+  chats,
+  sendMessage,
+}: {
+  chats: ChatType[];
+  sendMessage?: (message: string) => void;
+}) => {
+  const messagesEndRef = useRef(null);
+  const { auth } = useSelector((state: RootStateType) => state);
+
+  const scrollToBottom = () => {
+    if (messagesEndRef) {
+      (messagesEndRef.current! as HTMLElement).scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chats]);
+
   return (
     <div className="chats-body">
       <div className="chat-messages">
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage
-          position="left"
-          message="Hello Boss! dnkfnd fkdngk dgfnng fkng fgkf gk fkgnkfnkgfgkfngkfn kbfjd jd f djfdj fdkfkd fdknfkd kf d fdkfkdnfd fd fkdnfkd fkd fkdf dkf dk fkd fdk fkdnfkd fdkfkdfnkdfd fkd fkdnkf d gfkngkflg fkg klflg fgkfngkflgfkl gkf gfkgkf gkfk gkfn kl dknkf dkf dk fd fkd fkd kf df kd fk dfkd gkdn;lankfs fselfoenfk dfdnflkdnfenf dsnkkdg dk m"
-        />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="left" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
-        <ChatMessage position="right" message="Hello Boss!" />
+        {chats.map((chat, index) => {
+          const { from, message } = chat;
+          return (
+            <Fragment key={index}>
+              <ChatMessage position={from === auth.id ? 'right' : 'left'} message={message} />
+            </Fragment>
+          );
+        })}
+        <div ref={messagesEndRef} />
       </div>
       <div className="input-container">
-        <ChatForm />
+        <ChatForm sendMessage={sendMessage} />
       </div>
     </div>
   );

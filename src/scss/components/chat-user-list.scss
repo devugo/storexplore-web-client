@@ -1,5 +1,6 @@
 .chat-user-list {
   position: relative;
+  z-index: 2;
 
   &__toggler {
     width: 40px;
