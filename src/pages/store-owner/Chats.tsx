@@ -4,11 +4,14 @@ import { io } from 'socket.io-client';
 
 import ChatsBody from '../../components/ChatsBody';
 import ChatUserList from '../../components/ChatUserList';
+import ContentLoader from '../../components/ContentLoader';
 import PageWrapper from '../../components/PageWrapper';
-import { addChat } from '../../store/actions/chat';
+import { SERVER_BASE_URL } from '../../constants';
+import { readChats } from '../../store/actions/chat';
 import { readSaleManagers } from '../../store/actions/sale-manager';
-import { RootStateType } from '../../types.d';
-const socket = io('http://localhost:4000');
+import { READ_CHATS } from '../../store/actions/types';
+import { ApiResponseType, RootStateType } from '../../types.d';
+const socket = io(SERVER_BASE_URL);
 
 const Chats = () => {
   const dispatch = useDispatch();
@@ -16,8 +19,15 @@ const Chats = () => {
     saleManagers,
     auth,
     chats: { data: chats },
+    loader: loaders,
   } = useSelector((state: RootStateType) => state);
   const [saleManagerTo, setSaleManagerTo] = useState<any>();
+
+  //  READ CHATS LOADERS
+  const readProgressData = loaders.find(
+    (x) => x.type === READ_CHATS.IN_PROGRESS
+  ) as ApiResponseType;
+  const readLoading = !!readProgressData;
 
   const sendMessage = (message: string) => {
     if (message) {
@@ -38,12 +48,10 @@ const Chats = () => {
   }, []);
 
   useEffect(() => {
-    socket.on('chat message', (msgObj) => {
-      if (msgObj.from === auth.id || msgObj.to === auth.id) {
-        dispatch(addChat(msgObj));
-      }
-    });
-  }, []);
+    if (saleManagerTo) {
+      dispatch(readChats(`?other=${saleManagerTo.user.id}`));
+    }
+  }, [saleManagerTo]);
 
   return (
     <PageWrapper pageTitle="Chats">
@@ -63,7 +71,11 @@ const Chats = () => {
             </div>
             <ChatUserList saleManagers={saleManagers.data} setSaleManagerTo={setSaleManagerTo} />
           </div>
-          {saleManagerTo && <ChatsBody chats={chats} sendMessage={sendMessage} />}
+          {readLoading ? (
+            <ContentLoader />
+          ) : saleManagerTo ? (
+            <ChatsBody chats={chats} sendMessage={sendMessage} />
+          ) : null}
         </div>
       </div>
     </PageWrapper>

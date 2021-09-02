@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 
 import ChatsBody from '../../components/ChatsBody';
-import ChatUserList from '../../components/ChatUserList';
+import ContentLoader from '../../components/ContentLoader';
 import PageWrapper from '../../components/PageWrapper';
 import { SERVER_BASE_URL } from '../../constants';
-import { addChat } from '../../store/actions/chat';
-import { RootStateType } from '../../types.d';
+import { readChats } from '../../store/actions/chat';
+import { READ_CHATS } from '../../store/actions/types';
+import { ApiResponseType, RootStateType } from '../../types.d';
 const socket = io(SERVER_BASE_URL);
 
 const Chats = () => {
@@ -15,8 +16,16 @@ const Chats = () => {
   const {
     auth,
     chats: { data: chats },
+    loader: loaders,
   } = useSelector((state: RootStateType) => state);
   const storeuser = auth.saleManager?.store?.user;
+  const store = auth.saleManager?.store;
+
+  //  READ CHATS LOADERS
+  const readProgressData = loaders.find(
+    (x) => x.type === READ_CHATS.IN_PROGRESS
+  ) as ApiResponseType;
+  const readLoading = !!readProgressData;
 
   const sendMessage = (message: string) => {
     if (message) {
@@ -29,11 +38,7 @@ const Chats = () => {
   };
 
   useEffect(() => {
-    socket.on('chat message', (msgObj) => {
-      if (msgObj.from === auth.id || msgObj.to === auth.id) {
-        dispatch(addChat(msgObj));
-      }
-    });
+    dispatch(readChats(`?other=${storeuser?.id}`));
   }, []);
 
   return (
@@ -43,16 +48,15 @@ const Chats = () => {
           <div className="store-owner__chats-title">
             <div className="profile" style={{ display: 'flex' }}>
               <img
-                src="https://devugo.com/index.png"
+                src={store?.logoPath}
                 width="30"
                 height="30"
                 style={{ borderRadius: '50%', marginRight: 5 }}
               />
-              <h3>MIKE UGO</h3>
+              <h3>ADMIN</h3>
             </div>
-            <ChatUserList />
           </div>
-          <ChatsBody chats={chats} sendMessage={sendMessage} />
+          {readLoading ? <ContentLoader /> : <ChatsBody chats={chats} sendMessage={sendMessage} />}
         </div>
       </div>
     </PageWrapper>
