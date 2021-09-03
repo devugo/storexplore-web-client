@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import { EMPTY_STRING } from '../constants/EMPTY_STRING';
-import { ERROR_TIME } from '../constants/ERROR_TIME';
 import { FORM_MODE } from '../constants/FORM_MODE';
+import { MESSAGE_TIME } from '../constants/MESSAGE_TIME';
 import { ZERO } from '../constants/ZERO';
 import { renderServerError } from '../helpers/functions/renderServerError';
 import { showMessage } from '../helpers/functions/showMessage';
@@ -102,7 +102,7 @@ const ProductForm = ({
     if (typeof image === 'object') {
       return true;
     }
-    showMessage('error', 'Please, upload a valid image', ERROR_TIME);
+    showMessage('error', 'Please, upload a valid image', MESSAGE_TIME);
     return false;
   };
 

@@ -28,4 +28,5 @@ export const DEFAULT_STATE = {
   saleManagers: entityState,
   products: entityState,
   chats: entityState,
+  sales: entityState,
 };

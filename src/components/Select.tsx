@@ -9,8 +9,10 @@ const SelectInput = (props: any) => {
     <div className="select">
       <select className="devugo-input" {...props}>
         <option value="">{placeholder}</option>
-        {props.options.map((option: string, index: number) => (
-          <option key={index}>{option}</option>
+        {props.options.map((option: any, index: number) => (
+          <option value={option.value} key={index}>
+            {option.name}
+          </option>
         ))}
       </select>
       <div className="icon">

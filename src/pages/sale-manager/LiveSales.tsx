@@ -1,6 +1,13 @@
 import { Table, Tag } from 'antd';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import GoToButton from '../../components/GoToButton';
 import PageWrapper from '../../components/PageWrapper';
+import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
+import { SALE_MANAGER_ADD_SALE_ROUTE } from '../../constants/ROUTE_NAME';
+import { readSales } from '../../store/actions/sale';
+import { RootStateType } from '../../types.d';
 
 const columns = [
   {
@@ -88,10 +95,24 @@ const data = [
 ];
 
 const LiveSales = () => {
+  const dispatch = useDispatch();
+  const { sales } = useSelector((state: RootStateType) => state);
+  console.log({ sales });
+
+  const getLiveSales = (params: string = EMPTY_STRING) => {
+    dispatch(readSales(params));
+  };
+
+  useEffect(() => {
+    const pageParams = `?date=${new Date()}`;
+    getLiveSales(pageParams);
+  }, []);
+
   return (
     <PageWrapper pageTitle="Live Sales">
       <div className="sale-manager__live-sales">
         <div className="devugo-card">
+          <GoToButton goto={SALE_MANAGER_ADD_SALE_ROUTE} style={{ marginBottom: 20 }} />
           <Table columns={columns} dataSource={data} pagination={false} scroll={{ x: 400 }} />
         </div>
       </div>

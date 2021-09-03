@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { ERROR_TIME } from '../constants/ERROR_TIME';
+import { MESSAGE_TIME } from '../constants/MESSAGE_TIME';
 import { getLoader } from '../helpers/functions/getLoader';
 import {
   successCreation,
@@ -53,31 +53,31 @@ const SuccessMessages = () => {
 
   useEffect(() => {
     if (isStoreUpdated) {
-      showMessage('success', 'Store updated successfully', ERROR_TIME);
+      showMessage('success', 'Store updated successfully', MESSAGE_TIME);
     }
 
     if (isStoreLogoUpdated) {
-      showMessage('success', 'Logo uploaded successfully', ERROR_TIME);
+      showMessage('success', 'Logo uploaded successfully', MESSAGE_TIME);
     }
 
     if (isSaleManagerCreated) {
-      showMessage('success', 'Sale Manger created successfully', ERROR_TIME);
+      showMessage('success', 'Sale Manger created successfully', MESSAGE_TIME);
     }
 
     if (isProductCreated) {
-      showMessage('success', 'Product created successfully', ERROR_TIME);
+      showMessage('success', 'Product created successfully', MESSAGE_TIME);
     }
 
     if (isProductUpdated) {
-      showMessage('success', 'Product updated successfully', ERROR_TIME);
+      showMessage('success', 'Product updated successfully', MESSAGE_TIME);
     }
 
     if (isProductImageUpdated) {
-      showMessage('success', 'Product image updated successfully', ERROR_TIME);
+      showMessage('success', 'Product image updated successfully', MESSAGE_TIME);
     }
 
     if (isProductDeleted) {
-      showMessage('success', 'Product deleted successfully', ERROR_TIME);
+      showMessage('success', 'Product deleted successfully', MESSAGE_TIME);
     }
   }, [
     isStoreUpdated,
