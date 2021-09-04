@@ -55,15 +55,6 @@ const columns = [
     title: 'Total Amount (₦)',
     key: 'totalAmount',
     dataIndex: 'totalAmount',
-    // eslint-disable-next-line react/display-name
-    // render: (status: string) => {
-    //   const color = status === 'blocked' ? 'volcano' : 'green';
-    //   return (
-    //     <Tag color={color} key={status}>
-    //       {status.toUpperCase()}
-    //     </Tag>
-    //   );
-    // },
   },
   {
     title: 'Date Sold',

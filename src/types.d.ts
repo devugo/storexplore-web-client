@@ -57,6 +57,7 @@ export type SaleManagerType = {
   password?: string;
   gender: GenderType | string;
   store?: StoreType;
+  user?: UserType;
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -78,6 +79,7 @@ export type SaleType = {
   soldAt: number;
   quantity: number;
   product?: string | ProductType;
+  saleManager?: SaleManagerType;
   date?: Date;
   createdAt?: Date;
   id?: string;
