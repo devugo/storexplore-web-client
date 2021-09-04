@@ -1,11 +1,11 @@
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
-import { SaleType } from '../../types.d';
-import { ADD_SALE, DELETE_SALE, READ_SALES } from './types';
+import { ActionType, SaleType } from '../../types.d';
+import { ADD_SALE, DELETE_SALE } from './types';
 
-export const readSales = (params: string = EMPTY_STRING) => {
+export const readSales = (params: string = EMPTY_STRING, type: ActionType) => {
   const url = `sales${params}`;
   return {
-    type: READ_SALES,
+    type,
     url,
     api: (apiClient: any) => apiClient.get(url),
   };

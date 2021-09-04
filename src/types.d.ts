@@ -77,8 +77,10 @@ export type ProductType = {
 export type SaleType = {
   soldAt: number;
   quantity: number;
-  productId?: string;
+  product?: string | ProductType;
   date?: Date;
+  createdAt?: Date;
+  id?: string;
 };
 
 export type ChatType = {
@@ -95,5 +97,5 @@ export type RootStateType = {
   products: { data: ProductType[]; loaded: boolean; count: number };
   saleManagers: { data: SaleManagerType[]; loaded: boolean; count: number };
   chats: { data: ChatType[]; loaded: boolean; count: number };
-  sales: { data: SaleType[]; loaded: boolean; count: number };
+  sales: { data: SaleType[]; liveData: SaleType[]; loaded: boolean; count: number };
 };

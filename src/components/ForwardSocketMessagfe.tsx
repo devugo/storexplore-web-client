@@ -6,7 +6,7 @@ import { SERVER_BASE_URL } from '../constants';
 import { MESSAGE_TIME } from '../constants/MESSAGE_TIME';
 import { showMessage } from '../helpers/functions/showMessage';
 import { addChat } from '../store/actions/chat';
-import { addSale } from '../store/actions/sale';
+import { addSale, deleteSale } from '../store/actions/sale';
 import { RootStateType } from '../types.d';
 const socket = io(SERVER_BASE_URL);
 
@@ -26,6 +26,17 @@ const ForwardSocketMessage = () => {
         if (msgObj.sale) {
           dispatch(addSale(msgObj.sale));
           showMessage('success', 'Sale added', MESSAGE_TIME);
+        } else {
+          showMessage('error', msgObj.error, MESSAGE_TIME);
+        }
+      }
+    });
+
+    socket.on('delete sale', (msgObj) => {
+      if (msgObj.from === auth.saleManager?.id) {
+        if (msgObj.id) {
+          dispatch(deleteSale(msgObj));
+          showMessage('success', 'Sale deleted', MESSAGE_TIME);
         } else {
           showMessage('error', msgObj.error, MESSAGE_TIME);
         }

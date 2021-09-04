@@ -61,7 +61,7 @@ const SaleForm = ({ submit }: { submit: (values: SaleType) => void }) => {
         onSubmit={(values) => {
           submit({
             ...values,
-            productId: formData.product,
+            product: formData.product,
           });
         }}
       >

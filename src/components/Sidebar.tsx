@@ -54,7 +54,7 @@ const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
                   }
                 >
                   <RenderIcon title="mdi mdi-credit-card-wireless" />
-                  <span>Live Sales</span>
+                  <span>{userRole === ROLE.SALE_MANAGER ? 'Today Sales' : 'Live Sales'}</span>
                 </Link>
               </li>
               <li>

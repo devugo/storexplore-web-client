@@ -30,5 +30,5 @@ export const SALE_MANAGER_CHATS_ROUTE = `${saleManager}/chats`;
 export const SALE_MANAGER_PRODUCTS_ROUTE = `${saleManager}/products`;
 export const SALE_MANAGER_VIEW_PRODUCT_ROUTE = `${saleManager}/view-product`;
 export const SALE_MANAGER_SALES_ROUTE = `${saleManager}/sales`;
-export const SALE_MANAGER_LIVE_SALES_ROUTE = `${saleManager}/live-sales`;
+export const SALE_MANAGER_LIVE_SALES_ROUTE = `${saleManager}/today-sales`;
 export const SALE_MANAGER_ADD_SALE_ROUTE = `${saleManager}/add-sale`;

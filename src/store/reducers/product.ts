@@ -58,7 +58,7 @@ const productReducer = (state = initialState, action: ApiResponseType): EntitySt
     }
     case ADD_SALE.SUCCESS: {
       const prevData = currentState.data;
-      const findIndex = prevData.findIndex((x) => x.id === response.productId);
+      const findIndex = prevData.findIndex((x) => x.id === response.product);
 
       if (findIndex > MINUS_ONE) {
         const newData = prevData[findIndex];
