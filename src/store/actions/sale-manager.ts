@@ -1,3 +1,4 @@
+import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { SaleManagerType } from '../../types.d';
 import { CREATE_SALE_MANAGER, READ_SALE_MANAGERS, UPDATE_STATUS_SALE_MANAGER } from './types';
 
@@ -10,8 +11,8 @@ export const createSaleManager = (formData: SaleManagerType) => {
   };
 };
 
-export const readSaleManagers = () => {
-  const url = 'sale-managers';
+export const readSaleManagers = (params: string = EMPTY_STRING) => {
+  const url = `sale-managers${params}`;
   return {
     type: READ_SALE_MANAGERS,
     url,

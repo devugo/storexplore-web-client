@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Modal, Space, Table, Tag, Tooltip } from 'antd';
+import { Modal, Pagination, Space, Table, Tag, Tooltip } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,8 @@ import GoToButton from '../../components/GoToButton';
 import LoaderOverlay from '../../components/LoaderOverlay';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
+import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
+import { PAGINATION } from '../../constants/PAGINATION';
 import {
   STORE_OWNER_ADD_SALE_MANAGER_ROUTE,
   STORE_OWNER_VIEW_SALE_MANAGER_ROUTE,
@@ -101,7 +103,7 @@ const SaleManagers = () => {
   const { saleManagers, loader: loaders } = useSelector((state: RootStateType) => state);
 
   const [tableData, setTableData] = useState<any[]>([]);
-  // const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   //  READ LIVE SALES LOADERS
   const readProgressData = loaders.find(
@@ -115,8 +117,12 @@ const SaleManagers = () => {
   ) as ApiResponseType;
   const updateStatusLoading = !!updateStatusProgressData;
 
-  const getSaleManagers = () => {
-    dispatch(readSaleManagers());
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const getSaleManagers = (params: string = EMPTY_STRING) => {
+    dispatch(readSaleManagers(params));
   };
 
   const updateStatus = (formData: { active: boolean }, id: string) => {
@@ -159,8 +165,9 @@ const SaleManagers = () => {
   };
 
   useEffect(() => {
-    getSaleManagers();
-  }, []);
+    const pageParams = `?page=${currentPage}`;
+    getSaleManagers(pageParams);
+  }, [currentPage]);
 
   useEffect(() => {
     if (saleManagers.loaded) {
@@ -185,6 +192,16 @@ const SaleManagers = () => {
               pagination={false}
               scroll={{ x: 400 }}
             />
+          )}
+          {!readLoading && saleManagers.count > 0 && (
+            <div className="pagination">
+              <Pagination
+                defaultPageSize={PAGINATION.itemsPerPage}
+                onChange={goToPage}
+                current={currentPage}
+                total={saleManagers.count}
+              />
+            </div>
           )}
         </div>
       </div>

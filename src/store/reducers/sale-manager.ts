@@ -16,7 +16,12 @@ const saleManagerReducer = (state = initialState, action: ApiResponseType): Enti
   switch (type) {
     case READ_SALE_MANAGERS.SUCCESS: {
       const responseData = response.data;
-      return { ...currentState, data: [...responseData], loaded: true };
+      return {
+        ...currentState,
+        data: [...responseData.saleManagers],
+        count: responseData.count,
+        loaded: true,
+      };
     }
     case CREATE_SALE_MANAGER.SUCCESS: {
       const responseData = response.data;
