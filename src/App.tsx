@@ -77,7 +77,7 @@ const App = () => {
         <Admin
           isAuth
           exact
-          path={STORE_OWNER_VIEW_SALE_MANAGER_ROUTE}
+          path={STORE_OWNER_VIEW_SALE_MANAGER_ROUTE + '/:id'}
           component={OwnerViewSaleManager}
         />
         <Admin isAuth exact path={STORE_OWNER_CHATS_ROUTE} component={OwnerChats} />

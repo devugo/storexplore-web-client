@@ -1,6 +1,6 @@
 import GoToButton from './GoToButton';
 
-const ViewSaleManagerTemplate = () => {
+const ViewSaleManagerTemplate = ({ showEditButton }: { showEditButton?: boolean }) => {
   return (
     <div className="view-sale-manager-template">
       <div className="devugo-card">
@@ -10,7 +10,7 @@ const ViewSaleManagerTemplate = () => {
               <img src="https://hugo.com/index.png" />
             </div>
             <div className="status">
-              <div className="icon"></div> <span>Online</span>
+              <div className="icon"></div> <span>Active</span>
             </div>
             <h3>240 Items sold</h3>
             <h3>NGN 240,000.00 Total Sales</h3>
@@ -23,7 +23,7 @@ const ViewSaleManagerTemplate = () => {
             <p>Sum house, Borno way, Alagomeji Bustop, Yaba, Lagos state</p>
           </div>
         </div>
-        <GoToButton goto="/kkdsk" title="Edit" />
+        {showEditButton && <GoToButton goto="/kkdsk" title="Edit" />}
       </div>
     </div>
   );

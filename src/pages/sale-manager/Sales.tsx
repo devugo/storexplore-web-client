@@ -1,39 +1,42 @@
-import { Table, Tag } from 'antd';
+import { Pagination, Table, Tag } from 'antd';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import ContentLoader from '../../components/ContentLoader';
 import PageWrapper from '../../components/PageWrapper';
+import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
+import { PAGINATION } from '../../constants/PAGINATION';
+import { readSales } from '../../store/actions/sale';
+import { READ_SALES } from '../../store/actions/types';
+import { ApiResponseType, ProductType, RootStateType, SaleType } from '../../types.d';
 
 const columns = [
-  {
-    title: 'Batch',
-    dataIndex: 'batch',
-    key: 'batch',
-  },
   {
     title: 'Quantity',
     dataIndex: 'quantity',
     key: 'quantity',
   },
   {
+    title: 'Image',
+    dataIndex: 'image',
+    key: 'image',
+    // eslint-disable-next-line react/display-name
+    render: (link: string) => (
+      <img style={{ borderRadius: '50%' }} src={link} width="30" height="30" />
+    ),
+  },
+  {
     title: 'Item',
     dataIndex: 'item',
     key: 'item',
     // eslint-disable-next-line react/display-name
-    render: (text: string) => (
-      <>
-        <img
-          style={{ borderRadius: '50%' }}
-          src="https://kskksd.com/index.png"
-          width="30"
-          height="30"
-        />
-        <span>{text}</span>
-      </>
-    ),
+    render: (text: string) => <span>{text}</span>,
   },
   {
-    title: 'Selling Price',
-    dataIndex: 'sellingPrice',
-    key: 'sellingPrice',
+    title: 'Cost Price',
+    dataIndex: 'costPrice',
+    key: 'costPrice',
   },
   {
     title: 'Sold At',
@@ -54,45 +57,80 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    batch: 'dknskdlsl;',
-    key: '1',
-    quantity: 32,
-    item: 'Electrode',
-    sellingPrice: 4000,
-    soldAt: 4500,
-    date: '12-12-2020',
-    totalAmount: 4500,
-  },
-  {
-    batch: 'dknskdlsl;',
-    key: '2',
-    quantity: 2,
-    item: 'Jim Green',
-    sellingPrice: 2200,
-    soldAt: 3000,
-    date: '12-12-2020',
-    totalAmount: 4500,
-  },
-  {
-    batch: 'dknskdlsl;',
-    key: '3',
-    quantity: 102,
-    item: 'Joe Black',
-    sellingPrice: 100,
-    soldAt: 130,
-    date: '12-12-2020',
-    totalAmount: 4500,
-  },
-];
-
 const Sales = () => {
+  const dispatch = useDispatch();
+  const { sales, loader: loaders } = useSelector((state: RootStateType) => state);
+
+  const [tableData, setTableData] = useState<any[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  //  READ LIVE SALES LOADERS
+  const readProgressData = loaders.find(
+    (x) => x.type === READ_SALES.IN_PROGRESS
+  ) as ApiResponseType;
+  const readLoading = !!readProgressData;
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const getSales = (params: string = EMPTY_STRING) => {
+    dispatch(readSales(params, READ_SALES));
+  };
+
+  const composeTableData = (data: SaleType[]) => {
+    return data.map((x: SaleType) => {
+      return {
+        key: x.id as string,
+        seller: x.saleManager?.firstname + ' ' + x.saleManager?.lastname,
+        quantity: x.quantity,
+        image: (x.product as ProductType).imagePath,
+        item: (x.product as ProductType).name,
+        costPrice: (x.product as ProductType).costPrice,
+        soldAt: x.soldAt,
+        totalAmount: x.quantity * x.soldAt,
+        quantityLeft: (x.product as ProductType).quantity,
+        date: moment(x.createdAt).calendar()?.toString() as string,
+      };
+    });
+  };
+
+  useEffect(() => {
+    const pageParams = `?page=${currentPage}`;
+    getSales(pageParams);
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (sales.loaded) {
+      const tableInfo = composeTableData(sales.data);
+      setTableData(tableInfo);
+    }
+  }, [sales]);
+
   return (
     <PageWrapper pageTitle="Sales">
       <div className="sale-manager__sales">
         <div className="devugo-card">
-          <Table columns={columns} dataSource={data} pagination={false} scroll={{ x: 400 }} />
+          {readLoading ? (
+            <ContentLoader />
+          ) : (
+            <Table
+              columns={columns}
+              dataSource={tableData}
+              pagination={false}
+              scroll={{ x: 400 }}
+            />
+          )}
+          {!readLoading && sales.count > 0 && (
+            <div className="pagination">
+              <Pagination
+                defaultPageSize={PAGINATION.itemsPerPage}
+                onChange={goToPage}
+                current={currentPage}
+                total={sales.count}
+              />
+            </div>
+          )}
         </div>
       </div>
     </PageWrapper>

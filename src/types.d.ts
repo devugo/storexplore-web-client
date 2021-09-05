@@ -58,6 +58,8 @@ export type SaleManagerType = {
   gender: GenderType | string;
   store?: StoreType;
   user?: UserType;
+  active?: boolean;
+  photo?: string;
   createdAt?: Date;
   updatedAt?: Date;
 };

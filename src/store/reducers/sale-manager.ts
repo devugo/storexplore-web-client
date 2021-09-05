@@ -1,5 +1,10 @@
+import { updateStoreHelper } from '../../helpers/functions/updateStoreHelper';
 import { ApiResponseType } from '../../types.d';
-import { CREATE_SALE_MANAGER, READ_SALE_MANAGERS } from '../actions/types';
+import {
+  CREATE_SALE_MANAGER,
+  READ_SALE_MANAGERS,
+  UPDATE_STATUS_SALE_MANAGER,
+} from '../actions/types';
 import { DEFAULT_STATE, EntityStateType } from './defaultState';
 
 const initialState = DEFAULT_STATE.saleManagers;
@@ -16,6 +21,10 @@ const saleManagerReducer = (state = initialState, action: ApiResponseType): Enti
     case CREATE_SALE_MANAGER.SUCCESS: {
       const responseData = response.data;
       return { ...currentState, data: [...currentState.data, { ...responseData }] };
+    }
+    case UPDATE_STATUS_SALE_MANAGER.SUCCESS: {
+      const responseData = response.data;
+      return updateStoreHelper(currentState, responseData);
     }
     default: {
       return state;
