@@ -1,28 +1,46 @@
+import moment from 'moment';
+
+import { CURRENCY } from '../constants';
+import { getStatus } from '../helpers/functions/getStatus';
+import { SaleManagerType } from '../types.d';
 import GoToButton from './GoToButton';
 
-const ViewSaleManagerTemplate = ({ showEditButton }: { showEditButton?: boolean }) => {
+const ViewSaleManagerTemplate = ({
+  saleManager,
+  showEditButton,
+}: {
+  saleManager?: SaleManagerType;
+  showEditButton?: boolean;
+}) => {
   return (
     <div className="view-sale-manager-template">
       <div className="devugo-card">
-        <div className="content">
-          <div className="left">
-            <div className="photo">
-              <img src="https://hugo.com/index.png" />
+        {saleManager && (
+          <div className="content">
+            <div className="left">
+              <div className="photo">
+                <img src={saleManager.photo} />
+              </div>
+              <div className="status">
+                <div className={`icon${!saleManager.active ? ' inactive' : ''}`}></div>{' '}
+                <span>{getStatus(saleManager.active as boolean)}</span>
+              </div>
+              <h3>{saleManager.totalProducts} Items sold</h3>
+              <h3>
+                {CURRENCY} {saleManager.totalSales} Total Sales
+              </h3>
             </div>
-            <div className="status">
-              <div className="icon"></div> <span>Active</span>
-            </div>
-            <h3>240 Items sold</h3>
-            <h3>NGN 240,000.00 Total Sales</h3>
-          </div>
 
-          <div className="right">
-            <h2>UGOCHUKWU EZENWANKWO</h2>
-            <p>Male</p>
-            <p>Joined 22-10-2021</p>
-            <p>Sum house, Borno way, Alagomeji Bustop, Yaba, Lagos state</p>
+            <div className="right">
+              <h2>
+                {saleManager.firstname} {saleManager.lastname}
+              </h2>
+              <p>{saleManager.gender}</p>
+              <p>Joined {moment(saleManager.createdAt).calendar()?.toString()}</p>
+              <p>{saleManager.address}</p>
+            </div>
           </div>
-        </div>
+        )}
         {showEditButton && <GoToButton goto="/kkdsk" title="Edit" />}
       </div>
     </div>

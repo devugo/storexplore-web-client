@@ -60,6 +60,8 @@ export type SaleManagerType = {
   user?: UserType;
   active?: boolean;
   photo?: string;
+  totalProducts?: string;
+  totalSales?: string;
   createdAt?: Date;
   updatedAt?: Date;
 };

@@ -10,6 +10,7 @@ import GoToButton from '../../components/GoToButton';
 import LoaderOverlay from '../../components/LoaderOverlay';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
+import { CURRENCY } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { PAGINATION } from '../../constants/PAGINATION';
 import {
@@ -45,7 +46,7 @@ const columns = [
     render: (date: string) => <Tag color="geekblue">{date}</Tag>,
   },
   {
-    title: 'Total Sales',
+    title: `Total Sales (${CURRENCY})`,
     dataIndex: 'totalSales',
     key: 'totalSales',
   },
@@ -155,6 +156,7 @@ const SaleManagers = () => {
         age: moment(x.dob).calendar()?.toString() as string,
         photo: x.photo,
         status: { active: x.active, key: x.id },
+        totalSales: x.totalSales,
         action: {
           id: x.id,
           active: x.active,
