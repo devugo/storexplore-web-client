@@ -11,6 +11,7 @@ import GoToButton from '../../components/GoToButton';
 import LoaderOverlay from '../../components/LoaderOverlay';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
+import { CURRENCY } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { PAGINATION } from '../../constants/PAGINATION';
 import {
@@ -49,12 +50,12 @@ const columns = [
     render: (text: string) => <span>{text}</span>,
   },
   {
-    title: 'Cost Price',
+    title: `Cost Price (${CURRENCY})`,
     dataIndex: 'costPrice',
     key: 'costPrice',
   },
   {
-    title: 'Selling Price',
+    title: `Selling Price (${CURRENCY})`,
     dataIndex: 'sellingPrice',
     key: 'sellingPrice',
   },

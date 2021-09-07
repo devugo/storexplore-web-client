@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ContentLoader from '../../components/ContentLoader';
 import PageWrapper from '../../components/PageWrapper';
+import { CURRENCY } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { readSales } from '../../store/actions/sale';
 import { READ_SALES_LIVE } from '../../store/actions/types';
@@ -38,17 +39,17 @@ const columns = [
     render: (text: string) => <span>{text}</span>,
   },
   {
-    title: 'Cost Price (₦)',
+    title: `Cost Price (${CURRENCY})`,
     dataIndex: 'costPrice',
     key: 'costPrice',
   },
   {
-    title: 'Sold at (₦)',
+    title: `Sold at (${CURRENCY})`,
     dataIndex: 'soldAt',
     key: 'soldAt',
   },
   {
-    title: 'Total Amount (₦)',
+    title: `Total Amount (${CURRENCY})`,
     key: 'totalAmount',
     dataIndex: 'totalAmount',
   },
