@@ -88,7 +88,7 @@ const columns = [
     render: ({ id, deleteFunc }: { id: string; deleteFunc: any }) => (
       <Space size="middle">
         <Tooltip title="View" color="cyan">
-          <Link to={STORE_OWNER_VIEW_PRODUCT_ROUTE}>
+          <Link to={STORE_OWNER_VIEW_PRODUCT_ROUTE + `/${id}`}>
             <RenderIcon title="mdi mdi-clock-outline" styles={{ color: 'cyan' }} />
           </Link>
         </Tooltip>

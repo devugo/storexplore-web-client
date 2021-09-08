@@ -75,6 +75,8 @@ export type ProductType = {
   sellingPrice: number;
   quantity: number;
   active?: boolean;
+  totalSold?: string;
+  totalSales?: string;
   createdAt?: Date;
   updatedAt?: Date;
 };

@@ -94,7 +94,7 @@ const App = () => {
         <Admin
           isAuth={false}
           exact
-          path={STORE_OWNER_VIEW_PRODUCT_ROUTE}
+          path={STORE_OWNER_VIEW_PRODUCT_ROUTE + '/:id'}
           component={OwnerViewProduct}
         />
 
@@ -121,7 +121,7 @@ const App = () => {
         <SaleManager
           isAuth={false}
           exact
-          path={SALE_MANAGER_VIEW_PRODUCT_ROUTE}
+          path={SALE_MANAGER_VIEW_PRODUCT_ROUTE + '/:id'}
           component={SaleManagerViewProduct}
         />
         <SaleManager

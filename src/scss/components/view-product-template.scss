@@ -42,8 +42,8 @@
         width: 40%;
         .image {
           img {
-            width: 400px;
-            height: 400px;
+            width: 200px;
+            height: 200px;
           }
         }
       }
@@ -67,6 +67,21 @@
 
         .product-description {
           margin-bottom: 40px;
+        }
+      }
+    }
+  }
+}
+
+@include media-md {
+  .view-product-template {
+    .content {
+      .left {
+        .image {
+          img {
+            width: 300px;
+            height: 300px;
+          }
         }
       }
     }
