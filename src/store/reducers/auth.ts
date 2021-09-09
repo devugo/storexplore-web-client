@@ -17,7 +17,6 @@ const authReducer = (state = initialState, action: { type: string; response: any
     }
 
     case KEEP_AUTH_USER.SUCCESS: {
-      console.log(response);
       const responseData = response.data;
       return { ...state, loggedIn: true, ...responseData, accessToken: GET_TOKEN };
     }
