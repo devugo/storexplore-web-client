@@ -1,19 +1,16 @@
-import { useState } from 'react';
-
 import RenderIcon from './RenderIcon';
 
 const Header = ({
   toggleSidebar,
   openSidebar,
+  toggleProfile,
+  openProfile,
 }: {
   toggleSidebar: () => void;
   openSidebar: boolean;
+  toggleProfile: () => void;
+  openProfile: boolean;
 }) => {
-  const [open, setOpen] = useState(false);
-
-  const toggleProfile = () => {
-    setOpen((prevState) => !prevState);
-  };
   return (
     <div className={`header${openSidebar ? ' sidebar-open' : ''}`}>
       <div className="header-content">
@@ -27,14 +24,14 @@ const Header = ({
           <div className="profile" onClick={toggleProfile}>
             <RenderIcon title="mdi mdi-account" />
 
-            {open && (
+            {openProfile && (
               <div className="profile-dropdown">
                 <ul>
                   <li>
                     <a>Profile</a>
                   </li>
                   <li>
-                    <a>Settings</a>
+                    <a>Logout</a>
                   </li>
                 </ul>
               </div>

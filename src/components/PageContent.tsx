@@ -8,15 +8,24 @@ const PageContent = ({
   toggleSidebar,
   openSidebar,
   pageTitle,
+  toggleProfile,
+  openProfile,
 }: {
   children: FC;
   toggleSidebar: () => void;
   openSidebar: boolean;
   pageTitle: string;
+  toggleProfile: () => void;
+  openProfile: boolean;
 }) => {
   return (
     <div className={`page-content${openSidebar ? ' open-sidebar' : ''}`}>
-      <Header toggleSidebar={toggleSidebar} openSidebar={openSidebar} />
+      <Header
+        toggleSidebar={toggleSidebar}
+        openSidebar={openSidebar}
+        toggleProfile={toggleProfile}
+        openProfile={openProfile}
+      />
       <div className="page-content__body">
         <PageTitle title={pageTitle} />
         {children}
