@@ -20,6 +20,8 @@ export const STORE_OWNER_LIVE_SALES_ROUTE = `${storeOwner}/live-sales`;
 export const STORE_OWNER_ADD_PRODUCT_ROUTE = `${storeOwner}/add-product`;
 export const STORE_OWNER_EDIT_PRODUCT_ROUTE = `${storeOwner}/edit-product`;
 export const STORE_OWNER_VIEW_PRODUCT_ROUTE = `${storeOwner}/view-product`;
+export const STORE_OWNER_PROFILE_ROUTE = `${storeOwner}/profile`;
+export const STORE_OWNER_EDIT_PROFILE_ROUTE = `${storeOwner}/edit-profile`;
 
 //  Sale Manager Route Names
 const saleManager = '/sale-manager';

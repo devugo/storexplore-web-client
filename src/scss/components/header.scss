@@ -64,15 +64,28 @@
             padding: 0;
             list-style: none;
             li {
-              padding: 10px;
               &:hover {
                 background-color: var(--light-gray);
               }
+              height: 40px;
+              text-align: center;
 
               a {
+                height: 100%;
+                display: block;
                 &:hover {
                   color: var(--paragraph-text-color);
                 }
+              }
+              div.logout {
+                height: 100%;
+                padding-bottom: 5px;
+              }
+              a,
+              div.logout {
+                display: flex;
+                align-items: center;
+                justify-content: center;
               }
             }
           }

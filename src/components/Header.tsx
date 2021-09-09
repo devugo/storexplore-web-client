@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { ROLE } from '../constants/ROLE';
+import { SALE_MANAGER_PROFILE_ROUTE } from '../constants/ROUTE_NAME';
 import { signOut } from '../store/actions/auth';
 import { RootStateType } from '../types.d';
 import RenderIcon from './RenderIcon';
@@ -34,17 +36,20 @@ const Header = ({
         <div className="header-right">
           <RenderIcon title="mdi mdi-bell" />
           <div className="profile" onClick={toggleProfile}>
-            {/* <RenderIcon title="mdi mdi-account" /> */}
             <img src={auth.role === ROLE.SALE_MANAGER ? auth.saleManager?.photo : ''} />
 
             {openProfile && (
               <div className="profile-dropdown">
                 <ul>
                   <li>
-                    <a>Profile</a>
+                    <Link to={SALE_MANAGER_PROFILE_ROUTE}>
+                      <span>Profile</span>
+                    </Link>
                   </li>
                   <li onClick={logUserOut}>
-                    <span>Logout</span>
+                    <div className="logout">
+                      <span>Logout</span>
+                    </div>
                   </li>
                 </ul>
               </div>

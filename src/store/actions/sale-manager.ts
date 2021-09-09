@@ -1,6 +1,11 @@
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { SaleManagerType } from '../../types.d';
-import { CREATE_SALE_MANAGER, READ_SALE_MANAGERS, UPDATE_STATUS_SALE_MANAGER } from './types';
+import {
+  CREATE_SALE_MANAGER,
+  READ_SALE_MANAGER,
+  READ_SALE_MANAGERS,
+  UPDATE_STATUS_SALE_MANAGER,
+} from './types';
 
 export const createSaleManager = (formData: SaleManagerType) => {
   const url = 'sale-managers';
@@ -26,5 +31,14 @@ export const updateStatusSaleManager = (formData: { active: boolean }, id: strin
     type: UPDATE_STATUS_SALE_MANAGER,
     url,
     api: (apiClient: any) => apiClient.patch(url, formData),
+  };
+};
+
+export const readSaleManager = (id: string) => {
+  const url = `sale-managers/${id}`;
+  return {
+    type: READ_SALE_MANAGER,
+    url,
+    api: (apiClient: any) => apiClient.get(url),
   };
 };

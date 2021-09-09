@@ -1,7 +1,7 @@
 import { GET_TOKEN } from '../../constants/GET_TOKEN';
 import { STORAGE_VARIABLE } from '../../constants/STORAGE_VARIABLE';
 import { deleteFromStorage, saveToStorage } from '../../helpers/functions/localStorage';
-import { KEEP_AUTH_USER, SIGNIN_USER, SIGNOUT_USER } from '../actions/types';
+import { KEEP_AUTH_USER, READ_SALE_MANAGER, SIGNIN_USER, SIGNOUT_USER } from '../actions/types';
 import { DEFAULT_STATE } from './defaultState';
 
 const initialState = DEFAULT_STATE.auth;
@@ -25,6 +25,11 @@ const authReducer = (state = initialState, action: { type: string; response: any
       deleteFromStorage(STORAGE_VARIABLE.token);
       deleteFromStorage(STORAGE_VARIABLE.deleteID);
       return initialState;
+    }
+
+    case READ_SALE_MANAGER.SUCCESS: {
+      const responseData = response.data;
+      return { ...state, saleManager: responseData };
     }
 
     default: {

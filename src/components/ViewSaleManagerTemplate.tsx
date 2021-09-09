@@ -1,6 +1,7 @@
 import moment from 'moment';
 
 import { CURRENCY } from '../constants';
+import { SALE_MANAGER_EDIT_PROFILE_ROUTE } from '../constants/ROUTE_NAME';
 import { getStatus } from '../helpers/functions/getStatus';
 import { SaleManagerType } from '../types.d';
 import GoToButton from './GoToButton';
@@ -41,7 +42,7 @@ const ViewSaleManagerTemplate = ({
             </div>
           </div>
         )}
-        {showEditButton && <GoToButton goto="/kkdsk" title="Edit" />}
+        {showEditButton && <GoToButton goto={SALE_MANAGER_EDIT_PROFILE_ROUTE} title="Edit" />}
       </div>
     </div>
   );
