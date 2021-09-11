@@ -1,16 +1,21 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { Formik } from 'formik';
-import { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import { EMPTY_STRING } from '../constants/EMPTY_STRING';
+import { FORM_MODE } from '../constants/FORM_MODE';
+import { getFailureState, getProgressState } from '../helpers/functions/getLoadersState';
 import { renderServerError } from '../helpers/functions/renderServerError';
-import { CREATE_SALE_MANAGER } from '../store/actions/types';
-import { ApiResponseType, RootStateType, SaleManagerType } from '../types.d';
+import { validateImage } from '../helpers/functions/validateImage';
+import { updateSaleManagerPhoto } from '../store/actions/sale-manager';
+import { CREATE_SALE_MANAGER, UPDATE_SALE_MANAGER_PHOTO } from '../store/actions/types';
+import { RootStateType, SaleManagerType } from '../types.d';
 import Button from './Button';
 import Input from './Input';
+import LoaderOverlay from './LoaderOverlay';
 import PhotoContainer from './PhotoContainer';
 import RenderIcon from './RenderIcon';
 import SelectInput from './Select';
@@ -36,37 +41,55 @@ const validationSchema = Yup.object({
 });
 
 const SaleManagerForm = ({
-  changeImage,
   submit,
   hidePhoto,
   defaultPassword,
   mode,
+  data,
 }: {
-  changeImage?: any;
   submit: (values: SaleManagerType) => void;
   hidePhoto?: boolean;
   defaultPassword?: string;
   mode?: string;
+  data?: SaleManagerType;
 }) => {
+  const dispatch = useDispatch();
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const [formikFormValues] = useState<SaleManagerType>({
+  const [formikFormValues, setFormikFormValues] = useState<SaleManagerType>({
     ...initialFormValues,
     password: defaultPassword ?? EMPTY_STRING,
   });
+  const [photo, setPhoto] = useState<string>(EMPTY_STRING);
+
   const { loader: loaders } = useSelector((state: RootStateType) => state);
 
   //  CREATE SALE MANAGER LOADERS
-  const createProgressData = loaders.find(
-    (x) => x.type === CREATE_SALE_MANAGER.IN_PROGRESS
-  ) as ApiResponseType;
-  const createLoading = !!createProgressData;
-  const createErrorData = loaders.find(
-    (x) => x.type === CREATE_SALE_MANAGER.FAILURE
-  ) as ApiResponseType;
+  const createLoading = getProgressState(loaders, CREATE_SALE_MANAGER);
+  const createErrorData = getFailureState(loaders, CREATE_SALE_MANAGER);
+
+  //  UPDATE PHOTO
+  const updatePhotoLoading = getProgressState(loaders, UPDATE_SALE_MANAGER_PHOTO);
 
   const toggleFileInput = () => {
     fileInput.current?.click();
+  };
+
+  const changeImage = (e: any) => {
+    const file = e.target.files[0];
+    const isFileValid = validateImage(file);
+
+    if (isFileValid) {
+      const blobURL = URL.createObjectURL(file);
+      setPhoto(blobURL);
+
+      // Upload file if in edit mode
+      if (mode === FORM_MODE.saleManagerEdit) {
+        const form = new FormData();
+        form.append('image', file);
+        dispatch(updateSaleManagerPhoto(form));
+      }
+    }
   };
 
   // useEffect(() => {
@@ -76,11 +99,21 @@ const SaleManagerForm = ({
   //   }
   // }, [createLoading]);
 
+  useEffect(() => {
+    if (data && mode === FORM_MODE.saleManagerEdit) {
+      setFormikFormValues(data);
+      setPhoto(data.photo as string);
+    }
+  }, [data]);
+
+  console.log({ data });
+
   return (
     <div className="store-owner__sale-manager-content">
+      {updatePhotoLoading && <LoaderOverlay />}
       {!hidePhoto && (
         <>
-          <PhotoContainer imgSrc="https://logo.png" action={toggleFileInput} />
+          <PhotoContainer imgSrc={photo} action={toggleFileInput} />
           <input
             onChange={changeImage}
             ref={fileInput}
@@ -188,7 +221,11 @@ const SaleManagerForm = ({
                   id="gender"
                   value={values.gender}
                   placeholder="Select gender"
-                  options={['MALE', 'FEMALE']}
+                  // options={['MALE', 'FEMALE']}
+                  options={[
+                    { name: 'Male', value: 'MALE' },
+                    { name: 'Female', value: 'FEMALE' },
+                  ]}
                 />
                 <small className="danger">{errors.gender && touched.gender && errors.gender}</small>
               </div>

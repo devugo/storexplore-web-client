@@ -5,7 +5,6 @@ import { ROLE } from '../constants/ROLE';
 import { SALE_MANAGER_PROFILE_ROUTE } from '../constants/ROUTE_NAME';
 import { signOut } from '../store/actions/auth';
 import { RootStateType } from '../types.d';
-import RenderIcon from './RenderIcon';
 
 const Header = ({
   toggleSidebar,
@@ -34,9 +33,11 @@ const Header = ({
           <span className="hamburger-stick"></span>
         </div>
         <div className="header-right">
-          <RenderIcon title="mdi mdi-bell" />
           <div className="profile" onClick={toggleProfile}>
-            <img src={auth.role === ROLE.SALE_MANAGER ? auth.saleManager?.photo : ''} />
+            <img
+              src={auth.role === ROLE.SALE_MANAGER ? auth.saleManager?.photo : ''}
+              alt="sale-manager"
+            />
 
             {openProfile && (
               <div className="profile-dropdown">

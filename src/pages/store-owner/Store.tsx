@@ -72,13 +72,6 @@ const Store = () => {
     if (isFileValid) {
       return updateLogo(file);
     }
-    // const fileType = file.type;
-
-    // const isFileValid = ['image/png', 'image/jpg', 'image/jpeg'].includes(fileType);
-    // if (!isFileValid) {
-    //   return showMessage('error', 'Please, upload only image files', 4);
-    // }
-    // return updateLogo(file);
   };
 
   const update = (values: StoreType) => {

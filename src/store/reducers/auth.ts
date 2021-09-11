@@ -1,7 +1,13 @@
 import { GET_TOKEN } from '../../constants/GET_TOKEN';
 import { STORAGE_VARIABLE } from '../../constants/STORAGE_VARIABLE';
 import { deleteFromStorage, saveToStorage } from '../../helpers/functions/localStorage';
-import { KEEP_AUTH_USER, READ_SALE_MANAGER, SIGNIN_USER, SIGNOUT_USER } from '../actions/types';
+import {
+  KEEP_AUTH_USER,
+  READ_SALE_MANAGER,
+  SIGNIN_USER,
+  SIGNOUT_USER,
+  UPDATE_SALE_MANAGER_PHOTO,
+} from '../actions/types';
 import { DEFAULT_STATE } from './defaultState';
 
 const initialState = DEFAULT_STATE.auth;
@@ -28,6 +34,11 @@ const authReducer = (state = initialState, action: { type: string; response: any
     }
 
     case READ_SALE_MANAGER.SUCCESS: {
+      const responseData = response.data;
+      return { ...state, saleManager: responseData };
+    }
+
+    case UPDATE_SALE_MANAGER_PHOTO.SUCCESS: {
       const responseData = response.data;
       return { ...state, saleManager: responseData };
     }

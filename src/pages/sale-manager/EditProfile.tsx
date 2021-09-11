@@ -1,12 +1,13 @@
+import { useSelector } from 'react-redux';
+
 import PageWrapper from '../../components/PageWrapper';
 import SaleManagerForm from '../../components/SaleManagerForm';
+import { FORM_MODE } from '../../constants/FORM_MODE';
 // import { GENDER } from '../../constants/GENDER';
-import { SaleManagerType } from '../../types.d';
+import { RootStateType, SaleManagerType } from '../../types.d';
 
 const EditProfile = () => {
-  const changeImage = (e: any) => {
-    console.log(e.target.files);
-  };
+  const { auth } = useSelector((state: RootStateType) => state);
 
   const submit = (values: SaleManagerType) => {
     console.log({ values });
@@ -15,7 +16,11 @@ const EditProfile = () => {
     <PageWrapper pageTitle="Edit Profile">
       <div className="sale-manager__edit-profile">
         <div className="devugo-card">
-          <SaleManagerForm changeImage={changeImage} submit={submit} />
+          <SaleManagerForm
+            data={auth.saleManager}
+            submit={submit}
+            mode={FORM_MODE.saleManagerEdit}
+          />
         </div>
       </div>
     </PageWrapper>

@@ -9,8 +9,9 @@ import { RootStateType } from '../../types.d';
 const Profile = () => {
   const dispatch = useDispatch();
   const { auth } = useSelector((state: RootStateType) => state);
+
   const getProfile = () => {
-    dispatch(readSaleManager(auth?.saleManager?.id as string));
+    dispatch(readSaleManager());
   };
 
   useEffect(() => {
