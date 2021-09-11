@@ -5,7 +5,6 @@ import PageWrapper from '../../components/PageWrapper';
 import SaleManagerForm from '../../components/SaleManagerForm';
 import { FORM_MODE } from '../../constants/FORM_MODE';
 import { updateSaleManager } from '../../store/actions/sale-manager';
-// import { GENDER } from '../../constants/GENDER';
 import { RootStateType, SaleManagerType } from '../../types.d';
 
 const EditProfile = () => {

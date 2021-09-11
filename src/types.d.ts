@@ -28,6 +28,7 @@ export type AuthType = {
   loggedIn: boolean;
   id: string;
   saleManager?: SaleManagerType;
+  storeOwner?: StoreOwnerType;
 };
 
 export type UserType = {
@@ -101,6 +102,13 @@ export type ChatType = {
 export type ChangePasswordType = {
   password: string;
   passwordAgain: string;
+};
+
+export type StoreOwnerType = {
+  name: string;
+  about?: string;
+  name?: string;
+  photo?: string;
 };
 
 export type RootStateType = {

@@ -8,6 +8,8 @@ import {
   SIGNOUT_USER,
   UPDATE_SALE_MANAGER,
   UPDATE_SALE_MANAGER_PHOTO,
+  UPDATE_STORE_OWNER,
+  UPDATE_STORE_OWNER_PHOTO,
 } from '../actions/types';
 import { DEFAULT_STATE } from './defaultState';
 
@@ -47,6 +49,16 @@ const authReducer = (state = initialState, action: { type: string; response: any
     case UPDATE_SALE_MANAGER.SUCCESS: {
       const responseData = response.data;
       return { ...state, saleManager: responseData };
+    }
+
+    case UPDATE_STORE_OWNER_PHOTO.SUCCESS: {
+      const responseData = response.data;
+      return { ...state, storeOwner: responseData };
+    }
+
+    case UPDATE_STORE_OWNER.SUCCESS: {
+      const responseData = response.data;
+      return { ...state, storeOwner: responseData };
     }
 
     default: {

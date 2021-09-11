@@ -18,6 +18,7 @@ import {
   STORE_OWNER_CHATS_ROUTE,
   STORE_OWNER_DASHBOARD_ROUTE,
   STORE_OWNER_EDIT_PRODUCT_ROUTE,
+  STORE_OWNER_EDIT_PROFILE_ROUTE,
   STORE_OWNER_EDIT_SALE_MANAGER_ROUTE,
   STORE_OWNER_LIVE_SALES_ROUTE,
   STORE_OWNER_PRODUCTS_ROUTE,
@@ -46,6 +47,7 @@ import AddSaleManager from './pages/store-owner/AddSaleManager';
 import OwnerChats from './pages/store-owner/Chats';
 import OwnerDashboard from './pages/store-owner/Dashboard';
 import EditProduct from './pages/store-owner/EditProduct';
+import StoreOwnerEditProfile from './pages/store-owner/EditProfile';
 import EditSaleManager from './pages/store-owner/EditSaleManager';
 import OwnerLiveSales from './pages/store-owner/LiveSales';
 import OwnerProducts from './pages/store-owner/Products';
@@ -85,6 +87,12 @@ const App = () => {
         <Admin isAuth exact path={STORE_OWNER_PRODUCTS_ROUTE} component={OwnerProducts} />
         <Admin isAuth exact path={STORE_OWNER_SALES_ROUTE} component={OwnerSales} />
         <Admin isAuth exact path={STORE_OWNER_LIVE_SALES_ROUTE} component={OwnerLiveSales} />
+        <Admin
+          isAuth
+          exact
+          path={STORE_OWNER_EDIT_PROFILE_ROUTE}
+          component={StoreOwnerEditProfile}
+        />
         <Admin
           isAuth
           exact

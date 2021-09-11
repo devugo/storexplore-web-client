@@ -2,7 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { ROLE } from '../constants/ROLE';
-import { SALE_MANAGER_PROFILE_ROUTE } from '../constants/ROUTE_NAME';
+import {
+  SALE_MANAGER_PROFILE_ROUTE,
+  STORE_OWNER_EDIT_PROFILE_ROUTE,
+} from '../constants/ROUTE_NAME';
 import { signOut } from '../store/actions/auth';
 import { RootStateType } from '../types.d';
 
@@ -34,15 +37,23 @@ const Header = ({
         <div className="header-right">
           <div className="profile" onClick={toggleProfile}>
             <img
-              src={auth.role === ROLE.SALE_MANAGER ? auth.saleManager?.photo : ''}
-              alt="sale-manager"
+              src={
+                auth.role === ROLE.SALE_MANAGER ? auth.saleManager?.photo : auth.storeOwner?.photo
+              }
+              alt="profile"
             />
 
             {openProfile && (
               <div className="profile-dropdown">
                 <ul>
                   <li>
-                    <Link to={SALE_MANAGER_PROFILE_ROUTE}>
+                    <Link
+                      to={
+                        auth.role === ROLE.SALE_MANAGER
+                          ? SALE_MANAGER_PROFILE_ROUTE
+                          : STORE_OWNER_EDIT_PROFILE_ROUTE
+                      }
+                    >
                       <span>Profile</span>
                     </Link>
                   </li>

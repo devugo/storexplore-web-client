@@ -21,6 +21,7 @@ import {
   UPDATE_STATUS_SALE_MANAGER,
   UPDATE_STORE,
   UPDATE_STORE_LOGO,
+  UPDATE_STORE_OWNER_PHOTO,
 } from '../store/actions/types';
 import { RootStateType } from '../types.d';
 
@@ -73,6 +74,17 @@ const SuccessMessages = () => {
   const { successData: deleteProductSuccessData } = getLoader(loader, DELETE_PRODUCT);
   const isProductDeleted = successDelete(deleteProductSuccessData);
 
+  // UPDATE STORE OWNER PHOTO Loader
+  const { successData: updatePhotoStoreOwnerSuccessData } = getLoader(
+    loader,
+    UPDATE_STORE_OWNER_PHOTO
+  );
+  const isStoreOwnerPhotoUpdated = successUpdate(updatePhotoStoreOwnerSuccessData);
+
+  // UPDATE STORE OWNER Loader
+  const { successData: updateStoreOwnerSuccessData } = getLoader(loader, UPDATE_SALE_MANAGER);
+  const isStoreOwnerUpdated = successUpdate(updateStoreOwnerSuccessData);
+
   // CHANGE PASSWORD Loader
   const { successData: changePasswordSuccessData } = getLoader(loader, CHANGE_PASSWORD);
   const isPasswordChanged = successDelete(changePasswordSuccessData);
@@ -118,6 +130,14 @@ const SuccessMessages = () => {
       showMessage('success', 'Product deleted successfully', MESSAGE_TIME);
     }
 
+    if (isStoreOwnerUpdated) {
+      showMessage('success', 'Profile updated successfully', MESSAGE_TIME);
+    }
+
+    if (isStoreOwnerPhotoUpdated) {
+      showMessage('success', 'Your photo updated successfully', MESSAGE_TIME);
+    }
+
     if (isPasswordChanged) {
       showMessage('success', 'Password changed successfully', MESSAGE_TIME);
     }
@@ -128,9 +148,12 @@ const SuccessMessages = () => {
     isProductCreated,
     isProductUpdated,
     isProductImageUpdated,
+    isProductDeleted,
     isSaleManagerStatusUpdated,
     isSaleManagerPhotoUpdated,
     isSaleManagerUpdated,
+    isStoreOwnerUpdated,
+    isStoreOwnerPhotoUpdated,
     isPasswordChanged,
   ]);
   return <div></div>;
