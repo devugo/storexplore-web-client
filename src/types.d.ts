@@ -98,6 +98,11 @@ export type ChatType = {
   message: string;
 };
 
+export type ChangePasswordType = {
+  password: string;
+  passwordAgain: string;
+};
+
 export type RootStateType = {
   loader: ApiResponseType[];
   auth: AuthType;

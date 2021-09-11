@@ -10,6 +10,7 @@ import {
 } from '../helpers/functions/responseChecker';
 import { showMessage } from '../helpers/functions/showMessage';
 import {
+  CHANGE_PASSWORD,
   CREATE_PRODUCT,
   CREATE_SALE_MANAGER,
   DELETE_PRODUCT,
@@ -72,6 +73,10 @@ const SuccessMessages = () => {
   const { successData: deleteProductSuccessData } = getLoader(loader, DELETE_PRODUCT);
   const isProductDeleted = successDelete(deleteProductSuccessData);
 
+  // CHANGE PASSWORD Loader
+  const { successData: changePasswordSuccessData } = getLoader(loader, CHANGE_PASSWORD);
+  const isPasswordChanged = successDelete(changePasswordSuccessData);
+
   useEffect(() => {
     if (isStoreUpdated) {
       showMessage('success', 'Store updated successfully', MESSAGE_TIME);
@@ -112,6 +117,10 @@ const SuccessMessages = () => {
     if (isProductDeleted) {
       showMessage('success', 'Product deleted successfully', MESSAGE_TIME);
     }
+
+    if (isPasswordChanged) {
+      showMessage('success', 'Password changed successfully', MESSAGE_TIME);
+    }
   }, [
     isStoreUpdated,
     isStoreLogoUpdated,
@@ -122,6 +131,7 @@ const SuccessMessages = () => {
     isSaleManagerStatusUpdated,
     isSaleManagerPhotoUpdated,
     isSaleManagerUpdated,
+    isPasswordChanged,
   ]);
   return <div></div>;
 };

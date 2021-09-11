@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
+import ChangePasswordForm from '../../components/ChangePasswordForm';
 import PageWrapper from '../../components/PageWrapper';
 import SaleManagerForm from '../../components/SaleManagerForm';
 import { FORM_MODE } from '../../constants/FORM_MODE';
@@ -23,6 +24,10 @@ const EditProfile = () => {
             submit={submit}
             mode={FORM_MODE.saleManagerEdit}
           />
+        </div>
+
+        <div className="devugo-card">
+          <ChangePasswordForm />
         </div>
       </div>
     </PageWrapper>

@@ -1,5 +1,5 @@
-import { SigninType } from '../../types.d';
-import { KEEP_AUTH_USER, SIGNIN_USER, SIGNOUT_USER, SIGNUP_USER } from './types';
+import { ChangePasswordType, SigninType } from '../../types.d';
+import { CHANGE_PASSWORD, KEEP_AUTH_USER, SIGNIN_USER, SIGNOUT_USER, SIGNUP_USER } from './types';
 
 export const signup = (formData: {
   email: string;
@@ -36,5 +36,14 @@ export const keepUserLoggedIn = () => {
 export const signOut = () => {
   return {
     type: SIGNOUT_USER,
+  };
+};
+
+export const changePassword = (formData: ChangePasswordType) => {
+  const url = 'auth/change-password';
+  return {
+    type: CHANGE_PASSWORD,
+    url,
+    api: (apiClient: any) => apiClient.patch(url, formData),
   };
 };
