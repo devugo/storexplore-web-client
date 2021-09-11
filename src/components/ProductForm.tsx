@@ -9,7 +9,6 @@ import { EMPTY_STRING } from '../constants/EMPTY_STRING';
 import { FORM_MODE } from '../constants/FORM_MODE';
 import { MESSAGE_TIME } from '../constants/MESSAGE_TIME';
 import { ZERO } from '../constants/ZERO';
-import { getProgressState } from '../helpers/functions/getLoadersState';
 import { renderServerError } from '../helpers/functions/renderServerError';
 import { showMessage } from '../helpers/functions/showMessage';
 import { validateImage } from '../helpers/functions/validateImage';
@@ -75,7 +74,10 @@ const ProductForm = ({
   const updateErrorData = loaders.find((x) => x.type === UPDATE_PRODUCT.FAILURE) as ApiResponseType;
 
   //  UPDATE PRODUCT IMAGE LOADERS
-  const updateImageLoading = getProgressState(loaders, UPDATE_PRODUCT_IMAGE);
+  const updateImageProgressData = loaders.find(
+    (x) => x.type === UPDATE_PRODUCT_IMAGE.IN_PROGRESS
+  ) as ApiResponseType;
+  const updateImageLoading = !!updateImageProgressData;
 
   const changeImage = (e: any) => {
     const file = e.target.files[0];

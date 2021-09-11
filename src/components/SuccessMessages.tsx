@@ -15,6 +15,7 @@ import {
   DELETE_PRODUCT,
   UPDATE_PRODUCT,
   UPDATE_PRODUCT_IMAGE,
+  UPDATE_SALE_MANAGER,
   UPDATE_SALE_MANAGER_PHOTO,
   UPDATE_STATUS_SALE_MANAGER,
   UPDATE_STORE,
@@ -50,6 +51,10 @@ const SuccessMessages = () => {
     UPDATE_SALE_MANAGER_PHOTO
   );
   const isSaleManagerPhotoUpdated = successUpdate(updatePhotoSaleManagerSuccessData);
+
+  // UPDATE SALE MANAGER Loader
+  const { successData: updateSaleManagerSuccessData } = getLoader(loader, UPDATE_SALE_MANAGER);
+  const isSaleManagerUpdated = successUpdate(updateSaleManagerSuccessData);
 
   // CREATE PRODUCT Loader
   const { successData: createProductSuccessData } = getLoader(loader, CREATE_PRODUCT);
@@ -88,6 +93,10 @@ const SuccessMessages = () => {
       showMessage('success', 'Your photo updated successfully', MESSAGE_TIME);
     }
 
+    if (isSaleManagerUpdated) {
+      showMessage('success', 'Your profile updated successfully', MESSAGE_TIME);
+    }
+
     if (isProductCreated) {
       showMessage('success', 'Product created successfully', MESSAGE_TIME);
     }
@@ -112,6 +121,7 @@ const SuccessMessages = () => {
     isProductImageUpdated,
     isSaleManagerStatusUpdated,
     isSaleManagerPhotoUpdated,
+    isSaleManagerUpdated,
   ]);
   return <div></div>;
 };

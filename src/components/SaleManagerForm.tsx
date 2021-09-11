@@ -1,17 +1,22 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { Formik } from 'formik';
+import moment from 'moment';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import { EMPTY_STRING } from '../constants/EMPTY_STRING';
 import { FORM_MODE } from '../constants/FORM_MODE';
-import { getFailureState, getProgressState } from '../helpers/functions/getLoadersState';
+import { getLoaderState } from '../helpers/functions/getLoadersState';
 import { renderServerError } from '../helpers/functions/renderServerError';
 import { validateImage } from '../helpers/functions/validateImage';
 import { updateSaleManagerPhoto } from '../store/actions/sale-manager';
-import { CREATE_SALE_MANAGER, UPDATE_SALE_MANAGER_PHOTO } from '../store/actions/types';
+import {
+  CREATE_SALE_MANAGER,
+  UPDATE_SALE_MANAGER,
+  UPDATE_SALE_MANAGER_PHOTO,
+} from '../store/actions/types';
 import { RootStateType, SaleManagerType } from '../types.d';
 import Button from './Button';
 import Input from './Input';
@@ -31,13 +36,20 @@ const initialFormValues: SaleManagerType = {
   gender: EMPTY_STRING,
 };
 
-const validationSchema = Yup.object({
+const newValidationSchema = Yup.object({
   firstname: Yup.string().required('First Name is required'),
   lastname: Yup.string().required('Last Name is required'),
   dob: Yup.date().required('Date of birth is required'),
   email: Yup.string().required('Email is required'),
   gender: Yup.string().required('Gender is required'),
   password: Yup.string().required('Password is required'),
+});
+
+const updateValidationSchema = Yup.object({
+  firstname: Yup.string().required('First Name is required'),
+  lastname: Yup.string().required('Last Name is required'),
+  dob: Yup.date().required('Date of birth is required'),
+  gender: Yup.string().required('Gender is required'),
 });
 
 const SaleManagerForm = ({
@@ -65,11 +77,19 @@ const SaleManagerForm = ({
   const { loader: loaders } = useSelector((state: RootStateType) => state);
 
   //  CREATE SALE MANAGER LOADERS
-  const createLoading = getProgressState(loaders, CREATE_SALE_MANAGER);
-  const createErrorData = getFailureState(loaders, CREATE_SALE_MANAGER);
+  const { inProgress: createLoading, errorData: createErrorData } = getLoaderState(
+    loaders,
+    CREATE_SALE_MANAGER
+  );
+
+  // //  CREATE SALE MANAGER LOADERS
+  const { inProgress: updateLoading, errorData: updateErrorData } = getLoaderState(
+    loaders,
+    UPDATE_SALE_MANAGER
+  );
 
   //  UPDATE PHOTO
-  const updatePhotoLoading = getProgressState(loaders, UPDATE_SALE_MANAGER_PHOTO);
+  const { inProgress: updatePhotoLoading } = getLoaderState(loaders, UPDATE_SALE_MANAGER_PHOTO);
 
   const toggleFileInput = () => {
     fileInput.current?.click();
@@ -92,21 +112,12 @@ const SaleManagerForm = ({
     }
   };
 
-  // useEffect(() => {
-  //   if (!createLoading) {
-  //     console.log('Clearing form data...');
-  //     setFormikFormValues({ ...initialFormValues, password: defaultPassword });
-  //   }
-  // }, [createLoading]);
-
   useEffect(() => {
     if (data && mode === FORM_MODE.saleManagerEdit) {
-      setFormikFormValues(data);
+      setFormikFormValues({ ...data, dob: moment(data.dob).format('YYYY-MM-DD') });
       setPhoto(data.photo as string);
     }
   }, [data]);
-
-  console.log({ data });
 
   return (
     <div className="store-owner__sale-manager-content">
@@ -127,18 +138,20 @@ const SaleManagerForm = ({
       <Formik
         enableReinitialize
         initialValues={formikFormValues}
-        validationSchema={validationSchema}
+        validationSchema={
+          mode === FORM_MODE.saleManagerEdit ? updateValidationSchema : newValidationSchema
+        }
         onSubmit={(values) => {
           submit(values);
         }}
       >
         {({ values, errors, touched, handleChange, handleSubmit, resetForm }) => (
           <form className="form-container" onSubmit={handleSubmit}>
-            {renderServerError(createErrorData).length > 0 && (
+            {renderServerError(createErrorData || updateErrorData).length > 0 && (
               <div className="server-message mb-2 mt-2">
                 <Alert
                   message="Error"
-                  description={renderServerError(createErrorData)}
+                  description={renderServerError(createErrorData || updateErrorData)}
                   type="error"
                   showIcon
                 />
@@ -221,7 +234,6 @@ const SaleManagerForm = ({
                   id="gender"
                   value={values.gender}
                   placeholder="Select gender"
-                  // options={['MALE', 'FEMALE']}
                   options={[
                     { name: 'Male', value: 'MALE' },
                     { name: 'Female', value: 'FEMALE' },
@@ -244,40 +256,45 @@ const SaleManagerForm = ({
                 </small>
               </div>
             </div>
-            <div className="form-group">
-              <div className="input-container">
-                <label>
-                  Email <span className="danger">*</span>
-                </label>
-                <Input
-                  name="email"
-                  placeholder="Email"
-                  onChange={handleChange}
-                  id="email"
-                  value={values.email}
-                  icon="mdi mdi-email"
-                />
-                <small className="danger">{errors.email && touched.email && errors.email}</small>
+            {mode !== FORM_MODE.saleManagerEdit && (
+              <div className="form-group">
+                <div className="input-container">
+                  <label>
+                    Email <span className="danger">*</span>
+                  </label>
+                  <Input
+                    name="email"
+                    placeholder="Email"
+                    onChange={handleChange}
+                    id="email"
+                    value={values.email}
+                    icon="mdi mdi-email"
+                  />
+                  <small className="danger">{errors.email && touched.email && errors.email}</small>
+                </div>
+                <div className="input-container">
+                  <label>
+                    Password <span className="danger">*</span>
+                  </label>
+                  <Input
+                    name="password"
+                    placeholder="Password"
+                    onChange={handleChange}
+                    id="password"
+                    value={values.password}
+                    icon="mdi mdi-email"
+                  />
+                  <small className="danger">
+                    {errors.password && touched.password && errors.password}
+                  </small>
+                </div>
               </div>
-              <div className="input-container">
-                <label>
-                  Password <span className="danger">*</span>
-                </label>
-                <Input
-                  name="password"
-                  placeholder="Password"
-                  onChange={handleChange}
-                  id="password"
-                  value={values.password}
-                  icon="mdi mdi-email"
-                />
-                <small className="danger">
-                  {errors.password && touched.password && errors.password}
-                </small>
-              </div>
-            </div>
+            )}
             <div className="button-container">
-              <Button type="submit">Add {createLoading && <LoadingOutlined spin />}</Button>
+              <Button type="submit">
+                {mode !== FORM_MODE.saleManagerEdit ? 'Add' : 'Update'}{' '}
+                {(createLoading || updateLoading) && <LoadingOutlined spin />}
+              </Button>
             </div>
           </form>
         )}

@@ -56,7 +56,6 @@ const columns = [
     dataIndex: 'status',
     // eslint-disable-next-line react/display-name
     render: ({ active, key }: { active: boolean; key: string }) => {
-      // console.log({ active, key });
       const color = active ? 'green' : 'volcano';
       const text = active ? 'Active' : 'Blocked';
       return (
@@ -80,7 +79,6 @@ const columns = [
     // eslint-disable-next-line react/display-name
     render: ({ id, active, deleteFunc }: { id: string; active: boolean; deleteFunc: any }) => (
       <Space size="middle">
-        {console.log(active)}
         <Tooltip title="View" color="cyan">
           <Link to={STORE_OWNER_VIEW_SALE_MANAGER_ROUTE + `/${id}`}>
             <RenderIcon title="mdi mdi-clock-outline" styles={{ color: 'cyan' }} />

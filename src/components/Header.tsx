@@ -19,7 +19,6 @@ const Header = ({
 }) => {
   const dispatch = useDispatch();
   const { auth } = useSelector((state: RootStateType) => state);
-  console.log({ auth });
 
   const logUserOut = () => {
     dispatch(signOut());

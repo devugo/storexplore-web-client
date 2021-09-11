@@ -4,6 +4,7 @@ import {
   CREATE_SALE_MANAGER,
   READ_SALE_MANAGER,
   READ_SALE_MANAGERS,
+  UPDATE_SALE_MANAGER,
   UPDATE_SALE_MANAGER_PHOTO,
   UPDATE_STATUS_SALE_MANAGER,
 } from './types';
@@ -48,6 +49,15 @@ export const updateSaleManagerPhoto = (formData: FormData) => {
   const url = 'sale-managers/avatar';
   return {
     type: UPDATE_SALE_MANAGER_PHOTO,
+    url,
+    api: (apiClient: any) => apiClient.patch(url, formData),
+  };
+};
+
+export const updateSaleManager = (formData: SaleManagerType) => {
+  const url = 'sale-managers';
+  return {
+    type: UPDATE_SALE_MANAGER,
     url,
     api: (apiClient: any) => apiClient.patch(url, formData),
   };

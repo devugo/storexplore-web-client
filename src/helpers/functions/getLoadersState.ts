@@ -1,12 +1,7 @@
 import { ActionType, ApiResponseType } from '../../types.d';
+import { getLoader } from './getLoader';
 
-const getProgressState = (loaders: ApiResponseType[], action: ActionType): boolean => {
-  const progressData = loaders.find((x) => x.type === action.IN_PROGRESS) as ApiResponseType;
-  return !!progressData;
+export const getLoaderState = (loaders: ApiResponseType[], action: ActionType): any => {
+  const { successData, errorData, progressData } = getLoader(loaders, action);
+  return { inProgress: !!progressData, successData, errorData };
 };
-
-const getFailureState = (loaders: ApiResponseType[], action: ActionType): ApiResponseType => {
-  return loaders.find((x) => x.type === action.FAILURE) as ApiResponseType;
-};
-
-export { getFailureState, getProgressState };
