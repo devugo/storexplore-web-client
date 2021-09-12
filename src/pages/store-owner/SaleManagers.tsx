@@ -17,6 +17,7 @@ import {
   STORE_OWNER_ADD_SALE_MANAGER_ROUTE,
   STORE_OWNER_VIEW_SALE_MANAGER_ROUTE,
 } from '../../constants/ROUTE_NAME';
+import { formatCurrency } from '../../helpers/functions/formatCurrency';
 import { readSaleManagers, updateStatusSaleManager } from '../../store/actions/sale-manager';
 import { READ_SALE_MANAGERS, UPDATE_STATUS_SALE_MANAGER } from '../../store/actions/types';
 import { ApiResponseType, RootStateType, SaleManagerType } from '../../types.d';
@@ -154,7 +155,7 @@ const SaleManagers = () => {
         age: moment(x.dob).calendar()?.toString() as string,
         photo: x.photo,
         status: { active: x.active, key: x.id },
-        totalSales: x.totalSales,
+        totalSales: formatCurrency(x.totalSales as string),
         action: {
           id: x.id,
           active: x.active,

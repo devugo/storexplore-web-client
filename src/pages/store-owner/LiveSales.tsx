@@ -7,6 +7,7 @@ import ContentLoader from '../../components/ContentLoader';
 import PageWrapper from '../../components/PageWrapper';
 import { CURRENCY } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
+import { formatCurrency } from '../../helpers/functions/formatCurrency';
 import { readSales } from '../../store/actions/sale';
 import { READ_SALES_LIVE } from '../../store/actions/types';
 import { ApiResponseType, ProductType, RootStateType, SaleType } from '../../types.d';
@@ -84,9 +85,9 @@ const LiveSales = () => {
         quantity: x.quantity,
         image: (x.product as ProductType).imagePath,
         item: (x.product as ProductType).name,
-        costPrice: (x.product as ProductType).costPrice,
-        soldAt: x.soldAt,
-        totalAmount: x.quantity * x.soldAt,
+        costPrice: formatCurrency((x.product as ProductType).costPrice),
+        soldAt: formatCurrency(x.soldAt),
+        totalAmount: formatCurrency(x.quantity * x.soldAt),
         quantityLeft: (x.product as ProductType).quantity,
       };
     });

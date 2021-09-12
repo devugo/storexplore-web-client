@@ -20,6 +20,7 @@ import {
   STORE_OWNER_VIEW_PRODUCT_ROUTE,
 } from '../../constants/ROUTE_NAME';
 import { STORAGE_VARIABLE } from '../../constants/STORAGE_VARIABLE';
+import { formatCurrency } from '../../helpers/functions/formatCurrency';
 import { saveToStorage } from '../../helpers/functions/localStorage';
 import { deleteProduct, readProducts } from '../../store/actions/product';
 import { DELETE_PRODUCT, READ_PRODUCTS } from '../../store/actions/types';
@@ -156,8 +157,8 @@ const Products = () => {
         quantity: x.quantity,
         item: x.name,
         image: x.imagePath as string,
-        costPrice: x.costPrice,
-        sellingPrice: x.sellingPrice,
+        costPrice: formatCurrency(x.costPrice),
+        sellingPrice: formatCurrency(x.sellingPrice),
         date: moment(x.createdAt).calendar()?.toString() as string,
         status: (x.active ? 'active' : 'blocked') as string,
         action: { id: x.id, deleteFunc: () => showDeleteConfirm(x.id!) },

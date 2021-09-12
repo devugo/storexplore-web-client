@@ -8,6 +8,7 @@ import PageWrapper from '../../components/PageWrapper';
 import { CURRENCY } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { PAGINATION } from '../../constants/PAGINATION';
+import { formatCurrency } from '../../helpers/functions/formatCurrency';
 import { readSales } from '../../store/actions/sale';
 import { READ_SALES } from '../../store/actions/types';
 import { ApiResponseType, ProductType, RootStateType, SaleType } from '../../types.d';
@@ -97,9 +98,9 @@ const Sales = () => {
         quantity: x.quantity,
         image: (x.product as ProductType).imagePath,
         item: (x.product as ProductType).name,
-        costPrice: (x.product as ProductType).costPrice,
-        soldAt: x.soldAt,
-        totalAmount: x.quantity * x.soldAt,
+        costPrice: formatCurrency((x.product as ProductType).costPrice),
+        soldAt: formatCurrency(x.soldAt),
+        totalAmount: formatCurrency(x.quantity * x.soldAt),
         quantityLeft: (x.product as ProductType).quantity,
         date: moment(x.createdAt).calendar()?.toString() as string,
       };

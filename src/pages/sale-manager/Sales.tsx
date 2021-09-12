@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ContentLoader from '../../components/ContentLoader';
 import PageWrapper from '../../components/PageWrapper';
+import { CURRENCY } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { PAGINATION } from '../../constants/PAGINATION';
+import { formatCurrency } from '../../helpers/functions/formatCurrency';
 import { readSales } from '../../store/actions/sale';
 import { READ_SALES } from '../../store/actions/types';
 import { ApiResponseType, ProductType, RootStateType, SaleType } from '../../types.d';
@@ -34,17 +36,17 @@ const columns = [
     render: (text: string) => <span>{text}</span>,
   },
   {
-    title: 'Cost Price',
+    title: `Cost Price (${CURRENCY})`,
     dataIndex: 'costPrice',
     key: 'costPrice',
   },
   {
-    title: 'Sold At',
+    title: `Sold At (${CURRENCY})`,
     dataIndex: 'soldAt',
     key: 'soldAt',
   },
   {
-    title: 'Total Amount',
+    title: `Total Amount (${CURRENCY})`,
     dataIndex: 'totalAmount',
     key: 'totalAmount',
   },
@@ -86,9 +88,9 @@ const Sales = () => {
         quantity: x.quantity,
         image: (x.product as ProductType).imagePath,
         item: (x.product as ProductType).name,
-        costPrice: (x.product as ProductType).costPrice,
-        soldAt: x.soldAt,
-        totalAmount: x.quantity * x.soldAt,
+        costPrice: formatCurrency((x.product as ProductType).costPrice),
+        soldAt: formatCurrency(x.soldAt),
+        totalAmount: formatCurrency(x.quantity * x.soldAt),
         quantityLeft: (x.product as ProductType).quantity,
         date: moment(x.createdAt).calendar()?.toString() as string,
       };

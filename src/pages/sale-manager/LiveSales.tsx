@@ -9,9 +9,10 @@ import ContentLoader from '../../components/ContentLoader';
 import GoToButton from '../../components/GoToButton';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
-import { SERVER_BASE_URL } from '../../constants';
+import { CURRENCY, SERVER_BASE_URL } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { SALE_MANAGER_ADD_SALE_ROUTE } from '../../constants/ROUTE_NAME';
+import { formatCurrency } from '../../helpers/functions/formatCurrency';
 import { readSales } from '../../store/actions/sale';
 import { READ_SALES_LIVE } from '../../store/actions/types';
 import { ApiResponseType, ProductType, RootStateType, SaleType } from '../../types.d';
@@ -42,17 +43,17 @@ const columns = [
     render: (text: string) => <span>{text}</span>,
   },
   {
-    title: 'Cost Price (₦)',
+    title: `Cost Price (${CURRENCY})`,
     dataIndex: 'costPrice',
     key: 'costPrice',
   },
   {
-    title: 'Sold at (₦)',
+    title: `Sold at (${CURRENCY})`,
     dataIndex: 'soldAt',
     key: 'soldAt',
   },
   {
-    title: 'Total Amount (₦)',
+    title: `Total Amount (${CURRENCY})`,
     key: 'totalAmount',
     dataIndex: 'totalAmount',
   },
@@ -126,9 +127,9 @@ const LiveSales = () => {
         quantity: x.quantity,
         image: (x.product as ProductType).imagePath,
         item: (x.product as ProductType).name,
-        costPrice: (x.product as ProductType).costPrice,
-        soldAt: x.soldAt,
-        totalAmount: x.quantity * x.soldAt,
+        costPrice: formatCurrency((x.product as ProductType).costPrice),
+        soldAt: formatCurrency(x.soldAt),
+        totalAmount: formatCurrency(x.quantity * x.soldAt),
         date: moment(x.createdAt).calendar()?.toString() as string,
         action: { id: x.id, deleteFunc: () => showDeleteConfirm(x.id!) },
       };

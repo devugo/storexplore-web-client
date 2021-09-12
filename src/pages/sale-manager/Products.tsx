@@ -7,9 +7,11 @@ import { Link } from 'react-router-dom';
 import ContentLoader from '../../components/ContentLoader';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
+import { CURRENCY } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { PAGINATION } from '../../constants/PAGINATION';
 import { SALE_MANAGER_VIEW_PRODUCT_ROUTE } from '../../constants/ROUTE_NAME';
+import { formatCurrency } from '../../helpers/functions/formatCurrency';
 import { readProducts } from '../../store/actions/product';
 import { READ_PRODUCTS } from '../../store/actions/types';
 import { ApiResponseType, ProductType, RootStateType } from '../../types.d';
@@ -37,12 +39,12 @@ const columns = [
     render: (text: string) => <span>{text}</span>,
   },
   {
-    title: 'Cost Price',
+    title: `Cost Price (${CURRENCY})`,
     dataIndex: 'costPrice',
     key: 'costPrice',
   },
   {
-    title: 'Selling Price',
+    title: `Selling Price (${CURRENCY})`,
     dataIndex: 'sellingPrice',
     key: 'sellingPrice',
   },
@@ -108,8 +110,8 @@ const Products = () => {
         quantity: x.quantity,
         item: x.name,
         image: x.imagePath as string,
-        costPrice: x.costPrice,
-        sellingPrice: x.sellingPrice,
+        costPrice: formatCurrency(x.costPrice),
+        sellingPrice: formatCurrency(x.sellingPrice),
         date: moment(x.createdAt).calendar()?.toString() as string,
         status: (x.active ? 'active' : 'blocked') as string,
         action: { id: x.id },
