@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { toggleChatList, toggleProfile, toggleSidebar } from '../store/actions/open-content';
+import { RootStateType } from '../types.d';
 import PageContent from './PageContent';
 import Sidebar from './Sidebar';
 
 const PageWrapper = (props: { pageTitle: string; children: any }) => {
-  const [openSidebar, setOpenSidebar] = useState(true);
-  const [openProfile, setOpenProfile] = useState(false);
-  const [openChatList, setOpenChatList] = useState(false);
+  const {
+    openContent: { sidebar: ooenSidebar, profile: openProfile, chatList: openChatList },
+  } = useSelector((state: RootStateType) => state);
+  const dispatch = useDispatch();
 
-  const toggleSidebar = () => {
-    setOpenSidebar((prevState) => !prevState);
+  const toggleSidebarMenu = () => {
+    dispatch(toggleSidebar(!ooenSidebar));
   };
 
-  const toggleProfile = () => {
-    setOpenProfile((prevState) => !prevState);
+  const toggleProfileDropdown = () => {
+    dispatch(toggleProfile(!openProfile));
   };
-
-  // const toggleChatList = () => {
-  //   setOpenChatList((prevState) => !prevState);
-  // };
 
   const closeDropdowns = () => {
     if (openProfile) {
-      setOpenProfile(false);
+      dispatch(toggleProfile(false));
     }
 
     if (openChatList) {
-      setOpenChatList(false);
+      dispatch(toggleChatList(false));
     }
   };
 
@@ -56,13 +56,11 @@ const PageWrapper = (props: { pageTitle: string; children: any }) => {
 
   return (
     <div className="page-wrapper" onClick={closeDropdowns}>
-      <Sidebar openSidebar={openSidebar} />
+      <Sidebar />
       <PageContent
         pageTitle={props.pageTitle}
-        openSidebar={openSidebar}
-        toggleSidebar={toggleSidebar}
-        toggleProfile={toggleProfile}
-        openProfile={openProfile}
+        toggleSidebar={toggleSidebarMenu}
+        toggleProfile={toggleProfileDropdown}
       >
         {props.children}
         {/* {childrenWithProps} */}

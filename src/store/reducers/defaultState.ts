@@ -7,6 +7,11 @@ export type EntityStateType = {
   loaded: boolean;
 };
 
+export type OpenContentType = {
+  sidebar: boolean;
+  chatList: boolean;
+};
+
 const entityState: EntityStateType = {
   data: [],
   count: 0,
@@ -29,4 +34,5 @@ export const DEFAULT_STATE = {
   products: entityState,
   chats: entityState,
   sales: { ...entityState, liveData: [] },
+  openContent: { sidebar: false, chatList: false, profile: false },
 };

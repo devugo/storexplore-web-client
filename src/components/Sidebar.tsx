@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
+import { EMPTY_STRING } from '../constants/EMPTY_STRING';
 import { ROLE } from '../constants/ROLE';
 import {
   SALE_MANAGER_CHATS_ROUTE,
@@ -19,22 +20,21 @@ import {
 import { RootStateType } from '../types.d';
 import RenderIcon from './RenderIcon';
 
-const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
-  const params = useParams();
+const Sidebar = () => {
   const location = useLocation();
-  console.log({ params, location });
-  const { auth } = useSelector((state: RootStateType) => state);
+  const { auth, openContent } = useSelector((state: RootStateType) => state);
   const userRole = auth.role;
+  const openSidebar = openContent.sidebar;
 
   const getActiveNav = (routeNames: string[]): string => {
     const [firstRoute, secondRoute] = routeNames;
     const isActive =
       location.pathname.includes(firstRoute) || location.pathname.includes(secondRoute);
-    return isActive ? 'active' : '';
+    return isActive ? 'active' : EMPTY_STRING;
   };
 
   return (
-    <div className={`sidebar${openSidebar ? ' open' : ''}`}>
+    <div className={`sidebar${openSidebar ? ' open' : EMPTY_STRING}`}>
       <div className="sidebar-content">
         <div className="sidebar-logo">
           <RenderIcon title="mdi mdi-view-dashboard" />

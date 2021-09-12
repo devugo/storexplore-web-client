@@ -1,23 +1,25 @@
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
 
+import { RootStateType } from '../types.d';
 import Header from './Header';
 import PageTitle from './PageTitle';
 
 const PageContent = ({
   children,
   toggleSidebar,
-  openSidebar,
   pageTitle,
   toggleProfile,
-  openProfile,
 }: {
   children: FC;
   toggleSidebar: () => void;
-  openSidebar: boolean;
   pageTitle: string;
   toggleProfile: () => void;
-  openProfile: boolean;
 }) => {
+  const { openContent } = useSelector((state: RootStateType) => state);
+  const openSidebar = openContent.sidebar;
+  const openProfile = openContent.profile;
+
   return (
     <div className={`page-content${openSidebar ? ' open-sidebar' : ''}`}>
       <Header

@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { COLORS } from '../constants/COLOR';
-import { SaleManagerType } from '../types.d';
+import { toggleChatList } from '../store/actions/open-content';
+import { RootStateType, SaleManagerType } from '../types.d';
 import RenderIcon from './RenderIcon';
 
 const ChatUserList = ({
@@ -11,14 +12,16 @@ const ChatUserList = ({
   saleManagers?: SaleManagerType[];
   setSaleManagerTo?: (saleManagerObj: any) => void;
 }) => {
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const {
+    openContent: { chatList: openChatList },
+  } = useSelector((state: RootStateType) => state);
 
   const toggle = () => {
-    setOpen((prevState) => !prevState);
+    dispatch(toggleChatList(!openChatList));
   };
 
   const switchUser = (saleManager: SaleManagerType) => {
-    setOpen(false);
     setSaleManagerTo && setSaleManagerTo(saleManager);
   };
 
@@ -30,7 +33,7 @@ const ChatUserList = ({
           title="mdi mdi-account-supervisor"
         />
       </div>
-      <div className={`chat-user-list__dropdown${open ? ' open' : ''}`}>
+      <div className={`chat-user-list__dropdown${openChatList ? ' open' : ''}`}>
         <div className="users">
           {saleManagers &&
             saleManagers.map((saleManager, index) => {

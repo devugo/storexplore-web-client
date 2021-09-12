@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import authReducer from './auth';
 import chatReducer from './chat';
 import loaderReducer from './loader';
+import openContentReducer from './open-content';
 import productReducer from './product';
 import saleReducer from './sale';
 import saleManagerReducer from './sale-manager';
@@ -16,4 +17,5 @@ export const reducer = combineReducers({
   products: productReducer,
   chats: chatReducer,
   sales: saleReducer,
+  openContent: openContentReducer,
 });

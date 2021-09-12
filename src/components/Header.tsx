@@ -29,6 +29,7 @@ const Header = ({
   const logUserOut = () => {
     dispatch(signOut());
   };
+
   return (
     <div className={`header${openSidebar ? ' sidebar-open' : ''}`}>
       <div className="header-content">

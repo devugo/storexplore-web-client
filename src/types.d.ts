@@ -119,4 +119,5 @@ export type RootStateType = {
   saleManagers: { data: SaleManagerType[]; loaded: boolean; count: number };
   chats: { data: ChatType[]; loaded: boolean; count: number };
   sales: { data: SaleType[]; liveData: SaleType[]; loaded: boolean; count: number };
+  openContent: { sidebar: boolean; chatList: boolean; profile: boolean };
 };
