@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 import { ROLE } from '../constants/ROLE';
 import {
@@ -20,8 +20,18 @@ import { RootStateType } from '../types.d';
 import RenderIcon from './RenderIcon';
 
 const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
+  const params = useParams();
+  const location = useLocation();
+  console.log({ params, location });
   const { auth } = useSelector((state: RootStateType) => state);
   const userRole = auth.role;
+
+  const getActiveNav = (routeNames: string[]): string => {
+    const [firstRoute, secondRoute] = routeNames;
+    const isActive =
+      location.pathname.includes(firstRoute) || location.pathname.includes(secondRoute);
+    return isActive ? 'active' : '';
+  };
 
   return (
     <div className={`sidebar${openSidebar ? ' open' : ''}`}>
@@ -33,7 +43,12 @@ const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
         <div className="navs">
           <div className="top-links">
             <ul className="nav-links">
-              <li>
+              <li
+                className={getActiveNav([
+                  SALE_MANAGER_DASHBOARD_ROUTE,
+                  STORE_OWNER_DASHBOARD_ROUTE,
+                ])}
+              >
                 <Link
                   to={
                     userRole === ROLE.SALE_MANAGER
@@ -45,7 +60,12 @@ const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
                   <span>Dashboard</span>
                 </Link>
               </li>
-              <li>
+              <li
+                className={getActiveNav([
+                  SALE_MANAGER_LIVE_SALES_ROUTE,
+                  STORE_OWNER_LIVE_SALES_ROUTE,
+                ])}
+              >
                 <Link
                   to={
                     userRole === ROLE.SALE_MANAGER
@@ -57,7 +77,7 @@ const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
                   <span>{userRole === ROLE.SALE_MANAGER ? 'Today Sales' : 'Live Sales'}</span>
                 </Link>
               </li>
-              <li>
+              <li className={getActiveNav([SALE_MANAGER_SALES_ROUTE, STORE_OWNER_SALES_ROUTE])}>
                 <Link
                   to={
                     userRole === ROLE.SALE_MANAGER
@@ -69,7 +89,9 @@ const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
                   <span>Sales</span>
                 </Link>
               </li>
-              <li>
+              <li
+                className={getActiveNav([SALE_MANAGER_PRODUCTS_ROUTE, STORE_OWNER_PRODUCTS_ROUTE])}
+              >
                 <Link
                   to={
                     userRole === ROLE.SALE_MANAGER
@@ -82,14 +104,14 @@ const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
                 </Link>
               </li>
               {userRole === ROLE.ADMIN && (
-                <li>
+                <li className={getActiveNav([STORE_OWNER_SALE_MANAGERS_ROUTE])}>
                   <Link to={STORE_OWNER_SALE_MANAGERS_ROUTE}>
                     <RenderIcon title="mdi mdi-account-supervisor" />
                     <span>Sale Managers</span>
                   </Link>
                 </li>
               )}
-              <li>
+              <li className={getActiveNav([SALE_MANAGER_CHATS_ROUTE, STORE_OWNER_CHATS_ROUTE])}>
                 <Link
                   to={
                     userRole === ROLE.SALE_MANAGER
@@ -106,7 +128,7 @@ const Sidebar = ({ openSidebar }: { openSidebar: boolean }) => {
           {userRole === ROLE.ADMIN && (
             <div className="bottom-links">
               <ul className="nav-links">
-                <li>
+                <li className={getActiveNav([STORE_OWNER_STORE_ROUTE])}>
                   <Link to={STORE_OWNER_STORE_ROUTE}>
                     <RenderIcon title="mdi mdi-cog" />
                     <span>Store</span>
