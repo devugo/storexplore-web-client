@@ -79,7 +79,7 @@ const ChangePasswordForm = () => {
                   onChange={handleChange}
                   id="password"
                   value={values.password}
-                  icon="mdi mdi-key"
+                  icon="mdi mdi-lock"
                 />
                 <small className="danger">
                   {errors.password && touched.password && errors.password}
@@ -96,7 +96,7 @@ const ChangePasswordForm = () => {
                   onChange={handleChange}
                   id="passwordAgain"
                   value={values.passwordAgain}
-                  icon="mdi mdi-key"
+                  icon="mdi mdi-lock"
                 />
                 <small className="danger">
                   {errors.passwordAgain && touched.passwordAgain && errors.passwordAgain}

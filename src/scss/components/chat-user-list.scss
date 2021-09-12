@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: var(--light-gray-2);
+    background-color: var(--light-gray);
     cursor: pointer;
   }
 
@@ -18,7 +18,7 @@
     top: 40px;
     right: 0px;
     width: 150px;
-    background-color: var(--light-gray-2);
+    background-color: var(--white);
     box-shadow: 0 0px 8px 0px rgba(0, 0, 0, 0.15);
     height: 0px;
     overflow: hidden;
@@ -36,7 +36,7 @@
         cursor: pointer;
         padding: 10px;
         &:hover {
-          background-color: var(--gray-2);
+          background-color: var(--light-gray);
         }
       }
     }

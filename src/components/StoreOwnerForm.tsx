@@ -121,7 +121,7 @@ const StoreOwnerForm = ({ data }: { data: StoreOwnerType }) => {
                   onChange={handleChange}
                   id="name"
                   value={values.name}
-                  icon="mdi mdi-user"
+                  icon="mdi mdi-account"
                 />
                 <small className="danger">{errors.name && touched.name && errors.name}</small>
               </div>
@@ -133,7 +133,7 @@ const StoreOwnerForm = ({ data }: { data: StoreOwnerType }) => {
                   onChange={handleChange}
                   id="about"
                   value={values.about}
-                  icon="mdi mdi-email"
+                  icon="mdi mdi-account"
                 />
                 <small className="danger">{errors.about && touched.about && errors.about}</small>
               </div>

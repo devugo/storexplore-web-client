@@ -19,13 +19,13 @@ const ChatForm = ({ sendMessage }: { sendMessage?: (message: string) => void }) 
       <form onSubmit={forwardMessage}>
         <div className="chat-form__input">
           <input
-            placeholder="Write message..."
+            placeholder="Write a message..."
             value={message}
             onChange={changeInput}
             className="devugo-input"
           />
           <div className="icon" onClick={forwardMessage}>
-            <RenderIcon title="mdi mdi-message" />
+            <RenderIcon title="mdi mdi-send" />
           </div>
         </div>
       </form>

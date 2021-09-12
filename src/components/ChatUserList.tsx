@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { COLORS } from '../constants/COLOR';
 import { SaleManagerType } from '../types.d';
 import RenderIcon from './RenderIcon';
 
@@ -24,7 +25,10 @@ const ChatUserList = ({
   return (
     <div className="chat-user-list">
       <div className="chat-user-list__toggler" onClick={toggle}>
-        <RenderIcon styles={{ color: 'green', fontSize: 20 }} title="mdi mdi-plus" />
+        <RenderIcon
+          styles={{ color: COLORS.primary, fontSize: 20 }}
+          title="mdi mdi-account-supervisor"
+        />
       </div>
       <div className={`chat-user-list__dropdown${open ? ' open' : ''}`}>
         <div className="users">

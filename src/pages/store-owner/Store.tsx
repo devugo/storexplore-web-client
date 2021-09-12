@@ -164,7 +164,7 @@ const Store = () => {
                             onChange={handleChange}
                             id="name"
                             value={values.name}
-                            icon="mdi mdi-user"
+                            icon="mdi mdi-store"
                           />
                           <small className="danger">
                             {errors.name && touched.name && errors.name}
@@ -180,7 +180,7 @@ const Store = () => {
                             onChange={handleChange}
                             id="industry"
                             value={values.industry}
-                            icon="mdi mdi-email"
+                            icon="mdi mdi-store"
                           />
                           <small className="danger">
                             {errors.industry && touched.industry && errors.industry}
@@ -196,7 +196,7 @@ const Store = () => {
                             onChange={handleChange}
                             id="addres"
                             value={values.address}
-                            icon="mdi mdi-user"
+                            icon="mdi mdi-map-marker"
                           />
                           <small className="danger">
                             {errors.address && touched.address && errors.address}
@@ -210,7 +210,7 @@ const Store = () => {
                             onChange={handleChange}
                             id="defaultPassword"
                             value={values.defaultPassword}
-                            icon="mdi mdi-email"
+                            icon="mdi mdi-lock"
                           />
                           <small className="danger">
                             {errors.defaultPassword &&

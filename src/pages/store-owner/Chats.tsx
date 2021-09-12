@@ -13,7 +13,8 @@ import { READ_CHATS } from '../../store/actions/types';
 import { ApiResponseType, RootStateType } from '../../types.d';
 const socket = io(SERVER_BASE_URL);
 
-const Chats = () => {
+const Chats = (props: any) => {
+  console.log({ props: props.openChatList });
   const dispatch = useDispatch();
   const {
     saleManagers,

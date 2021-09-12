@@ -168,7 +168,7 @@ const SaleManagerForm = ({
                   onChange={handleChange}
                   id="lastname"
                   value={values.lastname}
-                  icon="mdi mdi-user"
+                  icon="mdi mdi-account"
                 />
                 <small className="danger">
                   {errors.lastname && touched.lastname && errors.lastname}
@@ -184,7 +184,7 @@ const SaleManagerForm = ({
                   onChange={handleChange}
                   id="firstname"
                   value={values.firstname}
-                  icon="mdi mdi-email"
+                  icon="mdi mdi-account"
                 />
                 <small className="danger">
                   {errors.firstname && touched.firstname && errors.firstname}
@@ -200,7 +200,7 @@ const SaleManagerForm = ({
                   onChange={handleChange}
                   id="othernames"
                   value={values.othernames}
-                  icon="mdi mdi-user"
+                  icon="mdi mdi-account"
                 />
                 <small className="danger">
                   {errors.othernames && touched.othernames && errors.othernames}
@@ -217,7 +217,7 @@ const SaleManagerForm = ({
                   onChange={handleChange}
                   id="dob"
                   value={values.dob}
-                  icon="mdi mdi-email"
+                  icon="mdi mdi-calendar-range"
                 />
                 <small className="danger">{errors.dob && touched.dob && errors.dob}</small>
               </div>
@@ -229,6 +229,7 @@ const SaleManagerForm = ({
                   <span className="danger">*</span>
                 </label>
                 <SelectInput
+                  icon="mdi mdi-shape"
                   name="gender"
                   onChange={handleChange}
                   id="gender"
@@ -249,7 +250,7 @@ const SaleManagerForm = ({
                   onChange={handleChange}
                   id="address"
                   value={values.address}
-                  icon="mdi mdi-email"
+                  icon="mdi mdi-map-marker"
                 />
                 <small className="danger">
                   {errors.address && touched.address && errors.address}
@@ -282,7 +283,7 @@ const SaleManagerForm = ({
                     onChange={handleChange}
                     id="password"
                     value={values.password}
-                    icon="mdi mdi-email"
+                    icon="mdi mdi-lock"
                   />
                   <small className="danger">
                     {errors.password && touched.password && errors.password}

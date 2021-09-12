@@ -75,12 +75,13 @@ const SaleForm = ({ submit }: { submit: (values: SaleType) => void }) => {
                 </label>
                 <Select
                   allowClear
-                  placeholder="Please select"
-                  value={formData.product}
+                  placeholder="Select a product"
+                  value={formData.product || null}
                   onChange={(value) => changeSelect(value, 'product')}
                   id="product"
                   showArrow={false}
                   className="devugo-selector"
+                  showSearch
                 >
                   {products.data.map((product, index) => (
                     <Option key={index} value={product.id}>
@@ -89,6 +90,8 @@ const SaleForm = ({ submit }: { submit: (values: SaleType) => void }) => {
                   ))}
                 </Select>
               </div>
+            </div>
+            <div className="form-group">
               <div className="input-container">
                 <label>Cost Price</label>
                 <Input
@@ -97,11 +100,9 @@ const SaleForm = ({ submit }: { submit: (values: SaleType) => void }) => {
                   placeholder="Cost Price"
                   id="costPrice"
                   value={products.data.find((x) => x.id === formData.product)?.costPrice}
-                  icon="mdi mdi-email"
+                  icon="mdi mdi-cash-multiple"
                 />
               </div>
-            </div>
-            <div className="form-group">
               <div className="input-container">
                 <label>Quantity Left</label>
                 <Input
@@ -110,9 +111,11 @@ const SaleForm = ({ submit }: { submit: (values: SaleType) => void }) => {
                   placeholder="Quantity left"
                   id="quantityLeft"
                   value={products.data.find((x) => x.id === formData.product)?.quantity}
-                  icon="mdi mdi-user"
+                  icon="mdi mdi-view-list"
                 />
               </div>
+            </div>
+            <div className="form-group">
               <div className="input-container">
                 <label>
                   Quantity Sold<span className="danger">*</span>
@@ -124,7 +127,7 @@ const SaleForm = ({ submit }: { submit: (values: SaleType) => void }) => {
                   onChange={handleChange}
                   id="quantity"
                   value={values.quantity}
-                  icon="mdi mdi-email"
+                  icon="mdi mdi-view-list"
                   min={1}
                   max={products.data.find((x) => x.id === formData.product)?.quantity}
                   disabled={
@@ -137,8 +140,6 @@ const SaleForm = ({ submit }: { submit: (values: SaleType) => void }) => {
                   {errors.quantity && touched.quantity && errors.quantity}
                 </small>
               </div>
-            </div>
-            <div className="form-group">
               <div className="input-container">
                 <label>
                   Sold At <span className="danger">*</span>
@@ -149,7 +150,7 @@ const SaleForm = ({ submit }: { submit: (values: SaleType) => void }) => {
                   onChange={handleChange}
                   id="soldAt"
                   value={values.soldAt}
-                  icon="mdi mdi-user"
+                  icon="mdi mdi-cash-multiple"
                   min={1}
                   disabled={
                     formData.product

@@ -166,7 +166,7 @@ const ProductForm = ({
                   onChange={handleChange}
                   id="name"
                   value={values.name}
-                  icon="mdi mdi-user"
+                  icon="mdi mdi-store"
                 />
                 <small className="danger">{errors.name && touched.name && errors.name}</small>
               </div>
@@ -178,7 +178,7 @@ const ProductForm = ({
                   onChange={handleChange}
                   id="description"
                   value={values.description}
-                  icon="mdi mdi-email"
+                  icon="mdi mdi-store"
                 />
                 <small className="danger">
                   {errors.description && touched.description && errors.description}
@@ -197,7 +197,7 @@ const ProductForm = ({
                   onChange={handleChange}
                   id="othernames"
                   value={values.costPrice}
-                  icon="mdi mdi-user"
+                  icon="mdi mdi-cash-multiple"
                 />
                 <small className="danger">
                   {errors.costPrice && touched.costPrice && errors.costPrice}
@@ -214,7 +214,7 @@ const ProductForm = ({
                   onChange={handleChange}
                   id="sellingPrice"
                   value={values.sellingPrice}
-                  icon="mdi mdi-email"
+                  icon="mdi mdi-cash-multiple"
                 />
                 <small className="danger">
                   {errors.sellingPrice && touched.sellingPrice && errors.sellingPrice}
@@ -232,7 +232,7 @@ const ProductForm = ({
                   onChange={handleChange}
                   id="quantity"
                   value={values.quantity}
-                  icon="mdi mdi-email"
+                  icon="mdi mdi-view-list"
                 />
                 <small className="danger">
                   {errors.quantity && touched.quantity && errors.quantity}
