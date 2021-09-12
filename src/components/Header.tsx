@@ -21,7 +21,10 @@ const Header = ({
   openProfile: boolean;
 }) => {
   const dispatch = useDispatch();
-  const { auth } = useSelector((state: RootStateType) => state);
+  const { auth, store } = useSelector((state: RootStateType) => state);
+  const userRole = auth.role;
+  const storeName =
+    userRole === ROLE.SALE_MANAGER ? auth?.saleManager?.store?.name : store?.data?.name;
 
   const logUserOut = () => {
     dispatch(signOut());
@@ -35,10 +38,13 @@ const Header = ({
           <span className="hamburger-stick"></span>
         </div>
         <div className="header-right">
+          <div className="store-name">
+            <span>{storeName}</span>
+          </div>
           <div className="profile" onClick={toggleProfile}>
             <img
               src={
-                auth.role === ROLE.SALE_MANAGER ? auth.saleManager?.photo : auth.storeOwner?.photo
+                userRole === ROLE.SALE_MANAGER ? auth.saleManager?.photo : auth.storeOwner?.photo
               }
               alt="profile"
             />
@@ -49,7 +55,7 @@ const Header = ({
                   <li>
                     <Link
                       to={
-                        auth.role === ROLE.SALE_MANAGER
+                        userRole === ROLE.SALE_MANAGER
                           ? SALE_MANAGER_PROFILE_ROUTE
                           : STORE_OWNER_EDIT_PROFILE_ROUTE
                       }

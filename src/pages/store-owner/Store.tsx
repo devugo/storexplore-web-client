@@ -14,7 +14,7 @@ import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { renderServerError } from '../../helpers/functions/renderServerError';
 import { showMessage } from '../../helpers/functions/showMessage';
 import { validateImage } from '../../helpers/functions/validateImage';
-import { getMyStore, updateStore, updateStoreLogo } from '../../store/actions/store';
+import { updateStore, updateStoreLogo } from '../../store/actions/store';
 import { GET_MY_STORE, UPDATE_STORE, UPDATE_STORE_LOGO } from '../../store/actions/types';
 import { ApiResponseType, RootStateType, StoreType } from '../../types.d';
 
@@ -86,19 +86,11 @@ const Store = () => {
     dispatch(updateStoreLogo(form, store.data.id!));
   };
 
-  const getStore = () => {
-    dispatch(getMyStore());
-  };
-
   useEffect(() => {
     if (updateLogoErrorData) {
       showMessage('error', 'Error uploading logo', 4);
     }
   }, [updateLogoErrorData]);
-
-  useEffect(() => {
-    getStore();
-  }, []);
 
   useEffect(() => {
     if (store.data) {
