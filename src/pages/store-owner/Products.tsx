@@ -1,4 +1,3 @@
-// import { LoadingOutlined } from '@ant-design/icons';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Modal, Pagination, Space, Table, Tag, Tooltip } from 'antd';
 import moment from 'moment';
@@ -114,6 +113,7 @@ const Products = () => {
 
   const [tableData, setTableData] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchValue, setSearchValue] = useState<string>(EMPTY_STRING);
 
   //  READ PRODUCTS LOADERS
   const readProgressData = loaders.find(
@@ -166,12 +166,18 @@ const Products = () => {
     });
   };
 
+  const searchProducts = (e: any) => {
+    e.preventDefault();
+    const pageParams = `?search=${searchValue}`;
+    getProducts(pageParams);
+  };
+
   const getProducts = (params: string = EMPTY_STRING) => {
     dispatch(readProducts(params));
   };
 
   useEffect(() => {
-    const pageParams = `?page=${currentPage}`;
+    const pageParams = `?page=${currentPage}&search=${searchValue}`;
     getProducts(pageParams);
   }, [currentPage]);
 
@@ -187,7 +193,20 @@ const Products = () => {
       {deleteLoading && <LoaderOverlay />}
       <div className="store-owner__products">
         <div className="devugo-card">
-          <GoToButton goto={STORE_OWNER_ADD_PRODUCT_ROUTE} style={{ marginBottom: 20 }} />
+          <GoToButton goto={STORE_OWNER_ADD_PRODUCT_ROUTE} style={{ marginBottom: 10 }} />
+          <form onSubmit={searchProducts} style={{ marginBottom: 10 }}>
+            <div className="search-input">
+              <input
+                disabled={readLoading}
+                placeholder="Search for products..."
+                className="devugo-input"
+                onChange={(e) => setSearchValue(e.target.value)}
+              />
+              <div className="icon" onClick={searchProducts}>
+                <RenderIcon title="mdi mdi-magnify" />
+              </div>
+            </div>
+          </form>
           {readLoading ? (
             <ContentLoader />
           ) : (
