@@ -1,0 +1,36 @@
+.search-form {
+  .search-input {
+    position: relative;
+    width: 100%;
+
+    input {
+      padding-right: 42px;
+    }
+
+    .icon {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      height: 100%;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-left: 1px solid var(--tertiary-color);
+      cursor: pointer;
+
+      i {
+        color: var(--primary-color);
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+@include media-md {
+  .search-form {
+    .search-input {
+      width: 250px;
+    }
+  }
+}

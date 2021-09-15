@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import ContentLoader from '../../components/ContentLoader';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
+import SearchForm from '../../components/SearchForm';
 import { CURRENCY } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { PAGINATION } from '../../constants/PAGINATION';
@@ -145,19 +146,12 @@ const Products = () => {
     <PageWrapper pageTitle="Products">
       <div className="sale-manager__products">
         <div className="devugo-card">
-          <form onSubmit={searchProducts} style={{ marginBottom: 10 }}>
-            <div className="search-input">
-              <input
-                disabled={readLoading}
-                placeholder="Search for products..."
-                className="devugo-input"
-                onChange={(e) => setSearchValue(e.target.value)}
-              />
-              <div className="icon" onClick={searchProducts}>
-                <RenderIcon title="mdi mdi-magnify" />
-              </div>
-            </div>
-          </form>
+          <SearchForm
+            search={searchProducts}
+            readLoading={readLoading}
+            setSearchValue={setSearchValue}
+            placeholder="Search for products..."
+          />
           {readLoading ? (
             <ContentLoader />
           ) : (

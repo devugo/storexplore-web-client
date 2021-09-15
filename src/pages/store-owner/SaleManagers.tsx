@@ -10,6 +10,7 @@ import GoToButton from '../../components/GoToButton';
 import LoaderOverlay from '../../components/LoaderOverlay';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
+import SearchForm from '../../components/SearchForm';
 import { CURRENCY } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { PAGINATION } from '../../constants/PAGINATION';
@@ -104,6 +105,7 @@ const SaleManagers = () => {
 
   const [tableData, setTableData] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchValue, setSearchValue] = useState<string>(EMPTY_STRING);
 
   //  READ LIVE SALES LOADERS
   const readProgressData = loaders.find(
@@ -119,10 +121,6 @@ const SaleManagers = () => {
 
   const goToPage = (page: number) => {
     setCurrentPage(page);
-  };
-
-  const getSaleManagers = (params: string = EMPTY_STRING) => {
-    dispatch(readSaleManagers(params));
   };
 
   const updateStatus = (formData: { active: boolean }, id: string) => {
@@ -165,8 +163,18 @@ const SaleManagers = () => {
     });
   };
 
+  const searchSaleManagers = (e: any) => {
+    e.preventDefault();
+    const pageParams = `?search=${searchValue}`;
+    getSaleManagers(pageParams);
+  };
+
+  const getSaleManagers = (params: string = EMPTY_STRING) => {
+    dispatch(readSaleManagers(params));
+  };
+
   useEffect(() => {
-    const pageParams = `?page=${currentPage}`;
+    const pageParams = `?page=${currentPage}&search=${searchValue}`;
     getSaleManagers(pageParams);
   }, [currentPage]);
 
@@ -183,7 +191,12 @@ const SaleManagers = () => {
       <div className="store-owner__sale-maangers">
         <div className="devugo-card">
           <GoToButton goto={STORE_OWNER_ADD_SALE_MANAGER_ROUTE} style={{ marginBottom: 20 }} />
-
+          <SearchForm
+            search={searchSaleManagers}
+            readLoading={readLoading}
+            setSearchValue={setSearchValue}
+            placeholder="Search sale managers..."
+          />
           {readLoading ? (
             <ContentLoader />
           ) : (
