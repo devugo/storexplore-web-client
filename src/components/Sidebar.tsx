@@ -123,20 +123,16 @@ const Sidebar = () => {
                   <span>Chat</span>
                 </Link>
               </li>
-            </ul>
-          </div>
-          {userRole === ROLE.ADMIN && (
-            <div className="bottom-links">
-              <ul className="nav-links">
+              {userRole === ROLE.ADMIN && (
                 <li className={getActiveNav([STORE_OWNER_STORE_ROUTE])}>
                   <Link to={STORE_OWNER_STORE_ROUTE}>
                     <RenderIcon title="mdi mdi-cog" />
                     <span>Store</span>
                   </Link>
                 </li>
-              </ul>
-            </div>
-          )}
+              )}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
