@@ -8,7 +8,7 @@ import ContentLoader from '../../components/ContentLoader';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
 import SearchForm from '../../components/SearchForm';
-import { CURRENCY } from '../../constants';
+import { CURRENCY, ONE } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { PAGINATION } from '../../constants/PAGINATION';
 import { SALE_MANAGER_VIEW_PRODUCT_ROUTE } from '../../constants/ROUTE_NAME';
@@ -123,8 +123,8 @@ const Products = () => {
 
   const searchProducts = (e: any) => {
     e.preventDefault();
-    const pageParams = `?search=${searchValue}`;
-    getProducts(pageParams);
+    const queryParams = `?search=${searchValue}&page=${ONE}`;
+    getProducts(queryParams);
   };
 
   const getProducts = (params: string = EMPTY_STRING) => {
@@ -132,8 +132,8 @@ const Products = () => {
   };
 
   useEffect(() => {
-    const pageParams = `?page=${currentPage}`;
-    getProducts(pageParams);
+    const queryParams = `?page=${currentPage}&search=${searchValue}`;
+    getProducts(queryParams);
   }, [currentPage]);
 
   useEffect(() => {

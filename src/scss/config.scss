@@ -51,11 +51,11 @@
 
 @keyframes top-in {
   from {
-    margin-top: -40px;
+    margin-top: -10px;
     opacity: 0;
   }
   to {
-    margin-top: 10px;
+    margin-top: inherit;
     opacity: 1;
   }
 }

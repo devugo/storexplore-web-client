@@ -1,0 +1,28 @@
+.sales-filter-form {
+  // position: relative;
+  // z-index: 10;
+  width: 100%;
+  margin-bottom: 20px;
+
+  &__content {
+    // position: absolute;
+    background-color: var(--light-gray);
+    width: 100%;
+    box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    border-radius: 10px;
+    animation-name: top-in;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+
+    .close-btn {
+      text-align: right;
+      span {
+        width: 50px;
+        cursor: pointer;
+        color: black;
+        font-size: 25px;
+      }
+    }
+  }
+}

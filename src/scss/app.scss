@@ -9,6 +9,8 @@
 @import './components/textarea-input';
 @import './components/sidebar';
 @import './components/select';
+@import './components/search-form';
+@import './components/sales-filter-form';
 @import './components/photo-container';
 @import './components/page-wrapper';
 @import './components/page-title';
@@ -18,12 +20,12 @@
 @import './components/input';
 @import './components/header';
 @import './components/go-to-button';
+@import './components/filter-button';
 @import './components/chat-user-list';
 @import './components/chat-message';
 @import './components/chat-form';
 @import './components/chats-body';
 @import './components/button';
-@import './components/search-form';
 
 //  Pages
 @import './pages/auth';

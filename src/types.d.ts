@@ -1,6 +1,13 @@
 export type GenderType = 'MALE' | 'FEMALE';
 export type RoleType = 'SALE MANAGER' | 'ADMIN';
 
+export type SalesFilterDataType = {
+  product: string;
+  startDate: string;
+  endDate: string;
+  saleManager?: string;
+};
+
 export type ActionType = {
   IN_PROGRESS: string;
   SUCCESS: string;

@@ -4,14 +4,25 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ContentLoader from '../../components/ContentLoader';
+import FilterButton from '../../components/FilterButton';
 import PageWrapper from '../../components/PageWrapper';
-import { CURRENCY } from '../../constants';
+import SalesFilterForm from '../../components/SalesFilterForm';
+import { CURRENCY, ONE } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { PAGINATION } from '../../constants/PAGINATION';
+import { composeQueryString } from '../../helpers/functions/composeQueryString';
 import { formatCurrency } from '../../helpers/functions/formatCurrency';
+import { readProducts } from '../../store/actions/product';
 import { readSales } from '../../store/actions/sale';
+import { readSaleManagers } from '../../store/actions/sale-manager';
 import { READ_SALES } from '../../store/actions/types';
-import { ApiResponseType, ProductType, RootStateType, SaleType } from '../../types.d';
+import {
+  ApiResponseType,
+  ProductType,
+  RootStateType,
+  SalesFilterDataType,
+  SaleType,
+} from '../../types.d';
 
 const columns = [
   {
@@ -71,23 +82,49 @@ const columns = [
 
 const Sales = () => {
   const dispatch = useDispatch();
-  const { sales, loader: loaders } = useSelector((state: RootStateType) => state);
+  const {
+    sales,
+    loader: loaders,
+    products,
+    saleManagers,
+  } = useSelector((state: RootStateType) => state);
 
   const [tableData, setTableData] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
+  const [filterParams, setFilterParams] = useState<string>('?');
 
-  //  READ LIVE SALES LOADERS
+  //  READ SALES LOADERS
   const readProgressData = loaders.find(
     (x) => x.type === READ_SALES.IN_PROGRESS
   ) as ApiResponseType;
   const readLoading = !!readProgressData;
 
+  const openFilterModal = () => {
+    setShowFilterModal(true);
+  };
+
   const goToPage = (page: number) => {
     setCurrentPage(page);
   };
 
+  const getSalesWithQuery = (data: SalesFilterDataType) => {
+    const queryParams = `?${composeQueryString(data)}`;
+    setFilterParams(queryParams);
+    getSales(queryParams + `&page=${ONE}`);
+    setCurrentPage(ONE);
+  };
+
   const getSales = (params: string = EMPTY_STRING) => {
     dispatch(readSales(params, READ_SALES));
+  };
+
+  const getProducts = (params: string = EMPTY_STRING) => {
+    dispatch(readProducts(params));
+  };
+
+  const getSaleManagers = (params: string = EMPTY_STRING) => {
+    dispatch(readSaleManagers(params));
   };
 
   const composeTableData = (data: SaleType[]) => {
@@ -108,8 +145,8 @@ const Sales = () => {
   };
 
   useEffect(() => {
-    const pageParams = `?page=${currentPage}`;
-    getSales(pageParams);
+    const queryParams = `${filterParams}&page=${currentPage}`;
+    getSales(queryParams);
   }, [currentPage]);
 
   useEffect(() => {
@@ -118,10 +155,28 @@ const Sales = () => {
       setTableData(tableInfo);
     }
   }, [sales]);
+
+  useEffect(() => {
+    getProducts();
+    getSaleManagers();
+  }, []);
+
   return (
     <PageWrapper pageTitle="Sales">
       <div className="store-owner__sales">
         <div className="devugo-card">
+          <FilterButton openFilterModal={openFilterModal} />
+          {showFilterModal && (
+            <SalesFilterForm
+              readLoading={readLoading}
+              closeModal={() => setShowFilterModal(false)}
+              submit={getSalesWithQuery}
+              products={products.data}
+              saleManagers={saleManagers.data}
+              reloadData={getSales}
+              resetPage={() => setCurrentPage(ONE)}
+            />
+          )}
           {readLoading ? (
             <ContentLoader />
           ) : (

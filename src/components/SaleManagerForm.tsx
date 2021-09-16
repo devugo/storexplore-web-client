@@ -22,7 +22,6 @@ import Button from './Button';
 import Input from './Input';
 import LoaderOverlay from './LoaderOverlay';
 import PhotoContainer from './PhotoContainer';
-import RenderIcon from './RenderIcon';
 import SelectInput from './Select';
 
 const initialFormValues: SaleManagerType = {
@@ -225,7 +224,7 @@ const SaleManagerForm = ({
             <div className="form-group">
               <div className="input-container">
                 <label>
-                  <RenderIcon title="mdi mdi-title" /> Select Gender{' '}
+                  Select Gender
                   <span className="danger">*</span>
                 </label>
                 <SelectInput

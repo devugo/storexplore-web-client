@@ -11,7 +11,7 @@ import LoaderOverlay from '../../components/LoaderOverlay';
 import PageWrapper from '../../components/PageWrapper';
 import RenderIcon from '../../components/RenderIcon';
 import SearchForm from '../../components/SearchForm';
-import { CURRENCY } from '../../constants';
+import { CURRENCY, ONE } from '../../constants';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { PAGINATION } from '../../constants/PAGINATION';
 import {
@@ -165,7 +165,7 @@ const SaleManagers = () => {
 
   const searchSaleManagers = (e: any) => {
     e.preventDefault();
-    const pageParams = `?search=${searchValue}`;
+    const pageParams = `?search=${searchValue}&page=${ONE}`;
     getSaleManagers(pageParams);
   };
 
