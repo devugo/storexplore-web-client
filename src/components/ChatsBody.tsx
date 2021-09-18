@@ -8,9 +8,11 @@ import ChatMessage from './ChatMessage';
 const ChatsBody = ({
   chats,
   sendMessage,
+  saleManagerFirstname,
 }: {
   chats: ChatType[];
   sendMessage?: (message: string) => void;
+  saleManagerFirstname?: string;
 }) => {
   const messagesEndRef = useRef(null);
   const { auth } = useSelector((state: RootStateType) => state);
@@ -29,10 +31,15 @@ const ChatsBody = ({
     <div className="chats-body">
       <div className="chat-messages">
         {chats.map((chat, index) => {
-          const { from, message } = chat;
+          const { from, message, createdAt } = chat;
           return (
             <Fragment key={index}>
-              <ChatMessage position={from === auth.id ? 'right' : 'left'} message={message} />
+              <ChatMessage
+                saleManagerFirstname={saleManagerFirstname}
+                position={from === auth.id ? 'right' : 'left'}
+                message={message}
+                createdAt={createdAt}
+              />
             </Fragment>
           );
         })}

@@ -1,3 +1,4 @@
+import { Tooltip } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { COLORS } from '../constants/COLOR';
@@ -27,12 +28,14 @@ const ChatUserList = ({
 
   return (
     <div className="chat-user-list">
-      <div className="chat-user-list__toggler" onClick={toggle}>
-        <RenderIcon
-          styles={{ color: COLORS.primary, fontSize: 20 }}
-          title="mdi mdi-account-supervisor"
-        />
-      </div>
+      <Tooltip title="Select sale manager" color={COLORS.primary}>
+        <div className="chat-user-list__toggler" onClick={toggle}>
+          <RenderIcon
+            styles={{ color: COLORS.primary, fontSize: 20 }}
+            title="mdi mdi-account-supervisor"
+          />
+        </div>
+      </Tooltip>
       <div className={`chat-user-list__dropdown${openChatList ? ' open' : ''}`}>
         <div className="users">
           {saleManagers &&

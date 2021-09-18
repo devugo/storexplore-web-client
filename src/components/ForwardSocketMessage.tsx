@@ -28,6 +28,25 @@ const ForwardSocketMessage = () => {
       }
     });
 
+    socket.on('delete sale', (msgObj) => {
+      if (msgObj.from === auth.saleManager?.id) {
+        if (msgObj.id) {
+          dispatch(deleteSale(msgObj));
+          showMessage('success', 'Sale deleted', MESSAGE_TIME);
+        } else {
+          showMessage('error', msgObj.error, MESSAGE_TIME);
+        }
+      } else {
+        dispatch(deleteSale(msgObj));
+      }
+    });
+    // CLEAN UP THE EFFECT
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
     socket.on('add sale', (msgObj) => {
       if (msgObj.from === auth.id) {
         if (msgObj.sale) {
@@ -46,21 +65,8 @@ const ForwardSocketMessage = () => {
         }
       }
     });
-
-    socket.on('delete sale', (msgObj) => {
-      if (msgObj.from === auth.saleManager?.id) {
-        if (msgObj.id) {
-          dispatch(deleteSale(msgObj));
-          showMessage('success', 'Sale deleted', MESSAGE_TIME);
-        } else {
-          showMessage('error', msgObj.error, MESSAGE_TIME);
-        }
-      } else {
-        dispatch(deleteSale(msgObj));
-      }
-    });
   }, [products, saleManagers]);
-  return <></>;
+  return <div id="forward-socket-message"></div>;
 };
 
 export default ForwardSocketMessage;

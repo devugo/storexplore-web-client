@@ -43,16 +43,11 @@ const Chats = () => {
 
   return (
     <PageWrapper pageTitle="Chats">
-      <div className="store-owner__chats">
+      <div className="chats-page">
         <div className="devugo-card">
-          <div className="store-owner__chats-title">
-            <div className="profile" style={{ display: 'flex' }}>
-              <img
-                src={store?.logoPath}
-                width="30"
-                height="30"
-                style={{ borderRadius: '50%', marginRight: 5 }}
-              />
+          <div className="chats-page__title">
+            <div className="profile">
+              <img src={store?.logoPath} width="30" height="30" />
               <h3>ADMIN</h3>
             </div>
           </div>

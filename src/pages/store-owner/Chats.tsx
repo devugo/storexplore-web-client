@@ -14,7 +14,6 @@ import { ApiResponseType, RootStateType } from '../../types.d';
 const socket = io(SERVER_BASE_URL);
 
 const Chats = (props: any) => {
-  console.log({ props: props.openChatList });
   const dispatch = useDispatch();
   const {
     saleManagers,
@@ -54,28 +53,31 @@ const Chats = (props: any) => {
     }
   }, [saleManagerTo]);
 
+  const saleManagerName = saleManagerTo && `${saleManagerTo.firstname} ${saleManagerTo.lastname}`;
+  const saleManagerFirstname = saleManagerTo && saleManagerTo.firstname;
+
   return (
     <PageWrapper pageTitle="Chats">
-      <div className="store-owner__chats">
+      <div className="chats-page">
         <div className="devugo-card">
-          <div className="store-owner__chats-title">
-            <div className="profile" style={{ display: 'flex' }}>
+          <div className="chats-page__title">
+            <div>Select a user </div>
+            <div className="profile">
               {saleManagerTo && saleManagerTo.photo && (
-                <img
-                  src={saleManagerTo.photo}
-                  width="30"
-                  height="30"
-                  style={{ borderRadius: '50%', marginRight: 5 }}
-                />
+                <img src={saleManagerTo.photo} width="30" height="30" />
               )}
-              {saleManagerTo && <h3>{`${saleManagerTo.firstname} ${saleManagerTo.lastname}`}</h3>}
+              {saleManagerTo && <h3>{saleManagerName}</h3>}
             </div>
             <ChatUserList saleManagers={saleManagers.data} setSaleManagerTo={setSaleManagerTo} />
           </div>
           {readLoading ? (
             <ContentLoader />
           ) : saleManagerTo ? (
-            <ChatsBody chats={chats} sendMessage={sendMessage} />
+            <ChatsBody
+              saleManagerFirstname={saleManagerFirstname}
+              chats={chats}
+              sendMessage={sendMessage}
+            />
           ) : null}
         </div>
       </div>

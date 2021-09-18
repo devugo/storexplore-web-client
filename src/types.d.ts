@@ -104,6 +104,7 @@ export type ChatType = {
   from: string;
   to: string;
   message: string;
+  createdAt: Date;
 };
 
 export type ChangePasswordType = {

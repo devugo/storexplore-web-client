@@ -1,0 +1,36 @@
+.chats-page {
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--light-gray);
+
+    .profile {
+      display: flex;
+      align-items: center;
+
+      img {
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+
+      h3 {
+        font-size: 13px;
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+@include media-md {
+  .chats-page {
+    &__title {
+      .profile {
+        h3 {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}

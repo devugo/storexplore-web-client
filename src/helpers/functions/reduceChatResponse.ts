@@ -7,6 +7,7 @@ export const reduceChatResponse = (chats: any): ChatType[] => {
       message: chat.message,
       from: chat.from.id,
       to: chat.to.id,
+      createdAt: chat.createdAt,
     };
   });
 };

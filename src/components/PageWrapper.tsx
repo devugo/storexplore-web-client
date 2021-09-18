@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { toggleChatList, toggleProfile, toggleSidebar } from '../store/actions/open-content';
 import { RootStateType } from '../types.d';
+import ForwardSocketMessage from './ForwardSocketMessage';
 import PageContent from './PageContent';
 import Sidebar from './Sidebar';
 
@@ -56,6 +57,7 @@ const PageWrapper = (props: { pageTitle: string; children: any }) => {
 
   return (
     <div className="page-wrapper" onClick={closeDropdowns}>
+      <ForwardSocketMessage />
       <Sidebar />
       <PageContent
         pageTitle={props.pageTitle}

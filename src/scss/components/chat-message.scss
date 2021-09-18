@@ -1,9 +1,15 @@
 .chat-message {
-  margin: 10px;
+  margin: 15px 10px;
   display: flex;
+  flex-direction: column;
+
+  &__time-container {
+    font-size: 8px;
+    margin-bottom: 3px;
+  }
 
   &.right {
-    justify-content: flex-end;
+    align-items: flex-end;
 
     .chat-message__content {
       border-top-left-radius: 15px;
@@ -21,7 +27,7 @@
     }
   }
   &__content {
-    padding: 10px;
+    padding: 7px 10px;
     width: fit-content;
 
     p {
@@ -33,6 +39,9 @@
 
 @include media-md {
   .chat-message {
+    &__time-container {
+      font-size: 10px;
+    }
     &__content {
       padding: 15px;
 
