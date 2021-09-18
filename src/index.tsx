@@ -1,4 +1,5 @@
 import 'antd/dist/antd.css';
+import 'emoji-mart/css/emoji-mart.css';
 import './index.css';
 import './scss/app.scss';
 

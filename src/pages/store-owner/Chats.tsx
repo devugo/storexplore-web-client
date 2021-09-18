@@ -61,13 +61,15 @@ const Chats = (props: any) => {
       <div className="chats-page">
         <div className="devugo-card">
           <div className="chats-page__title">
-            <div>Select a user </div>
-            <div className="profile">
-              {saleManagerTo && saleManagerTo.photo && (
-                <img src={saleManagerTo.photo} width="30" height="30" />
-              )}
-              {saleManagerTo && <h3>{saleManagerName}</h3>}
-            </div>
+            {saleManagerTo ? (
+              <div className="profile">
+                {saleManagerTo.photo && <img src={saleManagerTo.photo} width="30" height="30" />}
+                {<h3>{saleManagerName}</h3>}
+              </div>
+            ) : (
+              <div>Select a user </div>
+            )}
+
             <ChatUserList saleManagers={saleManagers.data} setSaleManagerTo={setSaleManagerTo} />
           </div>
           {readLoading ? (
