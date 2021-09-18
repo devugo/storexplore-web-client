@@ -34,5 +34,5 @@ export const DEFAULT_STATE = {
   products: entityState,
   chats: entityState,
   sales: { ...entityState, liveData: [] },
-  openContent: { sidebar: false, chatList: false, profile: false },
+  openContent: { sidebar: false, chatList: false, profile: false, emojiDrawer: false },
 };

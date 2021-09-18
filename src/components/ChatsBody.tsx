@@ -1,6 +1,9 @@
-import { Fragment, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { Picker } from 'emoji-mart';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { EMPTY_STRING } from '../constants/EMPTY_STRING';
+import { toggleEmojiDrawer } from '../store/actions/open-content';
 import { ChatType, RootStateType } from '../types.d';
 import ChatForm from './ChatForm';
 import ChatMessage from './ChatMessage';
@@ -11,15 +14,32 @@ const ChatsBody = ({
   saleManagerFirstname,
 }: {
   chats: ChatType[];
-  sendMessage?: (message: string) => void;
+  sendMessage?: (msg: string) => void;
   saleManagerFirstname?: string;
 }) => {
   const messagesEndRef = useRef(null);
+  const dispatch = useDispatch();
   const { auth } = useSelector((state: RootStateType) => state);
+  const [message, setMessage] = useState<string>(EMPTY_STRING);
+  const {
+    openContent: { emojiDrawer: openEmojiTray },
+  } = useSelector((state: RootStateType) => state);
 
   const scrollToBottom = () => {
     if (messagesEndRef) {
       (messagesEndRef.current! as HTMLElement).scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const selectEmoji = (emoji: any) => {
+    console.log(emoji.native);
+    setMessage((prevState) => `${prevState}${emoji.native}`);
+    closeEmojiDrawer();
+  };
+
+  const closeEmojiDrawer = () => {
+    if (openEmojiTray) {
+      dispatch(toggleEmojiDrawer(false));
     }
   };
 
@@ -29,15 +49,15 @@ const ChatsBody = ({
 
   return (
     <div className="chats-body">
-      <div className="chat-messages">
+      <div className="chat-messages" onClick={closeEmojiDrawer}>
         {chats.map((chat, index) => {
-          const { from, message, createdAt } = chat;
+          const { from, message: msg, createdAt } = chat;
           return (
             <Fragment key={index}>
               <ChatMessage
                 saleManagerFirstname={saleManagerFirstname}
                 position={from === auth.id ? 'right' : 'left'}
-                message={message}
+                message={msg}
                 createdAt={createdAt}
               />
             </Fragment>
@@ -46,7 +66,10 @@ const ChatsBody = ({
         <div ref={messagesEndRef} />
       </div>
       <div className="input-container">
-        <ChatForm sendMessage={sendMessage} />
+        <ChatForm sendMessage={sendMessage} message={message} setMessage={setMessage} />
+        {openEmojiTray && (
+          <Picker onSelect={selectEmoji} style={{ position: 'absolute', width: 500, bottom: 35 }} />
+        )}
       </div>
     </div>
   );

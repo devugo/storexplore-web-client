@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { toggleChatList, toggleProfile, toggleSidebar } from '../store/actions/open-content';
@@ -31,30 +30,6 @@ const PageWrapper = (props: { pageTitle: string; children: any }) => {
     }
   };
 
-  // const childrenWithProps = React.Children.map(props.children, (child) => {
-  //   // console.log({ child });
-  //   // Checking isValidElement is the safe way and avoids a typescript
-  //   // error too.
-  //   // if (React.isValidElement(child)) {
-  //   const cloneElement = React.cloneElement(child, { toggleChatList, openChatList });
-  //   console.log({ cloneElement });
-  //   return cloneElement;
-  //   // }
-  //   // return child;
-  // });
-
-  // let elements = React.Children.toArray(props.children) as any;
-  // console.log(elements.length);
-
-  // if (elements.length === 1) {
-  //   elements = React.cloneElement(elements[0], { toggleChatList, openChatList });
-  // } else if (elements.length > 0) {
-  //   const lastElement = elements[elements.length - 1];
-  //   elements = [React.cloneElement(elements[0], { toggleChatList, openChatList })]
-  //     .concat(elements.slice(1, -1))
-  //     .concat(React.cloneElement(lastElement, { toggleChatList, openChatList }));
-  // }
-
   return (
     <div className="page-wrapper" onClick={closeDropdowns}>
       <ForwardSocketMessage />
@@ -65,7 +40,6 @@ const PageWrapper = (props: { pageTitle: string; children: any }) => {
         toggleProfile={toggleProfileDropdown}
       >
         {props.children}
-        {/* {childrenWithProps} */}
       </PageContent>
     </div>
   );

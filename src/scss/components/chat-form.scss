@@ -25,6 +25,11 @@
       }
     }
   }
+  .toggle-emoji__btn {
+    cursor: pointer;
+    width: 30px;
+    font-size: 20px;
+  }
 }
 
 @include media-md {

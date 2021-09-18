@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { EMPTY_STRING } from '../constants/EMPTY_STRING';
+import { toggleEmojiDrawer } from '../store/actions/open-content';
 import RenderIcon from './RenderIcon';
 
-const ChatForm = ({ sendMessage }: { sendMessage?: (message: string) => void }) => {
-  const [message, setMessage] = useState<string>(EMPTY_STRING);
+const ChatForm = ({
+  message,
+  setMessage,
+  sendMessage,
+}: {
+  message: string;
+  setMessage: (message: string) => void;
+  sendMessage?: (message: string) => void;
+}) => {
+  const dispatch = useDispatch();
   const forwardMessage = (e: any) => {
     e.preventDefault();
     setMessage(EMPTY_STRING);
@@ -14,9 +23,18 @@ const ChatForm = ({ sendMessage }: { sendMessage?: (message: string) => void }) 
   const changeInput = (e: any) => {
     setMessage(e.target.value);
   };
+
+  const openEmojiDrawerHandler = () => {
+    dispatch(toggleEmojiDrawer(true));
+  };
+
+  const closeEmojiDrawerHandler = () => {
+    dispatch(toggleEmojiDrawer(false));
+  };
+
   return (
     <div className="chat-form">
-      <form onSubmit={forwardMessage}>
+      <form onSubmit={forwardMessage} onClick={closeEmojiDrawerHandler}>
         <div className="chat-form__input">
           <input
             placeholder="Write a message..."
@@ -29,6 +47,9 @@ const ChatForm = ({ sendMessage }: { sendMessage?: (message: string) => void }) 
           </div>
         </div>
       </form>
+      <p className="toggle-emoji__btn" onClick={openEmojiDrawerHandler}>
+        &#128512;
+      </p>
     </div>
   );
 };
