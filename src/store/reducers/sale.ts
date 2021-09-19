@@ -13,7 +13,7 @@ const saleReducer = (state = initialState, action: ApiResponseType): EntityState
       const responseData = response.data;
       return {
         ...currentState,
-        liveData: [...responseData.sales],
+        liveData: [...responseData.sales.map((x: any) => ({ ...x, new: false }))],
         loaded: true,
       };
     }

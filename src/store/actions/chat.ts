@@ -1,6 +1,6 @@
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { ChatType } from '../../types.d';
-import { ADD_CHAT, READ_CHATS } from './types';
+import { ADD_CHAT, MARK_CHATS_AS_READ, READ_CHATS } from './types';
 
 export const addChat = (chatObj: ChatType) => {
   return {
@@ -16,5 +16,13 @@ export const readChats = (params: string = EMPTY_STRING) => {
     type: READ_CHATS,
     url,
     api: (apiClient: any) => apiClient.get(url),
+  };
+};
+
+export const markChatsAsRead = (userId: string) => {
+  return {
+    type: MARK_CHATS_AS_READ,
+    api: null,
+    data: userId,
   };
 };

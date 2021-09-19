@@ -32,7 +32,6 @@ const ChatsBody = ({
   };
 
   const selectEmoji = (emoji: any) => {
-    console.log(emoji.native);
     setMessage((prevState) => `${prevState}${emoji.native}`);
     closeEmojiDrawer();
   };

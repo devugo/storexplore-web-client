@@ -42,7 +42,8 @@ const ForwardSocketMessage = () => {
     });
     // CLEAN UP THE EFFECT
     return () => {
-      socket.disconnect();
+      // socket.disconnect();
+      socket.close();
     };
   }, []);
 

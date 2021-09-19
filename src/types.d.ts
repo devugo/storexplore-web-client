@@ -97,6 +97,7 @@ export type SaleType = {
   date?: Date;
   createdAt?: Date;
   id?: string;
+  new?: boolean;
 };
 
 export type ChatType = {
@@ -105,6 +106,7 @@ export type ChatType = {
   to: string;
   message: string;
   createdAt: Date;
+  new?: boolean;
 };
 
 export type ChangePasswordType = {
