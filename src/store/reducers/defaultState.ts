@@ -33,6 +33,10 @@ export const DEFAULT_STATE = {
   saleManagers: entityState,
   products: entityState,
   chats: entityState,
-  sales: { ...entityState, liveData: [] },
+  sales: {
+    ...entityState,
+    liveData: [],
+    summary: { totalSales: 0, totalProfit: 0, totalItemsSold: 0 },
+  },
   openContent: { sidebar: false, chatList: false, profile: false, emojiDrawer: false },
 };

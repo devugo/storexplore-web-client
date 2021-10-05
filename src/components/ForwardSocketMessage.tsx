@@ -49,6 +49,7 @@ const ForwardSocketMessage = () => {
 
   useEffect(() => {
     socket.on('add sale', (msgObj) => {
+      console.log({ msgObj });
       if (msgObj.from === auth.id) {
         if (msgObj.sale) {
           dispatch(addSale(msgObj.sale));

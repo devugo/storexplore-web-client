@@ -1,5 +1,11 @@
 import { ApiResponseType, SaleType } from '../../types.d';
-import { ADD_SALE, DELETE_SALE, READ_SALES, READ_SALES_LIVE } from '../actions/types';
+import {
+  ADD_SALE,
+  DELETE_SALE,
+  READ_SALES,
+  READ_SALES_LIVE,
+  READ_SALES_SUMMARY,
+} from '../actions/types';
 import { DEFAULT_STATE, EntityStateType } from './defaultState';
 
 const initialState = DEFAULT_STATE.sales;
@@ -38,6 +44,13 @@ const saleReducer = (state = initialState, action: ApiResponseType): EntityState
         return { ...currentState, liveData: newData };
       }
       return currentState;
+    }
+    case READ_SALES_SUMMARY.SUCCESS: {
+      const responseData = response.data;
+      return {
+        ...currentState,
+        summary: responseData,
+      };
     }
     default: {
       return state;

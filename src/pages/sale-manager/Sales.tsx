@@ -78,7 +78,7 @@ const Sales = () => {
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
   const [filterParams, setFilterParams] = useState<string>('?');
 
-  //  READ LIVE SALES LOADERS
+  //  READ SALES LOADERS
   const readProgressData = loaders.find(
     (x) => x.type === READ_SALES.IN_PROGRESS
   ) as ApiResponseType;

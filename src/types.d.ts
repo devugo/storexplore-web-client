@@ -128,6 +128,6 @@ export type RootStateType = {
   products: { data: ProductType[]; loaded: boolean; count: number };
   saleManagers: { data: SaleManagerType[]; loaded: boolean; count: number };
   chats: { data: ChatType[]; loaded: boolean; count: number };
-  sales: { data: SaleType[]; liveData: SaleType[]; loaded: boolean; count: number };
+  sales: { data: SaleType[]; liveData: SaleType[]; loaded: boolean; count: number; summary: any };
   openContent: { sidebar: boolean; chatList: boolean; profile: boolean; emojiDrawer: boolean };
 };
