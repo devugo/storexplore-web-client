@@ -7,7 +7,7 @@ import ChatUserList from '../../components/ChatUserList';
 import ContentLoader from '../../components/ContentLoader';
 import PageWrapper from '../../components/PageWrapper';
 import { SERVER_BASE_URL } from '../../constants';
-import { markChatsAsRead, readChats } from '../../store/actions/chat';
+import { markSaleManagerChatsAsRead, readChats } from '../../store/actions/chat';
 import { readSaleManagers } from '../../store/actions/sale-manager';
 import { READ_CHATS } from '../../store/actions/types';
 import { ApiResponseType, RootStateType } from '../../types.d';
@@ -39,8 +39,8 @@ const Chats = () => {
     }
   };
 
-  const markChats = (userId: string) => {
-    dispatch(markChatsAsRead(userId));
+  const markChatsAsRead = (userId: string) => {
+    dispatch(markSaleManagerChatsAsRead(userId));
   };
 
   const getSaleManagers = () => {
@@ -54,7 +54,7 @@ const Chats = () => {
   useEffect(() => {
     if (saleManagerTo) {
       dispatch(readChats(`?other=${saleManagerTo.user.id}`));
-      markChats(saleManagerTo.user.id);
+      markChatsAsRead(saleManagerTo.user.id);
     }
   }, [saleManagerTo]);
 

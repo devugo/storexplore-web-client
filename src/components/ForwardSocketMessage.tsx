@@ -1,16 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { io } from 'socket.io-client';
 
-import { SERVER_BASE_URL } from '../constants';
 import { MESSAGE_TIME } from '../constants/MESSAGE_TIME';
+import { SOCKET } from '../constants/SOCKET';
 import { showMessage } from '../helpers/functions/showMessage';
 import { addChat } from '../store/actions/chat';
 import { readProducts } from '../store/actions/product';
 import { addSale, deleteSale } from '../store/actions/sale';
 import { readSaleManagers } from '../store/actions/sale-manager';
 import { RootStateType } from '../types.d';
-const socket = io(SERVER_BASE_URL);
 
 const ForwardSocketMessage = () => {
   const dispatch = useDispatch();
@@ -22,13 +20,13 @@ const ForwardSocketMessage = () => {
   }, []);
 
   useEffect(() => {
-    socket.on('chat message', (msgObj) => {
+    SOCKET.on('chat message', (msgObj) => {
       if (msgObj.from === auth.id || msgObj.to === auth.id) {
         dispatch(addChat(msgObj));
       }
     });
 
-    socket.on('delete sale', (msgObj) => {
+    SOCKET.on('delete sale', (msgObj) => {
       if (msgObj.from === auth.saleManager?.id) {
         if (msgObj.id) {
           dispatch(deleteSale(msgObj));
@@ -42,14 +40,13 @@ const ForwardSocketMessage = () => {
     });
     // CLEAN UP THE EFFECT
     return () => {
-      // socket.disconnect();
-      socket.close();
+      SOCKET.off('chat message');
+      SOCKET.off('delete sale');
     };
   }, []);
 
   useEffect(() => {
-    socket.on('add sale', (msgObj) => {
-      console.log({ msgObj });
+    SOCKET.on('add sale', (msgObj) => {
       if (msgObj.from === auth.id) {
         if (msgObj.sale) {
           dispatch(addSale(msgObj.sale));
@@ -67,6 +64,10 @@ const ForwardSocketMessage = () => {
         }
       }
     });
+    // CLEAN UP THE EFFECT
+    return () => {
+      SOCKET.off('add sale');
+    };
   }, [products, saleManagers]);
   return <div id="forward-socket-message"></div>;
 };

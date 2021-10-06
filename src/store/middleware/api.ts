@@ -30,7 +30,7 @@ const apiMiddleware = (store: any) => (next: any) => async (action: ActionObject
     const promise = api(axiosClient) as any;
     promise
       .then((response: any) => {
-        console.log({ response });
+        // console.log({ response });
         next({ type: type.SUCCESS, response: response });
       })
       .catch((error: any) => {

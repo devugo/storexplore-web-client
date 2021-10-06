@@ -6,7 +6,7 @@ import ChatsBody from '../../components/ChatsBody';
 import ContentLoader from '../../components/ContentLoader';
 import PageWrapper from '../../components/PageWrapper';
 import { SERVER_BASE_URL } from '../../constants';
-import { readChats } from '../../store/actions/chat';
+import { markAdminChatsAsRead, readChats } from '../../store/actions/chat';
 import { READ_CHATS } from '../../store/actions/types';
 import { ApiResponseType, RootStateType } from '../../types.d';
 const socket = io(SERVER_BASE_URL);
@@ -37,9 +37,17 @@ const Chats = () => {
     }
   };
 
+  const markChatsAsRead = () => {
+    dispatch(markAdminChatsAsRead());
+  };
+
   useEffect(() => {
     dispatch(readChats(`?other=${storeuser?.id}`));
   }, []);
+
+  useEffect(() => {
+    markChatsAsRead();
+  }, [chats.length]);
 
   return (
     <PageWrapper pageTitle="Chats">

@@ -1,6 +1,11 @@
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { ChatType } from '../../types.d';
-import { ADD_CHAT, MARK_CHATS_AS_READ, READ_CHATS } from './types';
+import {
+  ADD_CHAT,
+  MARK_ADMIN_CHATS_AS_READ,
+  MARK_SALE_MANAGER_CHATS_AS_READ,
+  READ_CHATS,
+} from './types';
 
 export const addChat = (chatObj: ChatType) => {
   return {
@@ -19,10 +24,18 @@ export const readChats = (params: string = EMPTY_STRING) => {
   };
 };
 
-export const markChatsAsRead = (userId: string) => {
+export const markSaleManagerChatsAsRead = (userId: string) => {
   return {
-    type: MARK_CHATS_AS_READ,
+    type: MARK_SALE_MANAGER_CHATS_AS_READ,
     api: null,
     data: userId,
+  };
+};
+
+export const markAdminChatsAsRead = () => {
+  return {
+    type: MARK_ADMIN_CHATS_AS_READ,
+    api: null,
+    data: null,
   };
 };
