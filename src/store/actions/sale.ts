@@ -19,6 +19,7 @@ export const addSale = (formData: SaleType) => {
   };
 };
 
+//  Socket
 export const deleteSale = (formData: SaleType) => {
   return {
     type: DELETE_SALE,

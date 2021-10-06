@@ -3,7 +3,6 @@ import { deleteHelper } from '../../helpers/functions/deleteHelper';
 import { updateStoreHelper } from '../../helpers/functions/updateStoreHelper';
 import { ApiResponseType } from '../../types.d';
 import {
-  ACTIVATE_PRODUCT,
   ADD_SALE,
   CREATE_PRODUCT,
   DELETE_PRODUCT,
@@ -42,10 +41,6 @@ const productReducer = (state = initialState, action: ApiResponseType): EntitySt
       return updateStoreHelper(currentState, responseData);
     }
     case UPDATE_PRODUCT_IMAGE.SUCCESS: {
-      const responseData = response.data;
-      return updateStoreHelper(currentState, responseData);
-    }
-    case ACTIVATE_PRODUCT.SUCCESS: {
       const responseData = response.data;
       return updateStoreHelper(currentState, responseData);
     }

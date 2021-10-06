@@ -38,13 +38,11 @@ const chatReducer = (state = initialState, action: ApiResponseType): EntityState
         data: [
           ...currentState.data.map((x) => {
             if (userId === x.from) {
-              console.log('IDs match...');
               return {
                 ...x,
                 new: false,
               };
             } else {
-              console.log('IDs dont match...');
               return x;
             }
           }),

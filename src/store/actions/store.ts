@@ -1,5 +1,5 @@
 import { StoreType } from '../../types.d';
-import { CREATE_STORE, GET_MY_STORE, UPDATE_STORE, UPDATE_STORE_LOGO } from './types';
+import { GET_MY_STORE, UPDATE_STORE, UPDATE_STORE_LOGO } from './types';
 
 export const getMyStore = () => {
   const url = 'stores/mine';
@@ -7,15 +7,6 @@ export const getMyStore = () => {
     type: GET_MY_STORE,
     url,
     api: (apiClient: any) => apiClient.get(url),
-  };
-};
-
-export const createStore = (formData: StoreType) => {
-  const url = 'stores';
-  return {
-    type: CREATE_STORE,
-    url,
-    api: (apiClient: any) => apiClient.post(url, formData),
   };
 };
 

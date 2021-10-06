@@ -63,7 +63,7 @@ const columns = [
     dataIndex: 'quantityLeft',
   },
   {
-    title: 'Date Added',
+    title: 'Date Sold',
     dataIndex: 'date',
     key: 'date',
     // eslint-disable-next-line react/display-name

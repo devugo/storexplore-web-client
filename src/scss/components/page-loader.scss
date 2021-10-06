@@ -19,30 +19,4 @@
   .site-logo {
     margin: 0 auto;
   }
-
-  &__dots {
-    width: 40px;
-    display: flex;
-    justify-content: space-around;
-    height: 10px;
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: var(--primary-color);
-      animation-name: color-in;
-      animation-duration: 0.7s;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-iteration-count: infinite;
-      animation-direction: alternate;
-    }
-  }
-}
-
-@for $i from 1 through 3 {
-  .page-loader__dots .dot:nth-child(#{$i}) {
-    animation-delay: ($i * 0.35s) !important;
-  }
 }

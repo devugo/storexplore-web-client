@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 2px;
   margin-bottom: 20px;
 }
 
@@ -12,7 +12,6 @@
   display: flex;
   align-items: center;
   width: 100%;
-  // justify-content: space-between;
   margin-top: 10px;
 
   .icon-wrapper {
@@ -39,8 +38,17 @@
 }
 
 @include media-sm {
+  .dashboard-summary-cards {
+    margin-top: 2px;
+  }
   .dashboard-summary-card {
     width: 200px;
+  }
+}
+
+@include media-md {
+  .dashboard-summary-cards {
+    margin-top: 10px;
   }
 }
 

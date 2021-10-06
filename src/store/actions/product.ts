@@ -1,7 +1,6 @@
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { ProductType } from '../../types.d';
 import {
-  ACTIVATE_PRODUCT,
   CREATE_PRODUCT,
   DELETE_PRODUCT,
   READ_PRODUCTS,
@@ -22,15 +21,6 @@ export const updateProduct = (formData: ProductType, id: string) => {
   const url = `products/${id}`;
   return {
     type: UPDATE_PRODUCT,
-    url,
-    api: (apiClient: any) => apiClient.patch(url, formData),
-  };
-};
-
-export const activateProduct = (formData: { active: boolean }, id: string) => {
-  const url = `products/activate/${id}`;
-  return {
-    type: ACTIVATE_PRODUCT,
     url,
     api: (apiClient: any) => apiClient.patch(url, formData),
   };
