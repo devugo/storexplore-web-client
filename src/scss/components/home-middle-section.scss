@@ -1,0 +1,47 @@
+.home-middle-section {
+  background-color: var(--primary-color);
+  text-align: center;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .container {
+    h4 {
+      font-size: 30px;
+    }
+    p {
+      font-size: 19px;
+      margin-bottom: 40px;
+    }
+    h4,
+    p,
+    a {
+      color: var(--white);
+    }
+
+    a {
+      background-color: #055c42;
+      padding: 15px 20px;
+      border-radius: 30px;
+      @include transition-ease;
+
+      &:hover {
+        color: var(--white);
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+@include media-md {
+  .home-middle-section {
+    height: 400px;
+
+    .container {
+      h4 {
+        font-size: 40px;
+      }
+    }
+  }
+}

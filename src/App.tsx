@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import SuccessMessages from './components/SuccessMessages';
 import {
+  HOME_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
   SALE_MANAGER_ADD_SALE_ROUTE,
@@ -33,6 +34,7 @@ import Auth from './interceptors/Auth';
 import SaleManager from './interceptors/SaleManager';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
+import Home from './pages/home/Home';
 import AddSale from './pages/sale-manager/AddSale';
 import SaleManagerChats from './pages/sale-manager/Chats';
 import SaleManagerDashboard from './pages/sale-manager/Dashboard';
@@ -62,6 +64,7 @@ const App = () => {
     <Router>
       <SuccessMessages />
       <Switch>
+        <Auth isAuth={false} exact path={HOME_ROUTE} component={Home} />
         <Auth isAuth={false} exact path={LOGIN_ROUTE} component={Login} />
         <Auth isAuth={false} exact path={REGISTER_ROUTE} component={Register} />
 

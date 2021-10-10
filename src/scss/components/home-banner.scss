@@ -1,0 +1,90 @@
+.home-banner {
+  max-width: 1700px;
+  margin: 0 auto;
+  background-color: var(--primary-color);
+  padding: 30px;
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+
+    .banner-title {
+      text-align: center;
+      order: 2;
+
+      h1 {
+        line-height: 35px;
+      }
+
+      h1,
+      p {
+        color: var(--white);
+      }
+      p {
+        margin-bottom: 30px;
+      }
+
+      a {
+        color: var(--white);
+        background-color: #055c42;
+        padding: 15px 20px;
+        border-radius: 30px;
+        @include transition-ease;
+
+        &:hover {
+          color: var(--white);
+          opacity: 0.8;
+        }
+      }
+    }
+    .banner-image {
+      order: 1;
+      margin-bottom: 20px;
+      text-align: center;
+
+      img {
+        width: 60%;
+      }
+    }
+  }
+}
+
+@include media-md {
+  .home-banner {
+    padding: 50px;
+    .container {
+      flex-direction: row;
+      padding: 50px 100px;
+
+      .banner-title {
+        order: 1;
+        width: 50%;
+        text-align: unset;
+
+        h1 {
+          max-width: 500px;
+          font-size: 40px;
+          line-height: 50px;
+        }
+        p {
+          max-width: 400px;
+          font-size: 18px;
+        }
+      }
+      .banner-image {
+        margin-bottom: 0px;
+        order: 2;
+        width: 50%;
+      }
+    }
+  }
+}
+
+@include media-lg {
+  .home-banner {
+    .container {
+      padding: 50px 150px;
+    }
+  }
+}

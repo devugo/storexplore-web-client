@@ -18,6 +18,11 @@
 @import './components/page-content';
 @import './components/loader-overlay';
 @import './components/input';
+@import './components/home-middle-section';
+@import './components/home-footer';
+@import './components/home-feature';
+@import './components/home-header';
+@import './components/home-banner';
 @import './components/header';
 @import './components/go-to-button';
 @import './components/filter-button';
@@ -30,8 +35,9 @@
 @import './components/button';
 
 //  Pages
-@import './pages/auth';
+@import './pages/home/home.scss';
 @import './pages/chats';
+@import './pages/auth';
 
 // Store Owner Pages
 @import './pages/store-owner/settings';
