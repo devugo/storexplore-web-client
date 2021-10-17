@@ -203,7 +203,9 @@ const Store = () => {
                           </small>
                         </div>
                         <div className="input-container">
-                          <label>Default password </label>
+                          <label>
+                            Default password <span className="danger">*</span>{' '}
+                          </label>
                           <Input
                             name="defaultPassword"
                             placeholder="Enter sale manager default password"
