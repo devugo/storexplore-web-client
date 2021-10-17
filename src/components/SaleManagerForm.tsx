@@ -4,12 +4,15 @@ import { Formik } from 'formik';
 import moment from 'moment';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import * as Yup from 'yup';
 
 import { EMPTY_STRING } from '../constants/EMPTY_STRING';
 import { FORM_MODE } from '../constants/FORM_MODE';
+import { STORE_OWNER_SALE_MANAGERS_ROUTE } from '../constants/ROUTE_NAME';
 import { getLoaderState } from '../helpers/functions/getLoadersState';
 import { renderServerError } from '../helpers/functions/renderServerError';
+import { successCreation } from '../helpers/functions/responseChecker';
 import { validateImage } from '../helpers/functions/validateImage';
 import { updateSaleManagerPhoto } from '../store/actions/sale-manager';
 import {
@@ -65,6 +68,7 @@ const SaleManagerForm = ({
   data?: SaleManagerType;
 }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const fileInput = useRef<HTMLInputElement>(null);
 
   const [formikFormValues, setFormikFormValues] = useState<SaleManagerType>({
@@ -76,10 +80,12 @@ const SaleManagerForm = ({
   const { loader: loaders } = useSelector((state: RootStateType) => state);
 
   //  CREATE SALE MANAGER LOADERS
-  const { inProgress: createLoading, errorData: createErrorData } = getLoaderState(
-    loaders,
-    CREATE_SALE_MANAGER
-  );
+  const {
+    inProgress: createLoading,
+    errorData: createErrorData,
+    successData: createSaleManagerSuccessData,
+  } = getLoaderState(loaders, CREATE_SALE_MANAGER);
+  const isSaleManagerCreated = successCreation(createSaleManagerSuccessData);
 
   // //  CREATE SALE MANAGER LOADERS
   const { inProgress: updateLoading, errorData: updateErrorData } = getLoaderState(
@@ -117,6 +123,12 @@ const SaleManagerForm = ({
       setPhoto(data.photo as string);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (isSaleManagerCreated) {
+      history.push(STORE_OWNER_SALE_MANAGERS_ROUTE);
+    }
+  }, [isSaleManagerCreated]);
 
   return (
     <div className="store-owner__sale-manager-content">

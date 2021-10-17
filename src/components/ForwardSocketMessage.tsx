@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 import { MESSAGE_TIME } from '../constants/MESSAGE_TIME';
+import { SALE_MANAGER_LIVE_SALES_ROUTE } from '../constants/ROUTE_NAME';
 import { SOCKET } from '../constants/SOCKET';
 import { showMessage } from '../helpers/functions/showMessage';
 import { addChat } from '../store/actions/chat';
@@ -12,6 +14,7 @@ import { RootStateType } from '../types.d';
 
 const ForwardSocketMessage = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { auth, products, saleManagers } = useSelector((state: RootStateType) => state);
 
   useEffect(() => {
@@ -51,6 +54,7 @@ const ForwardSocketMessage = () => {
         if (msgObj.sale) {
           dispatch(addSale(msgObj.sale));
           showMessage('success', 'Sale added', MESSAGE_TIME);
+          history.push(SALE_MANAGER_LIVE_SALES_ROUTE);
         } else {
           showMessage('error', msgObj.error, MESSAGE_TIME);
         }

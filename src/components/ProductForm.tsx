@@ -3,13 +3,17 @@ import { Alert } from 'antd';
 import { Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import * as Yup from 'yup';
 
 import { EMPTY_STRING } from '../constants/EMPTY_STRING';
 import { FORM_MODE } from '../constants/FORM_MODE';
 import { MESSAGE_TIME } from '../constants/MESSAGE_TIME';
+import { STORE_OWNER_PRODUCTS_ROUTE } from '../constants/ROUTE_NAME';
 import { ZERO } from '../constants/ZERO';
+import { getLoader } from '../helpers/functions/getLoader';
 import { renderServerError } from '../helpers/functions/renderServerError';
+import { successCreation } from '../helpers/functions/responseChecker';
 import { showMessage } from '../helpers/functions/showMessage';
 import { validateImage } from '../helpers/functions/validateImage';
 import { updateProductImage } from '../store/actions/product';
@@ -51,6 +55,7 @@ const ProductForm = ({
   data?: ProductType;
 }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const fileInput = useRef<HTMLInputElement>(null);
 
   const [formikFormValues, setFormikFormValues] = useState<ProductType>(initialFormValues);
@@ -58,6 +63,10 @@ const ProductForm = ({
   const [logo, setLogo] = useState<string>(EMPTY_STRING);
 
   const { loader: loaders } = useSelector((state: RootStateType) => state);
+
+  // CREATE PRODUCT Loader
+  const { successData: createProductSuccessData } = getLoader(loaders, CREATE_PRODUCT);
+  const isProductCreated = successCreation(createProductSuccessData);
 
   //  CREATE PRODUCT LOADERS
   const createProgressData = loaders.find(
@@ -116,6 +125,12 @@ const ProductForm = ({
       setLogo(data.imagePath as string);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (isProductCreated) {
+      history.push(STORE_OWNER_PRODUCTS_ROUTE);
+    }
+  }, [isProductCreated]);
 
   return (
     <div className="store-owner__sale-manager-content">
