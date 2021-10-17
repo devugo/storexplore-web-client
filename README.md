@@ -65,8 +65,11 @@ Below shows the project structure;
 #### Dashboard Page Preview
 ![Dashboard page](https://storexplore-by-devugo.netlify.app/dashboard-preview.png)
 
-#### Page Preview
+#### Sales Page Preview
 ![Sales page](https://storexplore-by-devugo.netlify.app/sales-preview.png)
+
+#### Chats Page Preview
+![Chats page](https://storexplore-by-devugo.netlify.app/chats-preview.png)
 
 ## How to run locally
 
