@@ -11,7 +11,7 @@ import Input from '../../components/Input';
 import { getLoader } from '../../helpers/functions/getLoader';
 import { renderServerError } from '../../helpers/functions/renderServerError';
 import { showMessage } from '../../helpers/functions/showMessage';
-import Logo from '../../images/storexplore-logo-dark.png';
+import Logo from '../../images/storexplore-logo.png';
 import { signin } from '../../store/actions/auth';
 import { SIGNIN_USER } from '../../store/actions/types';
 import { RootStateType, SigninType } from '../../types.d';
@@ -52,6 +52,9 @@ const Login = () => {
         <div className="devugo-card">
           <div className="content">
             <div className="form-section">
+              <div className="logo mobile">
+                <img src={Logo} />
+              </div>
               <Formik
                 initialValues={initialFormValues}
                 validationSchema={validationSchema}
@@ -106,7 +109,7 @@ const Login = () => {
                     </Button>
                     <div className="center mt-2 mobile">
                       <p>
-                        Already have an account? <Link to="/login">Sign in here</Link>
+                        Don&apos;t have an account? <Link to="/register">Register here</Link>
                       </p>
                     </div>
                   </form>

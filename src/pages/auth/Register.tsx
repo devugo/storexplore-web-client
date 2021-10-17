@@ -11,7 +11,7 @@ import Input from '../../components/Input';
 import { EMPTY_STRING } from '../../constants/EMPTY_STRING';
 import { renderServerError } from '../../helpers/functions/renderServerError';
 import { showMessage } from '../../helpers/functions/showMessage';
-import Logo from '../../images/storexplore-logo-dark.png';
+import Logo from '../../images/storexplore-logo.png';
 import { signup } from '../../store/actions/auth';
 import { SIGNUP_USER } from '../../store/actions/types';
 import { ApiResponseType, RootStateType, SignupType } from '../../types.d';
