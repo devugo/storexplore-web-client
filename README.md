@@ -10,8 +10,8 @@ A full fledge store management system for keep track of stocks available in your
 - [TypeScript](https://www.typescriptlang.org/)
 - [Redux](https://redux.js.org/)
 - [Ant Design](https://ant.design/)
-- [Backend-Server-URL]()
-- [Backend-Repository]()
+- [Backend-Server-URL](https://storexplore.herokuapp.com/)
+- [Backend-Repository](https://github.com/devugo/storexplore-server)
 
 ## Project Structure
 
@@ -38,13 +38,21 @@ Below shows the project structure;
 
 ## Live Demo
 
-- [Demo](/).
+- [Demo](https://storexplore-by-devugo.netlify.app).
 
 #### Test Credentials
 
 ```
+    Store Owner
     {
         "email": "test@gmail.com",
+        "password": "Password1234,
+    }
+    
+     
+     Sale Manager
+    {
+        "email": "michael@gmail.com",
         "password": "Password1234,
     }
 ```
@@ -52,10 +60,16 @@ Below shows the project structure;
 ### Site Preview Images
 
 #### Home Page Preview
+![Home page](https://storexplore-by-devugo.netlify.app/home-preview.png)
 
 #### Dashboard Page Preview
+![Dashboard page](https://storexplore-by-devugo.netlify.app/dashboard-preview.png)
 
-#### Page Preview
+#### Sales Page Preview
+![Sales page](https://storexplore-by-devugo.netlify.app/sales-preview.png)
+
+#### Chats Page Preview
+![Chats page](https://storexplore-by-devugo.netlify.app/chats-preview.png)
 
 ## How to run locally
 
