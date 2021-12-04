@@ -7,7 +7,7 @@ import { ROLE } from '../constants/ROLE';
 import { SALE_MANAGER_DASHBOARD_ROUTE, STORE_OWNER_DASHBOARD_ROUTE } from '../constants/ROUTE_NAME';
 import { STORAGE_VARIABLE } from '../constants/STORAGE_VARIABLE';
 import { getLoader } from '../helpers/functions/getLoader';
-import { retrieveFromStorage } from '../helpers/functions/localStorage';
+import { deleteFromStorage, retrieveFromStorage } from '../helpers/functions/localStorage';
 import { keepUserLoggedIn } from '../store/actions/auth';
 import { KEEP_AUTH_USER } from '../store/actions/types';
 import { RootStateType } from '../types.d';
@@ -37,6 +37,7 @@ const Auth = ({ component: Component, isAuth, ...rest }: any) => {
       setMount(true);
     }
     if (errorData) {
+      deleteFromStorage(STORAGE_VARIABLE.token);
       setMount(true);
     }
   }, [successData, errorData]);
